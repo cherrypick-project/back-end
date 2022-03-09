@@ -25,7 +25,6 @@ public class AuthController {
     @Valid @RequestBody AuthDto.LoginRequest request) {
 
     var userCommand = authDtoMapper.of(request);
-    System.out.println(userCommand.getProviderId() +"test...");
     var token = authFacade.login(userCommand);
     var response = new AuthDto.LoginResponse(token);
 
