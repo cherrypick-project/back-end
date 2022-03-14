@@ -11,7 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-//기본 UserDetails로는 실무에서 필요한 정보를 모두 담을 수 없기에 아래와 같은 CustomUserDetails를 구현하여 사용한다.
+//기본 UserDetails로는 실무에서 필요한 정보를 모두 담을 수 없기에 아래와 같은 JwtUserDetails를 구현하여 사용한다.
 
 @Getter
 public class JwtUserDetails implements UserDetails, OAuth2User {
