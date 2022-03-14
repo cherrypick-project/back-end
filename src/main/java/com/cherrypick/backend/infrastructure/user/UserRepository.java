@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
   @EntityGraph(attributePaths = "authority")
   Optional<User> findWithAuthortyByProviderId(String providerId);
+
+  User save(User user);
 }
