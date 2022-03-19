@@ -18,7 +18,7 @@ public class JwtUserDetails implements UserDetails, OAuth2User {
 
   private final User user;
 
-  private Map<String, Object> attributes;
+  private final Map<String, Object> attributes;
 
   public JwtUserDetails(User user, Map<String, Object> attributes) {
     this.user = user;
@@ -44,7 +44,7 @@ public class JwtUserDetails implements UserDetails, OAuth2User {
 
   @Override
   public String getUsername() {
-    return user.getEmail();
+    return user.getProviderId();
   }
 
   //사용자의 계정이 만료되었는지 여부를 나타냅니다. 만료된 계정은 인증할 수 없습니다.
@@ -74,6 +74,7 @@ public class JwtUserDetails implements UserDetails, OAuth2User {
 
   @Override
   public String getName() {
-    return user.getNickname();
+    return user.getProviderId();
   }
+
 }
