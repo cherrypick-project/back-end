@@ -1,6 +1,7 @@
 package com.cherrypick.backend.security.oauth;
 
-import com.cherrypick.backend.common.exception.OAuthProviderMissMatchException;
+import com.cherrypick.backend.common.exception.ErrorCode;
+import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.domain.user.Authority;
 import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.UserReader;
@@ -62,9 +63,10 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
   private void valid(ProviderType providerType, User savedUser) {
     if (providerType != savedUser.getProviderType()) {
-      throw new OAuthProviderMissMatchException(
+      throw new UnAuthorizedException(
           "Looks like you're signed up with " + providerType +
-              " account. Please use your " + savedUser.getProviderType() + " account to login."
+              " account. Please use your " + savedUser.getProviderType() + " account to login.",
+          ErrorCode.UNAUTHORIZED
       );
     }
     if (!savedUser.isActivated()) {

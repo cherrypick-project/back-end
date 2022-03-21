@@ -2,6 +2,7 @@ package com.cherrypick.backend.common.response;
 
 import com.cherrypick.backend.common.exception.BusinessException;
 import com.cherrypick.backend.common.exception.ErrorCode;
+import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +56,7 @@ public class GlobalExceptionAdvice {
    */
   @ExceptionHandler(Unauthorized.class)
   protected ResponseEntity<CommonResponse> handleUnauthorizedException(
-      Unauthorized e) {
+      UnAuthorizedException e) {
     log.error("handleUnauthorizedException", e);
     final CommonResponse response = CommonResponse.fail(ErrorCode.UNAUTHORIZED.getMessage());
     return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
