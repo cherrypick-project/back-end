@@ -24,6 +24,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -42,6 +43,11 @@ dependencies {
             'org.projectlombok:lombok',
             'org.projectlombok:lombok-mapstruct-binding:0.1.0'
     )
+
+    // Configuring the Annotation Processor
+    dependencies {
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    }
 }
 
 test {
