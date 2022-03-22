@@ -30,6 +30,13 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserInfo.Token reissue(ReissueRequest command) {
-    return new UserInfo.Token("c", "d");
+    if (!tokenProvider.validateToken(command.getRefreshToken())) {
+      throw new RuntimeException("유효하지 않은 RefreshToken 입니다."); // 나중에 controllerAdvice랑 다시 합쳐야함
+    }
+
+    Authentication authentication = tokenProvider.getAuthentication(command.getAccessToken());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    return tokenProvider.createTokens(authentication);
   }
 }
