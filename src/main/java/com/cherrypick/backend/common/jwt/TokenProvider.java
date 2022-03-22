@@ -1,5 +1,6 @@
 package com.cherrypick.backend.common.jwt;
 
+import com.cherrypick.backend.domain.user.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -30,11 +31,18 @@ public class TokenProvider implements InitializingBean {
   private static final String AUTHORITIES_KEY = "cp";
   private final String secret;
   private final long tokenValidityInMilliseconds;
+  private final long accessTokenValidityInMilliseconds;
+  private final long refreshTokenValidityInMilliseconds;
   private Key key;
 
+
   public TokenProvider(@Value("${jwt.secret}") String secret,
-    @Value("${jwt.token-validity-in-seconds}") long tokenValidityInMilliseconds) {
+    @Value("${jwt.token-validity-in-seconds}") long tokenValidityInMilliseconds,
+    @Value("${jwt.access-token-validity-in-seconds}") long accessTokenValidityInSeconds,
+    @Value("${jwt.refresh-token-validity-in-seconds}") long refreshTokenValidityInSeconds) {
     this.secret = secret;
+    this.accessTokenValidityInMilliseconds = accessTokenValidityInSeconds * 1000;
+    this.refreshTokenValidityInMilliseconds = refreshTokenValidityInSeconds * 1000;
     this.tokenValidityInMilliseconds = tokenValidityInMilliseconds;
   }
 
@@ -58,6 +66,30 @@ public class TokenProvider implements InitializingBean {
       .signWith(key, SignatureAlgorithm.HS512)
       .setExpiration(validity)
       .compact();
+  }
+
+  public UserInfo.Token createTokens(Authentication authentication) {
+    String authorities = authentication.getAuthorities().stream()
+      .map(GrantedAuthority::getAuthority)
+      .collect(Collectors.joining(","));
+
+    long now = (new Date()).getTime();
+
+    String accessToken = Jwts.builder()
+      .setSubject(authentication.getName())
+      .claim(AUTHORITIES_KEY, authorities)
+      .signWith(key, SignatureAlgorithm.HS512)
+      .setExpiration(new Date(now + accessTokenValidityInMilliseconds))
+      .compact();
+
+    String refreshToken = Jwts.builder()
+      .setSubject(authentication.getName())
+      .claim(AUTHORITIES_KEY, authorities)
+      .signWith(key, SignatureAlgorithm.HS512)
+      .setExpiration(new Date(now + refreshTokenValidityInMilliseconds))
+      .compact();
+
+    return new UserInfo.Token(accessToken, refreshToken);
   }
 
   public Authentication getAuthentication(String token) {
