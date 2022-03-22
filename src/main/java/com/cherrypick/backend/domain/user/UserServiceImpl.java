@@ -1,6 +1,7 @@
 package com.cherrypick.backend.domain.user;
 
 import com.cherrypick.backend.common.jwt.TokenProvider;
+import com.cherrypick.backend.domain.user.UserCommand.ReissueRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,5 +26,10 @@ public class UserServiceImpl implements UserService {
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     return tokenProvider.createTokens(authentication);
+  }
+
+  @Override
+  public UserInfo.Token reissue(ReissueRequest command) {
+    return new UserInfo.Token("c", "d");
   }
 }

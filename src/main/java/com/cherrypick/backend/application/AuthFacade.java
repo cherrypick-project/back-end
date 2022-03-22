@@ -16,7 +16,7 @@ public class AuthFacade {
     return userService.authorize(request);
   }
 
-  public UserInfo.Token reIssue(UserCommand.ReissueRequest request) {
-    return new UserInfo.Token("a","b");
+  public UserInfo.Token reissue(UserCommand.ReissueRequest request) {
+    return userService.reissue(request);
   }
 }

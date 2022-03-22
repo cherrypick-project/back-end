@@ -29,7 +29,7 @@ public class AuthController {
   @PostMapping("/reissue")
   public ResponseEntity<AuthDto.LoginResponse> reissue(@RequestBody @Valid AuthDto.ReissueRequest request) {
     var command = authDtoMapper.of(request);
-    var userInfo = authFacade.reIssue(command);
+    var userInfo = authFacade.reissue(command);
     var response = authDtoMapper.of(userInfo);
 
     return ResponseEntity.ok(response);
