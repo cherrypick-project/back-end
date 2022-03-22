@@ -13,6 +13,6 @@ public class AuthFacade {
   private final UserService userService;
 
   public UserInfo.Token authorize(UserCommand.UserLoginRequest request) {
-    return new UserInfo.Token("a","b");
+    return userService.authorize(request);
   }
 }
