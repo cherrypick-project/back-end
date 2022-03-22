@@ -1,5 +1,7 @@
 package com.cherrypick.backend.application;
 
+import com.cherrypick.backend.domain.user.UserCommand;
+import com.cherrypick.backend.domain.user.UserInfo;
 import com.cherrypick.backend.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,5 +11,8 @@ import org.springframework.stereotype.Service;
 public class AuthFacade {
 
   private final UserService userService;
-  
+
+  public UserInfo.Token authorize(UserCommand.UserLoginRequest request) {
+    return new UserInfo.Token("a","b");
+  }
 }

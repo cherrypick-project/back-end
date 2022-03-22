@@ -7,10 +7,19 @@ import lombok.ToString;
 public class AuthDto {
 
   @Getter
+  @AllArgsConstructor
+  public static class LoginRequest {
+
+    private String providerId;
+    private String password;
+  }
+
+  @Getter
   @ToString
   @AllArgsConstructor
   public static class LoginResponse {
 
-    private String token;
+    private String accessToken;
+    private String refreshToken;
   }
 }
