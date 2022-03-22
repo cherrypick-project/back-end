@@ -15,6 +15,14 @@ public class AuthDto {
   }
 
   @Getter
+  @AllArgsConstructor
+  public static class ReissueRequest {
+
+    private String accessToken;
+    private String refreshToken;
+  }
+
+  @Getter
   @ToString
   @AllArgsConstructor
   public static class LoginResponse {

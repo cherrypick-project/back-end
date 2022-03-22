@@ -11,5 +11,4 @@ public class UserInfo {
     private String accessToken;
     private String refreshToken;
   }
-
 }

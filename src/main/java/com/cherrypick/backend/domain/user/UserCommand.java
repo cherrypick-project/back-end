@@ -11,4 +11,11 @@ public class UserCommand {
     private String providerId;
     private String password;
   }
+
+  @Getter
+  @AllArgsConstructor
+  public static class ReissueRequest {
+    private String accessToken;
+    private String refreshToken;
+  }
 }

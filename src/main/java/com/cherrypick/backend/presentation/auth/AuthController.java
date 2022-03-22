@@ -1,7 +1,6 @@
 package com.cherrypick.backend.presentation.auth;
 
 import com.cherrypick.backend.application.AuthFacade;
-import com.cherrypick.backend.presentation.auth.AuthDto.LoginResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +18,18 @@ public class AuthController {
   private final AuthDtoMapper authDtoMapper;
 
   @PostMapping("/authenticate")
-  public ResponseEntity<LoginResponse> login(@RequestBody @Valid AuthDto.LoginRequest request) {
+  public ResponseEntity<AuthDto.LoginResponse> login(@RequestBody @Valid AuthDto.LoginRequest request) {
     var command = authDtoMapper.of(request);
     var userInfo = authFacade.authorize(command);
+    var response = authDtoMapper.of(userInfo);
+
+    return ResponseEntity.ok(response);
+  }
+
+  @PostMapping("/reissue")
+  public ResponseEntity<AuthDto.LoginResponse> reissue(@RequestBody @Valid AuthDto.ReissueRequest request) {
+    var command = authDtoMapper.of(request);
+    var userInfo = authFacade.reIssue(command);
     var response = authDtoMapper.of(userInfo);
 
     return ResponseEntity.ok(response);
