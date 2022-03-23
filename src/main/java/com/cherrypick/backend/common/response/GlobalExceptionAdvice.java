@@ -22,7 +22,7 @@ public class GlobalExceptionAdvice {
    */
   @ExceptionHandler(BusinessException.class)
   protected ResponseEntity<CommonResponse> handleBusinessException(final BusinessException e) {
-    log.error("handleEntityNotFoundException", e);
+    log.error("handleBusinessException", e);
     final ErrorCode errorCode = e.getErrorCode();
     final CommonResponse response = CommonResponse.fail(errorCode.getMessage());
     return new ResponseEntity<>(response, HttpStatus.OK);
@@ -79,7 +79,7 @@ public class GlobalExceptionAdvice {
    */
   @ExceptionHandler(Exception.class)
   protected ResponseEntity<CommonResponse> handleException(Exception e) {
-    log.error("handleEntityNotFoundException", e);
+    log.error("handleException", e);
     final CommonResponse response = CommonResponse.fail(
         ErrorCode.INTERNAL_SERVER_ERROR.getMessage());
     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
