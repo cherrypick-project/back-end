@@ -1,7 +1,8 @@
 package com.cherrypick.backend.security.oauth.handler;
 
 import com.cherrypick.backend.common.config.AppProperties;
-import com.cherrypick.backend.common.exception.BadRequestException;
+import com.cherrypick.backend.common.exception.ErrorCode;
+import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.common.jwt.TokenProvider;
 import com.cherrypick.backend.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cherrypick.backend.security.util.CookieUtils;
@@ -48,8 +49,9 @@ public class OAuth2SuccessHandler extends SavedRequestAwareAuthenticationSuccess
             HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
         .map(Cookie::getValue);
     if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-      throw new BadRequestException(
-          "Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
+      throw new UnAuthorizedException(
+          "Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication",
+          ErrorCode.UNAUTHORIZED);
     }
     String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
     String token = jwtTokenUtil.createToken(authentication);
