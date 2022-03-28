@@ -1,7 +1,7 @@
-package com.cherrypick.backend.security.oauth.handler;
+package com.cherrypick.backend.common.oauth;
 
-import com.cherrypick.backend.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.cherrypick.backend.security.util.CookieUtils;
+import com.cherrypick.backend.common.util.CookieUtils;
+import com.cherrypick.backend.domain.user.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -21,20 +21,18 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-      AuthenticationException exception) throws IOException, ServletException {
+    AuthenticationException exception) throws IOException, ServletException {
     super.onAuthenticationFailure(request, response, exception);
 
     String targetUrl = CookieUtils.getCookie(request,
-            HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
-        .map(Cookie::getValue)
-        .orElse(("/"));
+        HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME)
+      .map(Cookie::getValue)
+      .orElse(("/"));
     targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
-        .queryParam("error", exception.getLocalizedMessage())
-        .build().toUriString();
+      .queryParam("error", exception.getLocalizedMessage())
+      .build().toUriString();
     httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request,
-        response);
+      response);
     getRedirectStrategy().sendRedirect(request, response, targetUrl);
   }
-
-
 }

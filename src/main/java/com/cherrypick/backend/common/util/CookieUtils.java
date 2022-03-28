@@ -1,4 +1,4 @@
-package com.cherrypick.backend.security.util;
+package com.cherrypick.backend.common.util;
 import org.springframework.util.SerializationUtils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
