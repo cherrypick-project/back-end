@@ -1,4 +1,4 @@
-package com.cherrypick.backend.security.oauth;
+package com.cherrypick.backend.domain.user.oauth;
 
 import java.util.Map;
 
@@ -19,5 +19,4 @@ public abstract class OAuth2UserInfo {
   public abstract String getName();
 
   public abstract String getEmail();
-  
 }

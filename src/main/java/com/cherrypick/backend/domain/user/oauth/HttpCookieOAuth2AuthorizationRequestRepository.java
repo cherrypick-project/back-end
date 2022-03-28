@@ -1,6 +1,6 @@
-package com.cherrypick.backend.security.oauth;
+package com.cherrypick.backend.domain.user.oauth;
 
-import com.cherrypick.backend.security.util.CookieUtils;
+import com.cherrypick.backend.common.util.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HttpCookieOAuth2AuthorizationRequestRepository implements
-    AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
+  AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
   public static final String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
 
@@ -21,48 +21,48 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements
   //쿠키에 저장된 인증요청 정보를 가지고 온다
   @Override
   public OAuth2AuthorizationRequest loadAuthorizationRequest(
-      HttpServletRequest httpServletRequest) {
+    HttpServletRequest httpServletRequest) {
     return CookieUtils.getCookie(httpServletRequest, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
-        .map(cookie -> CookieUtils.deserialize(cookie, OAuth2AuthorizationRequest.class))
-        .orElse(null);
+      .map(cookie -> CookieUtils.deserialize(cookie, OAuth2AuthorizationRequest.class))
+      .orElse(null);
   }
 
 
   //인증 요청 정보를 쿠키에 저장
   @Override
   public void saveAuthorizationRequest(OAuth2AuthorizationRequest oAuth2AuthorizationRequest,
-      HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+    HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
     if (oAuth2AuthorizationRequest == null) {
       CookieUtils.deleteCookie(httpServletRequest, httpServletResponse,
-          OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+        OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
       CookieUtils.deleteCookie(httpServletRequest, httpServletResponse,
-          REDIRECT_URI_PARAM_COOKIE_NAME);
+        REDIRECT_URI_PARAM_COOKIE_NAME);
       return;
     }
     CookieUtils.addCookie(httpServletResponse, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
-        CookieUtils.serialize(oAuth2AuthorizationRequest), cookieExpireSeconds);
+      CookieUtils.serialize(oAuth2AuthorizationRequest), cookieExpireSeconds);
     String redirectUriAfterLogin = httpServletRequest.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
     if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
       CookieUtils.addCookie(httpServletResponse, REDIRECT_URI_PARAM_COOKIE_NAME,
-          redirectUriAfterLogin, cookieExpireSeconds);
+        redirectUriAfterLogin, cookieExpireSeconds);
     }
   }
 
   //쿠키에 등록된 인증 요청 정보를 삭제
   @Override
   public OAuth2AuthorizationRequest removeAuthorizationRequest(
-      HttpServletRequest httpServletRequest) {
+    HttpServletRequest httpServletRequest) {
     return this.loadAuthorizationRequest(httpServletRequest);
   }
 
   @Override
   public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request,
-      HttpServletResponse response) {
+    HttpServletResponse response) {
     return AuthorizationRequestRepository.super.removeAuthorizationRequest(request, response);
   }
 
   public void removeAuthorizationRequestCookies(HttpServletRequest request,
-      HttpServletResponse response) {
+    HttpServletResponse response) {
     CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
     CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
   }

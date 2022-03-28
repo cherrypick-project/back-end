@@ -1,4 +1,4 @@
-package com.cherrypick.backend.security.oauth;
+package com.cherrypick.backend.domain.user.oauth;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -14,13 +14,13 @@ public enum ProviderType {
   private final Function<Map<String, Object>, OAuth2UserInfo> oAuth2UserInfoFactory;
 
   ProviderType(String providerType,
-      Function<Map<String, Object>, OAuth2UserInfo> oAuth2UserInfoFactory) {
+    Function<Map<String, Object>, OAuth2UserInfo> oAuth2UserInfoFactory) {
     this.providerType = providerType;
     this.oAuth2UserInfoFactory = oAuth2UserInfoFactory;
   }
 
   public OAuth2UserInfo getOauth2UserInfo(
-      Map<String, Object> attributes) {
+    Map<String, Object> attributes) {
     return getOAuth2UserInfoFactory().apply(attributes);
   }
 }
