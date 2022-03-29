@@ -1,6 +1,9 @@
-package com.cherrypick.backend.domain.hashtag;
+package com.cherrypick.backend.domain.notification;
 
-import com.cherrypick.backend.domain.lecture.LectureHashtag;
+import static javax.persistence.FetchType.*;
+
+import com.cherrypick.backend.domain.user.User;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,17 +16,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Hashtag {
+@Getter
+public class NotificationMapping {
 
   @Id
+  @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String name;
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "notification_id")
+  private Notification notification;
 
-//  @ManyToOne(fetch = FetchType.LAZY)
-//  @JoinColumn(name = "lecture_hashtag_id")
-//  public LectureHashtag lectureHashTag;
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
 }

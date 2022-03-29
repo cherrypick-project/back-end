@@ -8,6 +8,7 @@ import com.cherrypick.backend.security.oauth.HttpCookieOAuth2AuthorizationReques
 import com.cherrypick.backend.security.oauth.handler.OAuth2AuthenticationFailureHandler;
 import com.cherrypick.backend.security.oauth.handler.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,7 @@ import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableConfigurationProperties(AppProperties.class)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
