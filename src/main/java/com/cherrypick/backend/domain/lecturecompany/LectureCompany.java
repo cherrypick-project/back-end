@@ -1,8 +1,9 @@
-package com.cherrypick.backend.domain.lecture;
+package com.cherrypick.backend.domain.lecturecompany;
 
-import com.cherrypick.backend.domain.lecturer.Lecturer;
+import com.cherrypick.backend.domain.lecture.Lecture;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,17 +14,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LectureLecturer {
+@Getter
+public class LectureCompany {
 
   @Id
+  @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToMany(mappedBy = "lectureLecturer")
-  private List<Lecture> lectures = new ArrayList<>();
+  private String name;
 
-  @OneToMany(mappedBy = "lectureLecturer")
-  private List<Lecturer> lecturers = new ArrayList<>();
+  @OneToMany(mappedBy = "lectureCompany")
+  private List<Lecture> lectureList = new ArrayList<>();
+
 }

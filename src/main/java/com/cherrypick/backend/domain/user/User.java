@@ -37,4 +37,15 @@ public class User {
 
   @Enumerated(EnumType.STRING)
   private ProviderType providerType;
+
+  private String job;
+
+  @Enumerated(EnumType.STRING)
+  private Career career;
+
+  private String knownPath;
+
+  public enum Career {
+    STUDENT, LESS_THAN_1YEARS, LESS_THAN_3YEARS ,LESS_THAN_6YEARS, MORE_THAN_7YEARS
+  }
 }

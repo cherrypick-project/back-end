@@ -1,11 +1,10 @@
-package com.cherrypick.backend.domain.bookmark;
+package com.cherrypick.backend.domain.category;
 
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.FetchType.*;
 
-import com.cherrypick.backend.domain.lecture.Lecture;
-import com.cherrypick.backend.domain.user.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,21 +15,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Bookmark {
+@Getter
+public class SecondCategory {
 
   @Id
   @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "user_id")
-  private User user;
+  private int name;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "lecture_id")
-  private Lecture lecture;
-
+  @JoinColumn(name = "first_category_id")
+  private FirstCategory category;
 }

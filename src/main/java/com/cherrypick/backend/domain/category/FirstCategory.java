@@ -1,4 +1,4 @@
-package com.cherrypick.backend.domain.lecturer;
+package com.cherrypick.backend.domain.category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +12,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Lecturer {
+public class FirstCategory {
 
   @Id
   @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String name;
-
+  private int name;
 }
