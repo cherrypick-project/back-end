@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -25,6 +26,8 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
   private final UserReader userReader;
 
   private final UserStore userStore;
+
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest)
@@ -49,7 +52,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         user.getAttributes());
     //provider타입에 따라서 각각 다르게 userInfo가져온다. (가져온 필요한 정보는 OAuth2UserInfo로 동일하다)
 
-    Optional<User> userOptional = userReader.findWithAuthortyByProviderId(
+    Optional<User> userOptional = userReader.findByProviderId(
         providerType + userInfo.getId());
     User savedUser;
     if (userOptional.isPresent()) {
@@ -76,14 +79,17 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
   //넘어온 사용자 정보를 통해서 회원가입을 실행한다.
   private User createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
-    User user = User.builder()
-        .providerId(providerType + userInfo.getId())
-        .email(userInfo.getEmail())
-        .providerType(providerType)
-        .authority(Authority.ROLE_USER)
-        .password(new BCryptPasswordEncoder().encode("cherryPickOauth"))
-        .activated(true)
-        .build();
+//    User user = User.builder()
+//        .providerId(providerType + userInfo.getId())
+//        .email(userInfo.getEmail())
+//        .providerType(providerType)
+//        .authority(Authority.ROLE_NEED_MORE_INFO)
+//        .password(new BCryptPasswordEncoder().encode("cherryPickOauth"))
+//        .activated(true)
+//        .build();
+    String password = passwordEncoder.encode("cherryPickOauth");
+    User user = User.OauthSignUp(providerType + userInfo.getId(), userInfo.getEmail(), password,
+        providerType);
     return userStore.store(user);
   }
 }

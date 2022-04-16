@@ -13,8 +13,8 @@ public class UserReaderImpl implements UserReader {
   private final UserRepository userRepository;
 
   @Override
-  public Optional<User> findWithAuthortyByProviderId(String providerId) {
-    return userRepository.findWithAuthortyByProviderId(providerId);
+  public Optional<User> findByProviderId(String providerId) {
+    return userRepository.findByProviderId(providerId);
   }
 
 

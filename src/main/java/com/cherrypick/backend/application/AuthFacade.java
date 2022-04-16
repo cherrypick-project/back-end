@@ -1,6 +1,7 @@
 package com.cherrypick.backend.application;
 
 import com.cherrypick.backend.domain.user.UserCommand;
+import com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
 import com.cherrypick.backend.domain.user.UserInfo;
 import com.cherrypick.backend.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,9 @@ public class AuthFacade {
 
   public UserInfo.Token reissue(UserCommand.ReissueRequest request) {
     return userService.reissue(request);
+  }
+
+  public UserInfo.Token signup(SignUpRequest command) {
+    return userService.signup(command);
   }
 }

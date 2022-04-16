@@ -12,7 +12,10 @@ public enum ErrorCode {
   UNAUTHORIZED(401, "인증에 실패하였습니다."),
   ACCESS_DENIED(403, "요청한 리소스에 대한 접근권한이 없습니다."),
   URL_NOT_FOUND(404, "요청하신 url을 찾지 못했습니다."),
-  INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+  INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+
+  // User
+  NOT_FOUND_USER(200, "사용자를 찾지 못하였습니다.");
 
   private final String message;
   private final int status;

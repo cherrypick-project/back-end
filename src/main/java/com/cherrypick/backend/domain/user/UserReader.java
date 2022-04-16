@@ -4,6 +4,6 @@ import java.util.Optional;
 
 public interface UserReader {
 
-  Optional<User> findWithAuthortyByProviderId(String providerId);
+  Optional<User> findByProviderId(String providerId);
 
 }

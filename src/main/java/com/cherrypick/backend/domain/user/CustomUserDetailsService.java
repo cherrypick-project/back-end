@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Override
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return userReader.findWithAuthortyByProviderId(username).map(user -> createUser(username, user))
+    return userReader.findByProviderId(username).map(user -> createUser(username, user))
       .orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
   }
 
@@ -33,8 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
       throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");
     }
 
-    List<GrantedAuthority> grantedAuthority = new ArrayList<>(Arrays.asList(
-      new SimpleGrantedAuthority(user.getAuthority().toString())));
+    List<GrantedAuthority> grantedAuthority = new ArrayList<>(List.of(
+        new SimpleGrantedAuthority(user.getAuthority().toString())));
 
     return new org.springframework.security.core.userdetails.User(user.getProviderId(),
       user.getPassword(),
