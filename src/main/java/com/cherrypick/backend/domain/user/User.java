@@ -49,9 +49,11 @@ public class User {
   private String knownPath;
 
   public void addUserInfo(SignUpRequest command) {
-    this.knownPath = command.getKnownPath();
+
     this.authority = Authority.ROLE_USER;
     this.job = command.getJob();
+    this.career = command.getCareer();
+    this.knownPath = command.getKnownPath();
   }
 
   public enum Career {
