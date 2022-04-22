@@ -1,6 +1,6 @@
 package com.cherrypick.backend.domain.user;
 
-import com.cherrypick.backend.security.oauth.ProviderType;
+import com.cherrypick.backend.domain.user.oauth.ProviderType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(
-    access = AccessLevel.PROTECTED
+  access = AccessLevel.PROTECTED
 )
 @Builder
 @AllArgsConstructor
