@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
 
     Authentication authentication = authenticationManagerBuilder.getObject()
         .authenticate(authenticationToken);
-    SecurityContextHolder.getContext().setAuthentication(authentication);
 
     Token token = tokenProvider.createTokens(authentication);
     redisRepository.setValue(
@@ -69,7 +68,6 @@ public class UserServiceImpl implements UserService {
     }
 
     Authentication authentication = tokenProvider.getAuthentication(command.getAccessToken());
-    SecurityContextHolder.getContext().setAuthentication(authentication);
 
     Token token = tokenProvider.createTokens(authentication);
     redisRepository.setValue(
@@ -92,7 +90,14 @@ public class UserServiceImpl implements UserService {
         new SimpleGrantedAuthority(user.getAuthority().name()));
     Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getProviderId(),
         user.getPassword(), authorities);
-    SecurityContextHolder.getContext().setAuthentication(newAuth);
-    return tokenProvider.createTokens(newAuth);
+
+    Token token = tokenProvider.createTokens(newAuth);
+    redisRepository.setValue(
+        ID_PREFIX + user.getProviderId(),
+        token.getRefreshToken(),
+        refreshTokenValidityInMilliseconds,
+        TimeUnit.MILLISECONDS);
+
+    return token;
   }
 }
