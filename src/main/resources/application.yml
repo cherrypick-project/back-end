@@ -12,6 +12,9 @@ server:
   shutdown: graceful
 
 spring:
+  redis:
+    host: localhost
+    port: 6379
   lifecycle:
     timeout-per-shutdown-phase: 20s
   jpa:
