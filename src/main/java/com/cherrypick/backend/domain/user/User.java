@@ -1,6 +1,9 @@
 package com.cherrypick.backend.domain.user;
 
+import com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
 import com.cherrypick.backend.domain.user.oauth.ProviderType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Locale;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,8 +19,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(
   access = AccessLevel.PROTECTED
 )
-@Builder
-@AllArgsConstructor
 public class User {
 
   @Id
@@ -45,7 +44,33 @@ public class User {
 
   private String knownPath;
 
+  public void addUserInfo(SignUpRequest command) {
+
+    this.authority = Authority.ROLE_USER;
+    this.job = command.getJob();
+    this.career = command.getCareer();
+    this.knownPath = command.getKnownPath();
+  }
+
   public enum Career {
-    STUDENT, LESS_THAN_1YEARS, LESS_THAN_3YEARS ,LESS_THAN_6YEARS, MORE_THAN_7YEARS
+    STUDENT, LESS_THAN_1YEARS, LESS_THAN_3YEARS ,LESS_THAN_6YEARS, MORE_THAN_7YEARS;
+
+    @JsonCreator
+    public static Career from (String s){
+      return Career.valueOf(s.toUpperCase(Locale.ROOT));
+    }
+  }
+
+  public static User OauthSignUp(String providerId, String email, String password, ProviderType providerType){
+    return new User(providerId, email, password,providerType);
+  }
+
+  private User (String providerId, String email, String password, ProviderType providerType){
+    this.providerId = providerId;
+    this.email = email;
+    this.password = password;
+    this.providerType = providerType;
+    this.activated = true;
+    this.authority = Authority.ROLE_NEED_MORE_INFO;
   }
 }

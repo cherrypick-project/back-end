@@ -47,7 +47,7 @@ public class TokenProvider implements InitializingBean {
   }
 
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet(){
     byte[] keyBytes = Decoders.BASE64.decode(secret);
     this.key = Keys.hmacShaKeyFor(keyBytes);
   }
@@ -88,7 +88,7 @@ public class TokenProvider implements InitializingBean {
       .signWith(key, SignatureAlgorithm.HS512)
       .setExpiration(new Date(now + refreshTokenValidityInMilliseconds))
       .compact();
-
+    log.info("{} 권한을 갖고 있는 {}의 jwt 생성 완료",authorities , authentication.getName());
     return new UserInfo.Token(accessToken, refreshToken);
   }
 
