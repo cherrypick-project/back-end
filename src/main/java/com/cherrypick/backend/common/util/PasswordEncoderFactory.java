@@ -1,4 +1,4 @@
-package com.cherrypick.backend.security.util;
+package com.cherrypick.backend.common.util;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

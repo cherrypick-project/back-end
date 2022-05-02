@@ -1,7 +1,7 @@
 package com.cherrypick.backend.domain.user;
 
 import com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
-import com.cherrypick.backend.security.oauth.ProviderType;
+import com.cherrypick.backend.domain.user.oauth.ProviderType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.Locale;
 import javax.persistence.Entity;
@@ -11,17 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Getter
 @NoArgsConstructor(
-    access = AccessLevel.PROTECTED
+  access = AccessLevel.PROTECTED
 )
 public class User {
 

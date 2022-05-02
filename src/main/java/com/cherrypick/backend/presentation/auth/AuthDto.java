@@ -2,7 +2,6 @@ package com.cherrypick.backend.presentation.auth;
 
 import com.cherrypick.backend.domain.user.Authority;
 import com.cherrypick.backend.domain.user.User.Career;
-import com.cherrypick.backend.security.oauth.ProviderType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

@@ -9,7 +9,6 @@ import com.cherrypick.backend.common.jwt.TokenProvider;
 import com.cherrypick.backend.domain.user.User.Career;
 import com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
 import com.cherrypick.backend.domain.user.UserInfo.Token;
-import com.cherrypick.backend.security.oauth.ProviderType;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;

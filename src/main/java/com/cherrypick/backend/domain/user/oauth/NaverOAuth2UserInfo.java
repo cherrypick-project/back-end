@@ -1,4 +1,4 @@
-package com.cherrypick.backend.security.oauth;
+package com.cherrypick.backend.domain.user.oauth;
 
 import java.util.Map;
 

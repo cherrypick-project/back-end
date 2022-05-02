@@ -1,4 +1,4 @@
-package com.cherrypick.backend.security.auth;
+package com.cherrypick.backend.domain.user.oauth;
 
 import com.cherrypick.backend.domain.user.User;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class JwtUserDetails implements UserDetails, OAuth2User {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return new ArrayList<>(List.of(
-        new SimpleGrantedAuthority(user.getAuthority().toString())));
+      new SimpleGrantedAuthority(user.getAuthority().toString())));
   }
 
   @Override

@@ -2,10 +2,9 @@ package com.cherrypick.backend.domain.user;
 
 import static com.cherrypick.backend.domain.user.UserCommand.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.cherrypick.backend.domain.user.User.Career;
-import com.cherrypick.backend.security.oauth.ProviderType;
+import com.cherrypick.backend.domain.user.oauth.ProviderType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
