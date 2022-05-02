@@ -56,7 +56,7 @@ public class Review {
     GOOD, BAD
   }
 
-  public enum Status{
-    READY , APPROVE, REJECT
+  public enum Status {
+    READY, APPROVE, REJECT
   }
 }

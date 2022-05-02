@@ -1,16 +1,12 @@
 package com.cherrypick.backend.presentation.auth;
 
-import com.cherrypick.backend.domain.user.Authority;
 import com.cherrypick.backend.domain.user.User.Career;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthDto {
 
@@ -38,6 +34,7 @@ public class AuthDto {
     private String accessToken;
     private String refreshToken;
   }
+
   @Getter
   @Setter
   @ToString
@@ -54,10 +51,12 @@ public class AuthDto {
     @NotNull
     private String knownPath;
   }
+
   @Getter
   @ToString
   @AllArgsConstructor
   public static class SignUpResponse {
+
     private String accessToken;
     private String refreshToken;
   }

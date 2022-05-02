@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(
-  access = AccessLevel.PROTECTED
+    access = AccessLevel.PROTECTED
 )
 public class User {
 
@@ -53,19 +53,20 @@ public class User {
   }
 
   public enum Career {
-    STUDENT, LESS_THAN_1YEARS, LESS_THAN_3YEARS ,LESS_THAN_6YEARS, MORE_THAN_7YEARS;
+    STUDENT, LESS_THAN_1YEARS, LESS_THAN_3YEARS, LESS_THAN_6YEARS, MORE_THAN_7YEARS;
 
     @JsonCreator
-    public static Career from (String s){
+    public static Career from(String s) {
       return Career.valueOf(s.toUpperCase(Locale.ROOT));
     }
   }
 
-  public static User OauthSignUp(String providerId, String email, String password, ProviderType providerType){
-    return new User(providerId, email, password,providerType);
+  public static User OauthSignUp(String providerId, String email, String password,
+      ProviderType providerType) {
+    return new User(providerId, email, password, providerType);
   }
 
-  private User (String providerId, String email, String password, ProviderType providerType){
+  private User(String providerId, String email, String password, ProviderType providerType) {
     this.providerId = providerId;
     this.email = email;
     this.password = password;
