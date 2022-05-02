@@ -55,7 +55,7 @@ public class GlobalExceptionAdvice {
   /**
    * http status :401 인증되지 않은 사용자가 리소스에 접근할때 발생
    */
-  @ExceptionHandler(Unauthorized.class)
+  @ExceptionHandler(UnAuthorizedException.class)
   protected ResponseEntity<CommonResponse> handleUnauthorizedException(
       UnAuthorizedException e) {
     log.error("handleUnauthorizedException", e);

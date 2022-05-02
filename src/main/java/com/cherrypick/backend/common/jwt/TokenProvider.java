@@ -52,6 +52,14 @@ public class TokenProvider implements InitializingBean {
     this.key = Keys.hmacShaKeyFor(keyBytes);
   }
 
+  public Claims getAllClaimsFromToken(String token) {
+    return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+  }
+
+  public String getUsernameFromToken(String token) {
+    return getAllClaimsFromToken(token).getSubject();
+  }
+
   public String createToken(Authentication authentication) {
     String authorities = authentication.getAuthorities().stream()
         .map(GrantedAuthority::getAuthority)

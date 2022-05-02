@@ -3,7 +3,7 @@ POST http://localhost:8080/api/v1/auth/authenticate
 Content-Type: application/json
 
 {
-  "providerId": "unSignedUser",
+  "providerId": "admin",
   "password": "admin"
 }
 
@@ -17,15 +17,4 @@ Content-Type: application/json
 {
 "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNwIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY0Nzk1ODU3MX0.QNY5uhQTj4rMeUoQmvkb8MjYokyVevEnEzrPI1y7-dhqY32uSXmV8Gn4Xvt9ivNoKnxSTfOqVCh3kWWomVEKGw",
 "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNwIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY0OTE2MDk3MX0.yEZiIJZX_EwOlOGgEuhtSz8UjT6wOTGb8QakuLL6O8fn_4TOemsEe8nXxW0VXN0cGwlBHPz1t_O6lEKGEIqB8g"
-}
-
-### 회원가입
-PATCH http://localhost:8080/api/v1/auth/signup
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1blNpZ25lZFVzZXIiLCJjcCI6IlJPTEVfTkVFRF9NT1JFX0lORk8iLCJleHAiOjE2NTAxMjYxOTF9.AGiaBXYom8c30kl1w_gkQr5H98rKBWklnmEjqlCk0DWxzeXRxdnG5_dg4L2v0y0y8JpwBelpXIvE7epk8RXyqQ
-
-{
-  "job": "backend",
-  "career": "student",
-  "knownPath": "blog"
 }
