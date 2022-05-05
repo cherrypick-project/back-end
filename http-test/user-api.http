@@ -1,0 +1,6 @@
+### 유저 정보 조회
+GET http://localhost:8080/api/v1/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHT09HTEUxMTgxMTQwMDQ5OTk4NDI3NjQ0ODQiLCJjcCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MTc0Nzg2MX0.mXILCyrFzqaIr3v3hdVNRcKwawYvgLDVSKrx69Ab-RVkBXE6_5ro2aPoh2X8-1mctWh09nMEPJIvVp1mCgVNIw
+
+

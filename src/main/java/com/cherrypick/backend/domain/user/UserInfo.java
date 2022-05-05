@@ -1,5 +1,9 @@
 package com.cherrypick.backend.domain.user;
 
+import com.cherrypick.backend.domain.user.User.Career;
+import com.cherrypick.backend.domain.user.oauth.ProviderType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,5 +15,20 @@ public class UserInfo {
 
     private String accessToken;
     private String refreshToken;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public static class Profile {
+
+    private String email;
+    private String nickname;
+    private boolean activated;
+    private Authority authority;
+    private ProviderType providerType;
+    private String job;
+    private Career career;
+    private String knownPath;
+
   }
 }

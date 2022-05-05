@@ -7,9 +7,6 @@ Content-Type: application/json
   "password": "admin"
 }
 
-
-
-
 ### 토큰 재발행
 POST http://localhost:8080/api/v1/auth/reissue
 Content-Type: application/json
@@ -17,4 +14,15 @@ Content-Type: application/json
 {
 "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNwIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY0Nzk1ODU3MX0.QNY5uhQTj4rMeUoQmvkb8MjYokyVevEnEzrPI1y7-dhqY32uSXmV8Gn4Xvt9ivNoKnxSTfOqVCh3kWWomVEKGw",
 "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNwIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY0OTE2MDk3MX0.yEZiIJZX_EwOlOGgEuhtSz8UjT6wOTGb8QakuLL6O8fn_4TOemsEe8nXxW0VXN0cGwlBHPz1t_O6lEKGEIqB8g"
+}
+
+### 회원가입
+PATCH http://localhost:8080/api/v1/auth/signup
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHT09HTEUxMTgxMTQwMDQ5OTk4NDI3NjQ0ODQiLCJjcCI6IlJPTEVfTkVFRF9NT1JFX0lORk8iLCJleHAiOjE2NTE3NDA3Mzd9.MmjJDAGFvbOEvg_Rjw2NTGnYp6ageSEiwLyrgZRg8X5tmSeOBx6t42x95bRtRSvZLJ6U9bNr4f6dj0zpIPhXsQ
+
+{
+  "job": "backend",
+  "career": "LESS_THAN_1YEARS",
+  "knownPath": "search"
 }

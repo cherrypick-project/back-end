@@ -5,6 +5,7 @@ import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.common.jwt.TokenProvider;
 import com.cherrypick.backend.domain.user.UserCommand.ReissueRequest;
+import com.cherrypick.backend.domain.user.UserInfo.Profile;
 import com.cherrypick.backend.domain.user.UserInfo.Token;
 import com.cherrypick.backend.infrastructure.redis.RedisRepository;
 import java.util.List;
@@ -17,7 +18,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
   private final UserReader reader;
   private final RedisRepository redisRepository;
+
+  private final UserInfoMapper userInfoMapper;
 
   @Value("${jwt.refresh-token-validity-in-seconds}")
   private long refreshTokenValidityInMilliseconds;
@@ -99,5 +101,17 @@ public class UserServiceImpl implements UserService {
         TimeUnit.MILLISECONDS);
 
     return token;
+  }
+
+  @Override
+  public Profile searchUserProfile(String loginId) {
+    User user = reader.findByProviderId(loginId)
+        .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
+            ErrorCode.NOT_FOUND_USER));
+
+    if (!user.isActivated()) {
+      throw new BusinessException(ErrorCode.NOT_ACTIVE_ACCOUNT);
+    }
+    return userInfoMapper.of(user);
   }
 }
