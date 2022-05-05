@@ -2,8 +2,6 @@ package com.cherrypick.backend.presentation.user;
 
 import com.cherrypick.backend.application.UserFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
-import com.cherrypick.backend.domain.user.UserInfo.Profile;
-import com.cherrypick.backend.presentation.user.UserDto.ProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,10 +22,20 @@ public class UserController {
 
   @PreAuthorize("hasAnyRole('ROLE_USER') or hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
   @GetMapping("/user")
-  public ResponseEntity<CommonResponse> searchUserProfile(@AuthenticationPrincipal UserDetails userDetails) {
+  public ResponseEntity<CommonResponse> searchUserProfile(
+      @AuthenticationPrincipal UserDetails userDetails) {
     var loginId = userDetails.getUsername();
-    var profile = userFacade.searchUserProfile(loginId);
-    var response = userDtoMapper.of(profile);
+    var userInfo = userFacade.searchUserProfile(loginId);
+    var response = userDtoMapper.of(userInfo);
+    return ResponseEntity.ok(CommonResponse.success(response));
+  }
+
+  @PatchMapping("/sign-out")
+  public ResponseEntity<CommonResponse> signOut(@AuthenticationPrincipal UserDetails user){
+    var loginId = user.getUsername();
+    var userInfo = userFacade.signOut(loginId);
+    var response = userDtoMapper.of(userInfo);
+
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 }

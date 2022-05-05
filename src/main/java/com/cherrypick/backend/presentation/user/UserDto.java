@@ -20,4 +20,10 @@ public class UserDto {
     private Career career;
     private String knownPath;
   }
+
+  @Getter
+  @AllArgsConstructor
+  public static class SignOutResponse {
+    private String email;
+  }
 }

@@ -6,6 +6,7 @@ import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.common.jwt.TokenProvider;
 import com.cherrypick.backend.domain.user.UserCommand.ReissueRequest;
 import com.cherrypick.backend.domain.user.UserInfo.Profile;
+import com.cherrypick.backend.domain.user.UserInfo.SignOut;
 import com.cherrypick.backend.domain.user.UserInfo.Token;
 import com.cherrypick.backend.infrastructure.redis.RedisRepository;
 import java.util.List;
@@ -113,5 +114,15 @@ public class UserServiceImpl implements UserService {
       throw new BusinessException(ErrorCode.NOT_ACTIVE_ACCOUNT);
     }
     return userInfoMapper.of(user);
+  }
+
+  @Override
+  public SignOut signOut(String loginId) {
+    User user = reader.findByProviderId(loginId)
+        .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
+            ErrorCode.NOT_FOUND_USER));
+
+    user.signOut();
+    return new UserInfo.SignOut(user.getEmail());
   }
 }

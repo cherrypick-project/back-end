@@ -52,6 +52,10 @@ public class User {
     this.knownPath = command.getKnownPath();
   }
 
+  public void signOut() {
+    this.activated = false;
+  }
+
   public enum Career {
     STUDENT, LESS_THAN_1YEARS, LESS_THAN_3YEARS, LESS_THAN_6YEARS, MORE_THAN_7YEARS;
 

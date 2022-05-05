@@ -13,4 +13,7 @@ import org.mapstruct.ReportingPolicy;
 public interface UserDtoMapper {
 
   UserDto.ProfileResponse of (UserInfo.Profile profile);
+
+  UserDto.SignOutResponse of (UserInfo.SignOut profile);
+
 }
