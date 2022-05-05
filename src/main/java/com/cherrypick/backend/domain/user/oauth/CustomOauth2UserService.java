@@ -78,7 +78,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
   //넘어온 사용자 정보를 통해서 회원가입을 실행한다.
   private User createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
     String password = passwordEncoder.encode("cherryPickOauth");
-    User user = User.OauthSignUp(providerType + userInfo.getId(), userInfo.getEmail(), password,
+    User user = User.OauthSignUp(providerType + userInfo.getId(), userInfo.getEmail(), password, userInfo.getName() ,
         providerType);
     return userStore.store(user);
   }

@@ -14,7 +14,7 @@ class UserTest {
   @Test
   void addUserInfo() {
     User user = User.OauthSignUp("1", "test1234@gmail.com",
-        "1234", ProviderType.GOOGLE);
+        "1234", "kim Su Zi",ProviderType.GOOGLE);
     SignUpRequest command = new SignUpRequest("1", "BackEnd", Career.LESS_THAN_3YEARS, "Search");
 
     user.addUserInfo(command);

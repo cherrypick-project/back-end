@@ -61,15 +61,16 @@ public class User {
     }
   }
 
-  public static User OauthSignUp(String providerId, String email, String password,
+  public static User OauthSignUp(String providerId, String email, String password, String name ,
       ProviderType providerType) {
-    return new User(providerId, email, password, providerType);
+    return new User(providerId, email, password, name, providerType);
   }
 
-  private User(String providerId, String email, String password, ProviderType providerType) {
+  private User(String providerId, String email, String password, String name, ProviderType providerType) {
     this.providerId = providerId;
     this.email = email;
     this.password = password;
+    this.nickname = name;
     this.providerType = providerType;
     this.activated = true;
     this.authority = Authority.ROLE_NEED_MORE_INFO;
