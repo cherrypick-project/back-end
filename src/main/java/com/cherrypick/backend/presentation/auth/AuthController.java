@@ -45,7 +45,7 @@ public class AuthController {
   @PreAuthorize("hasAnyRole('ROLE_NEED_MORE_INFO')")
   @PatchMapping("/signup")
   public ResponseEntity<CommonResponse> signup(@AuthenticationPrincipal UserDetails user,
-      AuthDto.SignUpRequest request) {
+      @RequestBody @Valid AuthDto.SignUpRequest request) {
     request.setProviderId(user.getUsername());
     var command = authDtoMapper.of(request);
     var userInfo = authFacade.signup(command);
