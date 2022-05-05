@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Profile searchUserProfile(String loginId) {
+  public Profile inquiryUserProfile(String loginId) {
     User user = reader.findByProviderId(loginId)
         .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
             ErrorCode.NOT_FOUND_USER));

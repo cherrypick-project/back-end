@@ -13,8 +13,8 @@ public class UserFacade {
   private final UserService userService;
 
   @Transactional(readOnly = true)
-  public UserInfo.Profile searchUserProfile(String loginId) {
-    return userService.searchUserProfile(loginId);
+  public UserInfo.Profile inquiryUserProfile(String loginId) {
+    return userService.inquiryUserProfile(loginId);
   }
 
   @Transactional
