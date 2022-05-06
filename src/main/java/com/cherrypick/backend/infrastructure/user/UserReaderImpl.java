@@ -16,6 +16,4 @@ public class UserReaderImpl implements UserReader {
   public Optional<User> findByProviderId(String providerId) {
     return userRepository.findByProviderId(providerId);
   }
-
-
 }
