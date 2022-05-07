@@ -8,6 +8,7 @@ public class UserCommand {
   @Getter
   @AllArgsConstructor
   public static class UserLoginRequest {
+
     private String providerId;
     private String password;
   }
@@ -15,7 +16,18 @@ public class UserCommand {
   @Getter
   @AllArgsConstructor
   public static class ReissueRequest {
+
     private String accessToken;
     private String refreshToken;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public static class SignUpRequest {
+
+    private String providerId;
+    private String job;
+    private User.Career career;
+    private String knownPath;
   }
 }

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class UserStoreImpl implements UserStore{
+public class UserStoreImpl implements UserStore {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public User store(User user){
-        return userRepository.save(user);
-    }
+  public User store(User user) {
+    return userRepository.save(user);
+  }
 }

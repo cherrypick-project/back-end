@@ -8,6 +8,7 @@ public class UserInfo {
   @Getter
   @AllArgsConstructor
   public static class Token {
+
     private String accessToken;
     private String refreshToken;
   }
