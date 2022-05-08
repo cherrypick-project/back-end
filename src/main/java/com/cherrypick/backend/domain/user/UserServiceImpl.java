@@ -4,19 +4,15 @@ import com.cherrypick.backend.common.exception.BusinessException;
 import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.common.jwt.TokenProvider;
+import com.cherrypick.backend.common.util.AuthenticationManger;
 import com.cherrypick.backend.domain.user.UserCommand.ReissueRequest;
 import com.cherrypick.backend.domain.user.UserInfo.Token;
 import com.cherrypick.backend.infrastructure.redis.RedisRepository;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,10 +20,9 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
   private final TokenProvider tokenProvider;
-  private final AuthenticationManagerBuilder authenticationManagerBuilder;
   private final UserReader reader;
   private final RedisRepository redisRepository;
-
+  private final AuthenticationManger authenticationManger;
   private final UserInfoMapper userInfoMapper;
 
   @Value("${jwt.refresh-token-validity-in-seconds}")
@@ -37,11 +32,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserInfo.Token authorize(UserCommand.UserLoginRequest command) {
-    UsernamePasswordAuthenticationToken authenticationToken =
-        new UsernamePasswordAuthenticationToken(command.getProviderId(), command.getPassword());
-
-    Authentication authentication = authenticationManagerBuilder.getObject()
-        .authenticate(authenticationToken);
+    Authentication authentication = authenticationManger.createAuthentication(command);
 
     Token token = tokenProvider.createTokens(authentication);
     redisRepository.setValue(
@@ -87,12 +78,9 @@ public class UserServiceImpl implements UserService {
             ErrorCode.NOT_FOUND_USER));
     user.addUserInfo(command);
 
-    List<GrantedAuthority> authorities = List.of(
-        new SimpleGrantedAuthority(user.getAuthority().name()));
-    Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getProviderId(),
-        user.getPassword(), authorities);
+    Authentication changedAuth = authenticationManger.changeAuthority(user);
 
-    Token token = tokenProvider.createTokens(newAuth);
+    Token token = tokenProvider.createTokens(changedAuth);
     redisRepository.setValue(
         ID_PREFIX + user.getProviderId(),
         token.getRefreshToken(),
