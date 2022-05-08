@@ -5,8 +5,6 @@ import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.common.jwt.TokenProvider;
 import com.cherrypick.backend.domain.user.UserCommand.ReissueRequest;
-import com.cherrypick.backend.domain.user.UserInfo.Profile;
-import com.cherrypick.backend.domain.user.UserInfo.SignOut;
 import com.cherrypick.backend.domain.user.UserInfo.Token;
 import com.cherrypick.backend.infrastructure.redis.RedisRepository;
 import java.util.List;
@@ -105,7 +103,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Profile inquiryUserProfile(String loginId) {
+  public UserInfo.Profile inquiryUserProfile(String loginId) {
     User user = reader.findByProviderId(loginId)
         .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
             ErrorCode.NOT_FOUND_USER));
@@ -117,7 +115,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public SignOut signOut(String loginId) {
+  public UserInfo.SignOut signOut(String loginId) {
     User user = reader.findByProviderId(loginId)
         .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
             ErrorCode.NOT_FOUND_USER));
