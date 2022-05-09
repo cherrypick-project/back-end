@@ -23,4 +23,15 @@ class UserTest {
     assertThat(user.getCareer()).isEqualTo(command.getCareer());
     assertThat(user.getKnownPath()).isEqualTo(command.getKnownPath());
   }
+
+  @DisplayName("계정을 비활성화 환다.")
+  @Test
+  void signOut() {
+    User user =  User.OauthSignUp("1", "test1234@gmail.com",
+        "1234", "kim Su Zi",ProviderType.GOOGLE);
+
+    user.signOut();
+
+    assertThat(user.isActivated()).isFalse();
+  }
 }
