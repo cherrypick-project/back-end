@@ -81,11 +81,11 @@ class UserServiceImplTest {
 
   @DisplayName("회원의 추가정보를 저장하고 JWT 토큰을 발행한다")
   @Test
-  void signup() {
+  void signUp() {
     SignUpRequest command = new SignUpRequest("unSignedUser", "BackEnd", Career.LESS_THAN_3YEARS,
         "Search");
 
-    Token token = userService.signup(command);
+    Token token = userService.signUp(command);
     Authentication authentication = tokenProvider.getAuthentication(token.getAccessToken());
 
     assertThat(tokenProvider.validateToken(token.getAccessToken())).isTrue();
@@ -96,11 +96,11 @@ class UserServiceImplTest {
 
   @DisplayName("회원의 추가정보를 저장시 회원정보가 없으면 예외가 발생한다")
   @Test
-  void signup_exception() {
+  void signUp_exception() {
     SignUpRequest command = new SignUpRequest("unSignedUser1", "BackEnd", Career.LESS_THAN_3YEARS,
         "Search");
 
-    assertThatThrownBy(() -> userService.signup(command))
+    assertThatThrownBy(() -> userService.signUp(command))
         .isInstanceOf(BusinessException.class)
         .hasMessage(command.getProviderId() + " 사용자를 찾지 못했습니다.");
   }
@@ -148,9 +148,6 @@ class UserServiceImplTest {
     SignOut signOut = userService.signOut(loginId);
 
     assertThat(signOut.getEmail()).isEqualTo("user@naver.com");
-    assertThatThrownBy(() -> userService.inquiryUserProfile(loginId))
-        .isInstanceOf(BusinessException.class)
-        .hasMessage(ErrorCode.NOT_ACTIVE_ACCOUNT.getMessage());
   }
 
   @DisplayName("가입하지 않은 유저 ID로 계정 탈퇴 시도시 예외발생")

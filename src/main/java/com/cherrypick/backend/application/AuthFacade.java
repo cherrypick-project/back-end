@@ -23,7 +23,7 @@ public class AuthFacade {
   }
 
   @Transactional
-  public UserInfo.Token signup(SignUpRequest command) {
-    return userService.signup(command);
+  public UserInfo.Token signUp(SignUpRequest command) {
+    return userService.signUp(command);
   }
 }

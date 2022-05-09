@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserInfo.Token signup(UserCommand.SignUpRequest command) {
+  public UserInfo.Token signUp(UserCommand.SignUpRequest command) {
     User user = reader.findByProviderId(command.getProviderId())
         .orElseThrow(() -> new BusinessException(command.getProviderId() + " 사용자를 찾지 못했습니다.",
             ErrorCode.NOT_FOUND_USER));
