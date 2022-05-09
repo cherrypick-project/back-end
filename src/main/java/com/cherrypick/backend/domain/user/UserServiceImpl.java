@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
   @Value("${jwt.refresh-token-validity-in-seconds}")
   private long refreshTokenValidityInMilliseconds;
 
-  private final String ID_PREFIX = "RT:";
+  private static final String ID_PREFIX = "RT:";
 
   @Override
   public UserInfo.Token authorize(UserCommand.UserLoginRequest command) {
