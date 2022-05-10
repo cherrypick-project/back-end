@@ -4,9 +4,9 @@ import com.cherrypick.backend.domain.user.UserCommand;
 import com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
 import com.cherrypick.backend.domain.user.UserInfo;
 import com.cherrypick.backend.domain.user.UserService;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
