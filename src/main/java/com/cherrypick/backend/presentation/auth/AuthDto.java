@@ -60,6 +60,4 @@ public class AuthDto {
     private String accessToken;
     private String refreshToken;
   }
-
-
 }
