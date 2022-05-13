@@ -14,6 +14,7 @@ import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -72,6 +73,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional
   public UserInfo.Token signUp(UserCommand.SignUpRequest command) {
     User user = reader.findByProviderId(command.getProviderId())
         .orElseThrow(() -> new BusinessException(command.getProviderId() + " 사용자를 찾지 못했습니다.",
@@ -91,6 +93,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public UserInfo.Profile inquiryUserProfile(String loginId) {
     User user = reader.findByProviderId(loginId)
         .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
@@ -103,6 +106,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional
   public UserInfo.SignOut signOut(String loginId) {
     User user = reader.findByProviderId(loginId)
         .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",

@@ -22,7 +22,6 @@ public class AuthFacade {
     return userService.reissue(request);
   }
 
-  @Transactional
   public UserInfo.Token signUp(SignUpRequest command) {
     return userService.signUp(command);
   }
