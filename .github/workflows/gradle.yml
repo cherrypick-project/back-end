@@ -45,7 +45,8 @@ jobs:
         #envs: GITHUB_SHA
         port : 22
         script: |
+          docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
           docker pull dhdydtn91/cherrypick-api
           docker tag cherrypick-api dhdydtn91/cherrypick-api
           docker stop server
-          docker run -d -p 80:8080 cherrypick-api
+          docker run -d --rm --name server -p 80:8080 cherrypick-api
