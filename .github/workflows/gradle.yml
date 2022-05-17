@@ -35,3 +35,15 @@ jobs:
         docker build -t cherrypick-api .
         docker tag cherrypick-api dhdydtn91/cherrypick-api
         docker push dhdydtn91/cherrypick-api
+    - name: Depoly
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_NAME }}
+        username: cherrypick-admin
+        key: ${{ secrets.PRIVATE_KEY }}
+        envs: GITHUB_SHA
+        script: |
+          docker pull dhdydtn91/cherrypick-api
+          docker tag cherrypick-api dhdydtn91/cherrypick-api
+          docker stop server
+          docker run -d --rm --name server -p 80:8080 cherrypick-api
