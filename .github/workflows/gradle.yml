@@ -40,8 +40,9 @@ jobs:
       with:
         host: ${{ secrets.HOST_NAME }}
         username: ubuntu
-        key: ${{ secrets.PRIVATE_KEY }}
-        envs: GITHUB_SHA
+        password: ${{ secrets.LIGHTSAIL_PASSWORD }}
+        #key: ${{ secrets.PRIVATE_KEY }}
+        #envs: GITHUB_SHA
         script: |
           docker pull dhdydtn91/cherrypick-api
           docker tag cherrypick-api dhdydtn91/cherrypick-api
