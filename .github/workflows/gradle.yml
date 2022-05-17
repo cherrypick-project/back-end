@@ -39,7 +39,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST_NAME }}
-        username: cherrypick-admin
+        username: ubuntu
         key: ${{ secrets.PRIVATE_KEY }}
         envs: GITHUB_SHA
         script: |
