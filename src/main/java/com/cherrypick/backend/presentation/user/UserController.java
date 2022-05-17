@@ -31,6 +31,7 @@ public class UserController {
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_NEED_MORE_INFO') or hasAnyRole('ROLE_USER') or hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
   @PatchMapping("/sign-out")
   public ResponseEntity<CommonResponse> signOut(@AuthenticationPrincipal UserDetails user){
     var loginId = user.getUsername();
