@@ -43,6 +43,7 @@ jobs:
         password: ${{ secrets.LIGHTSAIL_PASSWORD }}
         #key: ${{ secrets.PRIVATE_KEY }}
         #envs: GITHUB_SHA
+        port : 22
         script: |
           docker pull dhdydtn91/cherrypick-api
           docker tag cherrypick-api dhdydtn91/cherrypick-api
