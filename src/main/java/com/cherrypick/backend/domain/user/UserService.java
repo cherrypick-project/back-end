@@ -6,5 +6,9 @@ public interface UserService {
 
   UserInfo.Token reissue(UserCommand.ReissueRequest command);
 
-  UserInfo.Token signup(UserCommand.SignUpRequest command);
+  UserInfo.Token signUp(UserCommand.SignUpRequest command);
+
+  UserInfo.Profile inquiryUserProfile(String loginId);
+
+  UserInfo.SignOut signOut(String loginId);
 }

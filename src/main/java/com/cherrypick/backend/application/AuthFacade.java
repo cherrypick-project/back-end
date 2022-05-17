@@ -6,6 +6,7 @@ import com.cherrypick.backend.domain.user.UserInfo;
 import com.cherrypick.backend.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class AuthFacade {
     return userService.reissue(request);
   }
 
-  public UserInfo.Token signup(SignUpRequest command) {
-    return userService.signup(command);
+  public UserInfo.Token signUp(SignUpRequest command) {
+    return userService.signUp(command);
   }
 }

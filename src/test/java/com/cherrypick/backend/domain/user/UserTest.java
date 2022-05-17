@@ -14,7 +14,7 @@ class UserTest {
   @Test
   void addUserInfo() {
     User user = User.OauthSignUp("1", "test1234@gmail.com",
-        "1234", ProviderType.GOOGLE);
+        "1234", "kim Su Zi",ProviderType.GOOGLE);
     SignUpRequest command = new SignUpRequest("1", "BackEnd", Career.LESS_THAN_3YEARS, "Search");
 
     user.addUserInfo(command);
@@ -22,5 +22,16 @@ class UserTest {
     assertThat(user.getJob()).isEqualTo(command.getJob());
     assertThat(user.getCareer()).isEqualTo(command.getCareer());
     assertThat(user.getKnownPath()).isEqualTo(command.getKnownPath());
+  }
+
+  @DisplayName("계정을 비활성화 환다.")
+  @Test
+  void signOut() {
+    User user =  User.OauthSignUp("1", "test1234@gmail.com",
+        "1234", "kim Su Zi",ProviderType.GOOGLE);
+
+    user.signOut();
+
+    assertThat(user.isActivated()).isFalse();
   }
 }
