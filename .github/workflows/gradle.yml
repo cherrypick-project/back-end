@@ -54,4 +54,4 @@ jobs:
           docker pull dhdydtn91/cherrypick-api
           docker stop cherrypick-api
           docker rm cherrypick-api
-          docker run -d -p 80:8080 --name cherrypick-api ${{ secrets.USERNAME }}/cherrypick-api
+          docker run -d -p 80:8080 --name cherrypick-api -e USE_PROFILE=prod ${{ secrets.USERNAME }}/cherrypick-api
