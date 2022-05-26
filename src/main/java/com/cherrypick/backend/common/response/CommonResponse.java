@@ -32,6 +32,13 @@ public class CommonResponse<T> {
         .build();
   }
 
+  //status 200 + success (data가 없을 경우)
+  public static <T> CommonResponse success() {
+    return CommonResponse.builder()
+        .result(Result.SUCCESS)
+        .build();
+  }
+
   //status 200 + fail
   public static <T> CommonResponse fail(T data, String message) {
     return CommonResponse.builder()
