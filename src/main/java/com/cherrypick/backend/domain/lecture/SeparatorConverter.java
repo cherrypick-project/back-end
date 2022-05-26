@@ -2,13 +2,12 @@ package com.cherrypick.backend.domain.lecture;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter
-public class HashTagConverter implements AttributeConverter<List<String>,String> {
+public class SeparatorConverter implements AttributeConverter<List<String>,String> {
 
   @Override
   public String convertToDatabaseColumn(List<String> attribute) {
