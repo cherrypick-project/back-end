@@ -1,6 +1,7 @@
 package com.cherrypick.backend.domain.user;
 
 import com.cherrypick.backend.domain.user.User.Career;
+import com.cherrypick.backend.domain.user.User.KnownPath;
 import com.cherrypick.backend.domain.user.oauth.ProviderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class UserInfo {
     private ProviderType providerType;
     private String job;
     private Career career;
-    private String knownPath;
+    private KnownPath knownPath;
 
   }
 

@@ -41,8 +41,8 @@ public class User {
 
   @Enumerated(EnumType.STRING)
   private Career career;
-
-  private String knownPath;
+  @Enumerated(EnumType.STRING)
+  private KnownPath knownPath;
 
   public void addUserInfo(SignUpRequest command) {
 
@@ -62,6 +62,15 @@ public class User {
     @JsonCreator
     public static Career from(String s) {
       return Career.valueOf(s.toUpperCase(Locale.ROOT));
+    }
+  }
+
+  public enum KnownPath {
+    SEARCH, FRIEND, SNS, CAFE, BLOG, ETC;
+
+    @JsonCreator
+    public static KnownPath from(String s) {
+      return KnownPath.valueOf(s.toUpperCase(Locale.ROOT));
     }
   }
 
