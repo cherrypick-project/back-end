@@ -8,6 +8,7 @@ import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.common.jwt.TokenProvider;
 import com.cherrypick.backend.domain.user.User.Career;
+import com.cherrypick.backend.domain.user.User.KnownPath;
 import com.cherrypick.backend.domain.user.UserCommand.ReissueRequest;
 import com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
 import com.cherrypick.backend.domain.user.UserCommand.UserLoginRequest;
@@ -83,7 +84,7 @@ class UserServiceImplTest {
   @Test
   void signUp() {
     SignUpRequest command = new SignUpRequest("unSignedUser", "BackEnd", Career.LESS_THAN_3YEARS,
-        "Search");
+        KnownPath.SEARCH);
 
     Token token = userService.signUp(command);
     Authentication authentication = tokenProvider.getAuthentication(token.getAccessToken());
@@ -98,7 +99,7 @@ class UserServiceImplTest {
   @Test
   void signUp_exception() {
     SignUpRequest command = new SignUpRequest("unSignedUser1", "BackEnd", Career.LESS_THAN_3YEARS,
-        "Search");
+        KnownPath.SEARCH);
 
     assertThatThrownBy(() -> userService.signUp(command))
         .isInstanceOf(BusinessException.class)
@@ -117,7 +118,7 @@ class UserServiceImplTest {
     assertThat(profile.getJob()).isEqualTo("백엔드");
     assertThat(profile.getNickname()).isEqualTo("user");
     assertThat(profile.getCareer()).isEqualTo(Career.LESS_THAN_3YEARS);
-    assertThat(profile.getKnownPath()).isEqualTo("Search");
+    assertThat(profile.getKnownPath()).isEqualTo(KnownPath.SEARCH);
   }
 
   @DisplayName("유저프로필을 찾지 못하면 예외발생")
