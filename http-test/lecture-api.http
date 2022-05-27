@@ -1,0 +1,10 @@
+### 유저 정보 조회
+GET http://localhost:8080/user/v1/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1blNpZ25lZFVzZXIiLCJjcCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MzYwMDQ1MX0.zzbMbwpoPy0GUZXjWbuU_ERUGOxrE33wx8YfxOh5eEmgu_msn2QON_tJh_IjC8t-o_y1zLnhrdSib6mMKz43qw
+
+
+###
+GET http://localhost:8080/user/v1/lectures?page=0&size=6&sort=reviewCount,asc
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiY3AiOiJST0xFX1VTRVIiLCJleHAiOjE2NTM2NTk5ODh9.7H3GIcfOA9WcdIfahlRfVzhJvzqZphzRj9PXb84ogMuknq2SuXKHm8PYw_B0gNwfndAiUaLYik8u3-pFq7wt5w
