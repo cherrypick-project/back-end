@@ -26,7 +26,8 @@ public class OAuth2SuccessHandler extends SavedRequestAwareAuthenticationSuccess
 
   private final AppProperties appProperties;
 
-  private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+  private final HttpCookieOAuth2AuthorizationRequestRepository
+    httpCookieOAuth2AuthorizationRequestRepository;
 
   //oauth2인증이 성공적으로 이뤄졌을 때 실행된다
   //token을 포함한 uri을 생성 후 인증요청 쿠키를 비워주고 redirect 한다.

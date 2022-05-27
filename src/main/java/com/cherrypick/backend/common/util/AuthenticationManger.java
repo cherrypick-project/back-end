@@ -19,15 +19,15 @@ public class AuthenticationManger {
 
   public Authentication createAuthentication(UserCommand.UserLoginRequest command) {
     UsernamePasswordAuthenticationToken authenticationToken =
-        new UsernamePasswordAuthenticationToken(command.getProviderId(), command.getPassword());
+      new UsernamePasswordAuthenticationToken(command.getProviderId(), command.getPassword());
     return authenticationManagerBuilder.getObject()
-        .authenticate(authenticationToken);
+      .authenticate(authenticationToken);
   }
 
   public Authentication changeAuthority(User user) {
     List<GrantedAuthority> authorities = List.of(
-        new SimpleGrantedAuthority(user.getAuthority().name()));
+      new SimpleGrantedAuthority(user.getAuthority().name()));
     return new UsernamePasswordAuthenticationToken(user.getProviderId(),
-        user.getPassword(), authorities);
+      user.getPassword(), authorities);
   }
 }

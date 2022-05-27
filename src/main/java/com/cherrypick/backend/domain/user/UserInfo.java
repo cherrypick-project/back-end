@@ -34,6 +34,7 @@ public class UserInfo {
   @Getter
   @AllArgsConstructor
   public static class SignOut {
+
     private String email;
   }
 }

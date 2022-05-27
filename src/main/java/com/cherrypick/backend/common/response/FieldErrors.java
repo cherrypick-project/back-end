@@ -16,15 +16,15 @@ public class FieldErrors {
   private List<FieldError> errors;
 
   public FieldErrors(
-      List<FieldError> errors) {
+    List<FieldError> errors) {
     this.errors = errors;
   }
 
   public static FieldErrors of(BindingResult bindingResult) {
     return bindingResult.getFieldErrors()
-        .stream()
-        .map(FieldError::of)
-        .collect(Collectors.collectingAndThen(toList(), FieldErrors::new));
+      .stream()
+      .map(FieldError::of)
+      .collect(Collectors.collectingAndThen(toList(), FieldErrors::new));
   }
 
   public static class FieldError {
@@ -41,7 +41,7 @@ public class FieldErrors {
 
     public static FieldError of(org.springframework.validation.FieldError fieldError) {
       return new FieldError(fieldError.getField(), (String) fieldError.getRejectedValue(),
-          fieldError.getDefaultMessage());
+        fieldError.getDefaultMessage());
     }
   }
 }

@@ -6,7 +6,6 @@ import com.cherrypick.backend.domain.user.UserInfo;
 import com.cherrypick.backend.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
