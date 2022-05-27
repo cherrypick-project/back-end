@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/user/v1/")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -38,6 +38,6 @@ public class UserController {
     var userInfo = userFacade.signOut(loginId);
     var response = userDtoMapper.of(userInfo);
 
-    return ResponseEntity.ok(CommonResponse.success(response));
+    return ResponseEntity.ok(CommonResponse.success());
   }
 }

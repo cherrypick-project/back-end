@@ -49,11 +49,11 @@ public class Review {
   private Status status;
 
   public enum Recommendation {
-    VERY_SATISFACTION, SATISFACTION, MIDDLE, SOSO
+    GOOD, BAD
   }
 
   public enum CostPerformance {
-    GOOD, BAD
+    VERY_SATISFACTION, SATISFACTION, MIDDLE, SOSO
   }
 
   public enum Status {

@@ -1,11 +1,6 @@
 package com.cherrypick.backend.domain.lecture;
 
-import static javax.persistence.FetchType.LAZY;
-
 import com.cherrypick.backend.domain.category.LectureCategory;
-import com.cherrypick.backend.domain.lecturecompany.LectureCompany;
-import com.cherrypick.backend.domain.lecturer.LectureLecturer;
-import com.cherrypick.backend.domain.lecturer.Lecturer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,10 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import jdk.jfr.Unsigned;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,14 +37,12 @@ public class Lecture {
 
   private boolean isOffline;
 
-  @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "lecture_company_id")
-  private LectureCompany lectureCompany;
+  private String lectureCompany;
 
-  @OneToMany(mappedBy = "lecture" )
-  private List<LectureLecturer> lecturer = new ArrayList<>();
+  @Convert(converter = SeparatorConverter.class)
+  private List<String> lecturer = new ArrayList<>();
 
-  @Convert(converter = HashTagConverter.class)
+  @Convert(converter = SeparatorConverter.class)
   private List<String> hashTagList = new ArrayList<>();
 
   private String originLink;

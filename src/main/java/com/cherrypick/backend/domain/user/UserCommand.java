@@ -1,5 +1,8 @@
 package com.cherrypick.backend.domain.user;
 
+import static com.cherrypick.backend.domain.user.User.Career;
+import static com.cherrypick.backend.domain.user.User.KnownPath;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,7 +30,7 @@ public class UserCommand {
 
     private String providerId;
     private String job;
-    private User.Career career;
-    private String knownPath;
+    private Career career;
+    private KnownPath knownPath;
   }
 }

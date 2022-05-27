@@ -1,5 +1,8 @@
 package com.cherrypick.backend.presentation.auth;
 
+import static com.cherrypick.backend.domain.user.User.*;
+
+import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.User.Career;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
@@ -48,8 +51,10 @@ public class AuthDto {
     @JsonProperty("career")
     @NotNull
     private Career career;
+
+    @JsonProperty("knownPath")
     @NotNull
-    private String knownPath;
+    private KnownPath knownPath;
   }
 
   @Getter
