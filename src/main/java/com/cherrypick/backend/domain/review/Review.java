@@ -46,6 +46,7 @@ public class Review {
   @Column(length = 500)
   private String weaknessComment;
 
+  @Enumerated(EnumType.STRING)
   private Status status;
 
   public enum Recommendation {
