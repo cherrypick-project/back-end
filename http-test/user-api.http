@@ -1,10 +1,10 @@
 ### 유저 정보 조회
 GET http://localhost:8080/user/v1/user
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1blNpZ25lZFVzZXIiLCJjcCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MzYwMDQ1MX0.zzbMbwpoPy0GUZXjWbuU_ERUGOxrE33wx8YfxOh5eEmgu_msn2QON_tJh_IjC8t-o_y1zLnhrdSib6mMKz43qw
+Authorization: Bearer {{jwtToken}}
 
 
 ### 회원 탈퇴
 PATCH http://localhost:8080/user/v1/sign-out
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1blNpZ25lZFVzZXIiLCJjcCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MzYwMDQ1MX0.zzbMbwpoPy0GUZXjWbuU_ERUGOxrE33wx8YfxOh5eEmgu_msn2QON_tJh_IjC8t-o_y1zLnhrdSib6mMKz43qw
+Authorization: Bearer {{jwtToken}}
