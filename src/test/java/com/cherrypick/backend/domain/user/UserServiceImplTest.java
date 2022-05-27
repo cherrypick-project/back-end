@@ -47,7 +47,7 @@ class UserServiceImplTest {
     assertThat(tokenProvider.validateToken(token.getAccessToken())).isTrue();
     assertThat(authentication.getName()).isEqualTo(command.getProviderId());
     assertThat(authentication.getAuthorities()).isEqualTo(
-        List.of(new SimpleGrantedAuthority(Authority.ROLE_ADMIN.name())));
+      List.of(new SimpleGrantedAuthority(Authority.ROLE_ADMIN.name())));
   }
 
   @DisplayName("RefreshToken을 통해 JWT토큰을 재발행 한다")
@@ -56,7 +56,7 @@ class UserServiceImplTest {
     UserLoginRequest loginCommand = new UserLoginRequest("admin", "admin");
     Token token = userService.authorize(loginCommand);
     ReissueRequest reissueCommand = new ReissueRequest(token.getAccessToken(),
-        token.getRefreshToken());
+      token.getRefreshToken());
 
     Token reissueToken = userService.reissue(reissueCommand);
     Authentication authentication = tokenProvider.getAuthentication(reissueToken.getAccessToken());
@@ -64,7 +64,7 @@ class UserServiceImplTest {
     assertThat(tokenProvider.validateToken(reissueToken.getAccessToken())).isTrue();
     assertThat(authentication.getName()).isEqualTo(loginCommand.getProviderId());
     assertThat(authentication.getAuthorities()).isEqualTo(
-        List.of(new SimpleGrantedAuthority(Authority.ROLE_ADMIN.name())));
+      List.of(new SimpleGrantedAuthority(Authority.ROLE_ADMIN.name())));
   }
 
   @DisplayName("유효하지 않은 RefreshToken으로 재발행을 할 경우 예외 발생")
@@ -76,15 +76,15 @@ class UserServiceImplTest {
     ReissueRequest reissueCommand = new ReissueRequest(accessToken, refreshToken);
 
     assertThatThrownBy(() -> userService.reissue(reissueCommand))
-        .isInstanceOf(UnAuthorizedException.class)
-        .hasMessage("유효하지 않은 RefreshToken 입니다.");
+      .isInstanceOf(UnAuthorizedException.class)
+      .hasMessage("유효하지 않은 RefreshToken 입니다.");
   }
 
   @DisplayName("회원의 추가정보를 저장하고 JWT 토큰을 발행한다")
   @Test
   void signUp() {
     SignUpRequest command = new SignUpRequest("unSignedUser", "BackEnd", Career.LESS_THAN_3YEARS,
-        KnownPath.SEARCH);
+      KnownPath.SEARCH);
 
     Token token = userService.signUp(command);
     Authentication authentication = tokenProvider.getAuthentication(token.getAccessToken());
@@ -92,18 +92,18 @@ class UserServiceImplTest {
     assertThat(tokenProvider.validateToken(token.getAccessToken())).isTrue();
     assertThat(authentication.getName()).isEqualTo(command.getProviderId());
     assertThat(authentication.getAuthorities()).isEqualTo(
-        List.of(new SimpleGrantedAuthority(Authority.ROLE_USER.name())));
+      List.of(new SimpleGrantedAuthority(Authority.ROLE_USER.name())));
   }
 
   @DisplayName("회원의 추가정보를 저장시 회원정보가 없으면 예외가 발생한다")
   @Test
   void signUp_exception() {
     SignUpRequest command = new SignUpRequest("unSignedUser1", "BackEnd", Career.LESS_THAN_3YEARS,
-        KnownPath.SEARCH);
+      KnownPath.SEARCH);
 
     assertThatThrownBy(() -> userService.signUp(command))
-        .isInstanceOf(BusinessException.class)
-        .hasMessage(command.getProviderId() + " 사용자를 찾지 못했습니다.");
+      .isInstanceOf(BusinessException.class)
+      .hasMessage(command.getProviderId() + " 사용자를 찾지 못했습니다.");
   }
 
   @DisplayName("유저 프로필 정보를 조회한다")
@@ -127,8 +127,8 @@ class UserServiceImplTest {
     String loginId = "user1";
 
     assertThatThrownBy(() -> userService.inquiryUserProfile(loginId))
-        .isInstanceOf(BusinessException.class)
-        .hasMessage(loginId + " 사용자를 찾지 못했습니다.");
+      .isInstanceOf(BusinessException.class)
+      .hasMessage(loginId + " 사용자를 찾지 못했습니다.");
   }
 
   @DisplayName("회원 탈퇴한 유저프로필 조회 시 예외발생")
@@ -137,8 +137,8 @@ class UserServiceImplTest {
     String loginId = "nonActiveUser";
 
     assertThatThrownBy(() -> userService.inquiryUserProfile(loginId))
-        .isInstanceOf(BusinessException.class)
-        .hasMessage(ErrorCode.NOT_ACTIVE_ACCOUNT.getMessage());
+      .isInstanceOf(BusinessException.class)
+      .hasMessage(ErrorCode.NOT_ACTIVE_ACCOUNT.getMessage());
   }
 
   @DisplayName("계정 탈퇴를 한다")
@@ -157,7 +157,7 @@ class UserServiceImplTest {
     String loginId = "notUser";
 
     assertThatThrownBy(() -> userService.signOut(loginId))
-        .isInstanceOf(BusinessException.class)
-        .hasMessage(loginId + " 사용자를 찾지 못했습니다.");
+      .isInstanceOf(BusinessException.class)
+      .hasMessage(loginId + " 사용자를 찾지 못했습니다.");
   }
 }

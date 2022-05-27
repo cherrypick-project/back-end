@@ -1,6 +1,6 @@
 package com.cherrypick.backend.domain.user;
 
-import static com.cherrypick.backend.domain.user.UserCommand.*;
+import static com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.cherrypick.backend.domain.user.User.Career;
@@ -15,8 +15,9 @@ class UserTest {
   @Test
   void addUserInfo() {
     User user = User.OauthSignUp("1", "test1234@gmail.com",
-        "1234", "kim Su Zi",ProviderType.GOOGLE);
-    SignUpRequest command = new SignUpRequest("1", "BackEnd", Career.LESS_THAN_3YEARS, KnownPath.CAFE);
+      "1234", "kim Su Zi", ProviderType.GOOGLE);
+    SignUpRequest command = new SignUpRequest("1", "BackEnd", Career.LESS_THAN_3YEARS,
+      KnownPath.CAFE);
 
     user.addUserInfo(command);
 
@@ -28,8 +29,8 @@ class UserTest {
   @DisplayName("계정을 비활성화 환다.")
   @Test
   void signOut() {
-    User user =  User.OauthSignUp("1", "test1234@gmail.com",
-        "1234", "kim Su Zi",ProviderType.GOOGLE);
+    User user = User.OauthSignUp("1", "test1234@gmail.com",
+      "1234", "kim Su Zi", ProviderType.GOOGLE);
 
     user.signOut();
 

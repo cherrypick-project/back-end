@@ -49,9 +49,8 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
       user.getAttributes());
     //provider타입에 따라서 각각 다르게 userInfo가져온다. (가져온 필요한 정보는 OAuth2UserInfo로 동일하다)
 
-
     Optional<User> userOptional = userReader.findByProviderId(
-        providerType + userInfo.getId());
+      providerType + userInfo.getId());
     User savedUser;
     if (userOptional.isPresent()) {
       savedUser = userOptional.get();
@@ -78,8 +77,10 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
   //넘어온 사용자 정보를 통해서 회원가입을 실행한다.
   private User createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
     String password = passwordEncoder.encode("cherryPickOauth");
-    User user = User.OauthSignUp(providerType + userInfo.getId(), userInfo.getEmail(), password, userInfo.getName() ,
-        providerType);
+    User user = User.OauthSignUp(providerType + userInfo.getId(), userInfo.getEmail(),
+      password,
+      userInfo.getName(),
+      providerType);
     return userStore.store(user);
   }
 }

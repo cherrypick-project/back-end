@@ -12,7 +12,6 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 @ControllerAdvice
 @Slf4j
@@ -34,10 +33,10 @@ public class GlobalExceptionAdvice {
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   protected ResponseEntity<CommonResponse> handleMethodArgumentNotValidException(
-      MethodArgumentNotValidException e) {
+    MethodArgumentNotValidException e) {
     log.error("handleMethodArgumentNotValidException", e);
     final CommonResponse response = CommonResponse.fail(FieldErrors.of(e.getBindingResult()),
-        ErrorCode.INVALID_INPUT_VALUE.getMessage());
+      ErrorCode.INVALID_INPUT_VALUE.getMessage());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
 
@@ -46,7 +45,7 @@ public class GlobalExceptionAdvice {
    */
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   protected ResponseEntity<CommonResponse> handleHttpRequestMethodNotSupportedException(
-      HttpRequestMethodNotSupportedException e) {
+    HttpRequestMethodNotSupportedException e) {
     log.error("handleHttpRequestMethodNotSupportedException", e);
     final CommonResponse response = CommonResponse.fail(ErrorCode.METHOD_NOT_ALLOWED.getMessage());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -57,7 +56,7 @@ public class GlobalExceptionAdvice {
    */
   @ExceptionHandler(UnAuthorizedException.class)
   protected ResponseEntity<CommonResponse> handleUnauthorizedException(
-      UnAuthorizedException e) {
+    UnAuthorizedException e) {
     log.error("handleUnauthorizedException", e);
     final CommonResponse response = CommonResponse.fail(ErrorCode.UNAUTHORIZED.getMessage());
     return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
@@ -69,7 +68,7 @@ public class GlobalExceptionAdvice {
    */
   @ExceptionHandler(AccessDeniedException.class)
   protected ResponseEntity<CommonResponse> handleAccessDeniedException(
-      AccessDeniedException e) {
+    AccessDeniedException e) {
     log.error("handleAccessDeniedException", e);
     final CommonResponse response = CommonResponse.fail(ErrorCode.ACCESS_DENIED.getMessage());
     return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
@@ -82,7 +81,7 @@ public class GlobalExceptionAdvice {
   protected ResponseEntity<CommonResponse> handleException(Exception e) {
     log.error("handleException", e);
     final CommonResponse response = CommonResponse.fail(
-        ErrorCode.INTERNAL_SERVER_ERROR.getMessage());
+      ErrorCode.INTERNAL_SERVER_ERROR.getMessage());
     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 

@@ -11,6 +11,7 @@ public class UserDto {
   @Getter
   @AllArgsConstructor
   public static class ProfileResponse {
+
     private String email;
     private String nickname;
     private boolean activated;
@@ -24,6 +25,7 @@ public class UserDto {
   @Getter
   @AllArgsConstructor
   public static class SignOutResponse {
+
     private String email;
   }
 }

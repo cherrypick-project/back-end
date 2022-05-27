@@ -52,5 +52,4 @@ public class Lecture {
   private String info;
 
   private boolean isOpened;
-
 }

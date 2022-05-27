@@ -24,7 +24,7 @@ public class AuthController {
 
   @PostMapping("/authenticate")
   public ResponseEntity<CommonResponse> login(
-      @RequestBody @Valid AuthDto.LoginRequest request) {
+    @RequestBody @Valid AuthDto.LoginRequest request) {
     var command = authDtoMapper.of(request);
     var userInfo = authFacade.authorize(command);
     var response = authDtoMapper.of(userInfo);
@@ -34,7 +34,7 @@ public class AuthController {
 
   @PostMapping("/reissue")
   public ResponseEntity<CommonResponse> reissue(
-      @RequestBody @Valid AuthDto.ReissueRequest request) {
+    @RequestBody @Valid AuthDto.ReissueRequest request) {
     var command = authDtoMapper.of(request);
     var userInfo = authFacade.reissue(command);
     var response = authDtoMapper.of(userInfo);
@@ -45,7 +45,7 @@ public class AuthController {
   @PreAuthorize("hasAnyRole('ROLE_NEED_MORE_INFO')")
   @PatchMapping("/sign-up")
   public ResponseEntity<CommonResponse> signUp(@AuthenticationPrincipal UserDetails user,
-      @RequestBody @Valid AuthDto.SignUpRequest request) {
+    @RequestBody @Valid AuthDto.SignUpRequest request) {
     request.setProviderId(user.getUsername());
     var command = authDtoMapper.of(request);
     var userInfo = authFacade.signUp(command);
