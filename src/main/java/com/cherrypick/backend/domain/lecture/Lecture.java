@@ -53,5 +53,4 @@ public class Lecture extends BaseEntity {
   private String info;
 
   private boolean isOpened;
-
 }

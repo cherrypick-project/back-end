@@ -17,7 +17,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-  private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+  private final HttpCookieOAuth2AuthorizationRequestRepository
+    httpCookieOAuth2AuthorizationRequestRepository;
 
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
@@ -29,7 +30,7 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
       .orElse(("/"));
     targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
       .queryParam("error", exception.getLocalizedMessage())
-        .encode(StandardCharsets.UTF_8)
+      .encode(StandardCharsets.UTF_8)
       .build().toUriString();
     httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request,
       response);

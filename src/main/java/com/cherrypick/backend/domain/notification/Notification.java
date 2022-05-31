@@ -21,5 +21,4 @@ public class Notification {
   private String content;
 
   private boolean isDeleted;
-
 }

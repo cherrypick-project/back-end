@@ -1,8 +1,7 @@
 package com.cherrypick.backend.presentation.auth;
 
-import static com.cherrypick.backend.domain.user.User.*;
+import static com.cherrypick.backend.domain.user.User.KnownPath;
 
-import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.User.Career;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;

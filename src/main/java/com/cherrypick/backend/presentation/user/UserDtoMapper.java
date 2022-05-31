@@ -6,14 +6,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(
-    componentModel = "spring",
-    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-    unmappedTargetPolicy = ReportingPolicy.ERROR
+  componentModel = "spring",
+  injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+  unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public interface UserDtoMapper {
 
-  UserDto.ProfileResponse of (UserInfo.Profile profile);
+  UserDto.ProfileResponse of(UserInfo.Profile profile);
 
-  UserDto.SignOutResponse of (UserInfo.SignOut profile);
-
+  UserDto.SignOutResponse of(UserInfo.SignOut profile);
 }

@@ -32,5 +32,4 @@ public class Bookmark {
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "lecture_id")
   private Lecture lecture;
-
 }

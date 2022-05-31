@@ -1,14 +1,12 @@
 package com.cherrypick.backend.domain.feedback;
 
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.LAZY;
 
 import com.cherrypick.backend.domain.user.User;
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +27,7 @@ public class Feedback {
   private Long id;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name= "user_id")
+  @JoinColumn(name = "user_id")
   private User user;
 
   private String content;

@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
 
     Token token = tokenProvider.createTokens(authentication);
     redisRepository.setValue(
-        ID_PREFIX + command.getProviderId(),
-        token.getRefreshToken(),
-        refreshTokenValidityInMilliseconds,
-        TimeUnit.MILLISECONDS);
+      ID_PREFIX + command.getProviderId(),
+      token.getRefreshToken(),
+      refreshTokenValidityInMilliseconds,
+      TimeUnit.MILLISECONDS);
 
     return token;
   }
@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
 
     val loginId = tokenProvider.getUsernameFromToken(command.getRefreshToken());
     val redisRefreshToken = redisRepository.getValue(ID_PREFIX + loginId)
-        .orElseThrow(
-            () -> new UnAuthorizedException("로그인 시간이 만료되었습니다.", ErrorCode.UNAUTHORIZED));
+      .orElseThrow(
+        () -> new UnAuthorizedException("로그인 시간이 만료되었습니다.", ErrorCode.UNAUTHORIZED));
 
     if (!redisRefreshToken.equals(command.getRefreshToken())) {
       throw new UnAuthorizedException("유효하지 않은 RefreshToken 입니다.", ErrorCode.UNAUTHORIZED);
@@ -64,10 +64,10 @@ public class UserServiceImpl implements UserService {
 
     Token token = tokenProvider.createTokens(authentication);
     redisRepository.setValue(
-        ID_PREFIX + loginId,
-        token.getRefreshToken(),
-        refreshTokenValidityInMilliseconds,
-        TimeUnit.MILLISECONDS);
+      ID_PREFIX + loginId,
+      token.getRefreshToken(),
+      refreshTokenValidityInMilliseconds,
+      TimeUnit.MILLISECONDS);
 
     return token;
   }
@@ -76,18 +76,18 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public UserInfo.Token signUp(UserCommand.SignUpRequest command) {
     User user = reader.findByProviderId(command.getProviderId())
-        .orElseThrow(() -> new BusinessException(command.getProviderId() + " 사용자를 찾지 못했습니다.",
-            ErrorCode.NOT_FOUND_USER));
+      .orElseThrow(() -> new BusinessException(command.getProviderId() + " 사용자를 찾지 못했습니다.",
+        ErrorCode.NOT_FOUND_USER));
     user.addUserInfo(command);
 
     Authentication changedAuth = authenticationManger.changeAuthority(user);
 
     Token token = tokenProvider.createTokens(changedAuth);
     redisRepository.setValue(
-        ID_PREFIX + user.getProviderId(),
-        token.getRefreshToken(),
-        refreshTokenValidityInMilliseconds,
-        TimeUnit.MILLISECONDS);
+      ID_PREFIX + user.getProviderId(),
+      token.getRefreshToken(),
+      refreshTokenValidityInMilliseconds,
+      TimeUnit.MILLISECONDS);
 
     return token;
   }
@@ -96,8 +96,8 @@ public class UserServiceImpl implements UserService {
   @Transactional(readOnly = true)
   public UserInfo.Profile inquiryUserProfile(String loginId) {
     User user = reader.findByProviderId(loginId)
-        .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
-            ErrorCode.NOT_FOUND_USER));
+      .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
+        ErrorCode.NOT_FOUND_USER));
 
     if (!user.isActivated()) {
       throw new BusinessException(ErrorCode.NOT_ACTIVE_ACCOUNT);
@@ -109,8 +109,8 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public UserInfo.SignOut signOut(String loginId) {
     User user = reader.findByProviderId(loginId)
-        .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
-            ErrorCode.NOT_FOUND_USER));
+      .orElseThrow(() -> new BusinessException(loginId + " 사용자를 찾지 못했습니다.",
+        ErrorCode.NOT_FOUND_USER));
 
     user.signOut();
     return new UserInfo.SignOut(user.getEmail());

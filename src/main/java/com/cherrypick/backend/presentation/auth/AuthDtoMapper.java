@@ -15,7 +15,10 @@ import org.mapstruct.ReportingPolicy;
 public interface AuthDtoMapper {
 
   UserCommand.UserLoginRequest of(AuthDto.LoginRequest request);
+
   UserCommand.ReissueRequest of(AuthDto.ReissueRequest request);
+
   AuthDto.LoginResponse of(UserInfo.Token userInfo);
+
   UserCommand.SignUpRequest of(AuthDto.SignUpRequest request);
 }

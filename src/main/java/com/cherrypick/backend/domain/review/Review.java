@@ -50,6 +50,8 @@ public class Review extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private Status status;
 
+  private Long userId;
+
   public enum Recommendation {
     GOOD, BAD
   }
