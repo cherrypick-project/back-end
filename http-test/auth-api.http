@@ -3,10 +3,12 @@ POST http://localhost:8080/user/v1/auth/authenticate
 Content-Type: application/json
 
 {
-  "providerId": "unSignedUser",
+  "providerId": "user",
   "password": "admin"
 }
-
+> {%
+ client.global.set("jwtToken", response.body.data.accessToken);
+ %}
 
 ### 토큰 재발행
 POST http://localhost:8080/user/v1/auth/reissue
@@ -21,7 +23,7 @@ Content-Type: application/json
 ### 회원가입
 PATCH http://localhost:8080/user/v1/auth/sign-up
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1blNpZ25lZFVzZXIiLCJjcCI6IlJPTEVfTkVFRF9NT1JFX0lORk8iLCJleHAiOjE2NTM2MDAyODZ9.SALfrAZ0lO54IGTdFRzwuY83tEF-fqLpEjqD8QGY8vIuTiQsMrxHsAQFHcyzX2fbslVKL2qFfa0F0IDSIN-e5A
+Authorization: Bearer {{jwtToken}}
 
 {
   "job": "backend",

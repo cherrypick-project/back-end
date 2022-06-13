@@ -5,6 +5,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1blNpZ25lZFVzZXIiLCJjcCI6I
 
 
 ###
-GET http://localhost:8080/user/v1/lectures?page=0&size=6&sort=reviewCount,asc
+GET http://localhost:8080/user/v1/lectures?page=0&size=6&sort=rand
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiY3AiOiJST0xFX1VTRVIiLCJleHAiOjE2NTM2NTk5ODh9.7H3GIcfOA9WcdIfahlRfVzhJvzqZphzRj9PXb84ogMuknq2SuXKHm8PYw_B0gNwfndAiUaLYik8u3-pFq7wt5w
+Authorization: Bearer {{jwtToken}}
+
+###
+GET http://localhost:8080/user/v1/lectures/4
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

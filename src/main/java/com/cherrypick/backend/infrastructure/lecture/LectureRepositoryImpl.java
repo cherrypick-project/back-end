@@ -7,14 +7,16 @@ import static com.cherrypick.backend.domain.category.QSecondCategory.secondCateg
 import static com.cherrypick.backend.domain.category.QThirdCategory.thirdCategory;
 import static com.cherrypick.backend.domain.lecture.QLecture.lecture;
 import static com.cherrypick.backend.domain.review.QReview.review;
+import static com.cherrypick.backend.domain.user.QUser.user;
 
 import com.cherrypick.backend.common.util.QueryDslOrderUtil;
 import com.cherrypick.backend.domain.lecture.Lecture;
 import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureInfo;
+import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
+import com.cherrypick.backend.domain.lecture.QLectureInfo_LectureDetail;
 import com.cherrypick.backend.domain.lecture.QLectureInfo_Lectures;
 import com.cherrypick.backend.domain.review.Review.Status;
-import com.cherrypick.backend.domain.user.QUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -44,65 +46,91 @@ public class LectureRepositoryImpl {
 
   public Page<LectureInfo.Lectures> findLectures(ConditionRequest command, Pageable pageable) {
     List<LectureInfo.Lectures> content = queryFactory.select(new QLectureInfo_Lectures(
-            lecture.id,
-            lecture.desktopImgUrl,
-            lecture.tabletImgUrl,
-            lecture.mobileImgUrl,
-            lecture.name,
-            lecture.isOffline,
-            lecture.lectureCompany,
-            lecture.lecturer,
-            lecture.hashTagList,
-            lecture.originLink,
-            lecture.price,
-            reviewCount(),
-            reviewRating(),
-            isBookMark(command)
-        )).from(lecture)
-        .leftJoin(bookmark).on(lecture.eq(bookmark.lecture))
-        .leftJoin(bookmark.user, QUser.user)
-        .where(
-            searchNameEq(command.getSearchName()),
-            categoryEq(command.getCategoryId(), command.getDepth())
-        )
-        .orderBy(
-            getOrderSpecifier(pageable.getSort())
-                .toArray(OrderSpecifier[]::new))
-        .offset(pageable.getOffset())
-        .limit(pageable.getPageSize())
-        .fetch();
+        lecture.id,
+        lecture.desktopImgUrl,
+        lecture.tabletImgUrl,
+        lecture.mobileImgUrl,
+        lecture.name,
+        lecture.isOffline,
+        lecture.lectureCompany,
+        lecture.lecturer,
+        lecture.hashTagList,
+        lecture.originLink,
+        lecture.price,
+        reviewCount(),
+        reviewRating(),
+        isBookMark(command.getProviderId())
+      )).from(lecture)
+      .leftJoin(bookmark).on(lecture.eq(bookmark.lecture))
+      .leftJoin(bookmark.user, user)
+      .where(
+        searchNameEq(command.getSearchName()),
+        categoryEq(command.getCategoryId(), command.getDepth())
+      )
+      .orderBy(
+        getOrderSpecifier(pageable.getSort())
+          .toArray(OrderSpecifier[]::new))
+      .offset(pageable.getOffset())
+      .limit(pageable.getPageSize())
+      .fetch();
 
     JPAQuery<Long> countQuery = queryFactory
-        .select(lecture.count())
-        .from(lecture)
-        .leftJoin(bookmark).on(lecture.eq(bookmark.lecture))
-        .leftJoin(bookmark.user, QUser.user)
-        .where(
-            searchNameEq(command.getSearchName()),
-            categoryEq(command.getCategoryId(), command.getDepth())
-        );
+      .select(lecture.count())
+      .from(lecture)
+      .leftJoin(bookmark).on(lecture.eq(bookmark.lecture))
+      .leftJoin(bookmark.user, user)
+      .where(
+        searchNameEq(command.getSearchName()),
+        categoryEq(command.getCategoryId(), command.getDepth())
+      );
 
     return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
   }
 
-  private BooleanExpression isBookMark(ConditionRequest command) {
+  public LectureDetail findByLectureId(String loginId, Long lectureId) {
+    return queryFactory.select(new QLectureInfo_LectureDetail(
+        lecture.id,
+        lecture.desktopImgUrl,
+        lecture.tabletImgUrl,
+        lecture.mobileImgUrl,
+        lecture.name,
+        lecture.isOffline,
+        lecture.lectureCompany,
+        lecture.lecturer,
+        lecture.hashTagList,
+        lecture.originLink,
+        lecture.price,
+        isBookMark(loginId)
+      )).from(lecture)
+      .leftJoin(bookmark).on(lecture.eq(bookmark.lecture))
+      .leftJoin(bookmark.user, user)
+      .where(
+        lectureIdEq(lectureId)
+      ).fetchOne();
+  }
+
+  private BooleanExpression lectureIdEq(Long lectureId) {
+    return lecture.id.eq(lectureId);
+  }
+
+  private BooleanExpression isBookMark(String providerId) {
     return new CaseBuilder()
-        .when(providerIdEq(command.getProviderId()))
-        .then(true)
-        .otherwise(false);
+      .when(providerIdEq(providerId))
+      .then(true)
+      .otherwise(false);
   }
 
   private JPQLQuery<Double> reviewRating() {
     return JPAExpressions.select(review.rating.avg())
-        .from(review)
-        .where(lectureEq(), statusEq());
+      .from(review)
+      .where(lectureEq(), statusEq());
   }
 
   private SimpleExpression<Long> reviewCount() {
     return Expressions.as(
-        JPAExpressions.select(review.count())
-            .from(review)
-            .where(lectureEq()), "reviewCount");
+      JPAExpressions.select(review.count())
+        .from(review)
+        .where(lectureEq()), "reviewCount");
   }
 
   private BooleanExpression categoryEq(List<Long> categoryId, int depth) {
@@ -110,22 +138,22 @@ public class LectureRepositoryImpl {
       return null;
     }
     return lecture.id.in(
-        makeSubQuery(categoryId, depth)
+      makeSubQuery(categoryId, depth)
     );
   }
 
   private JPQLQuery<Long> makeSubQuery(List<Long> categoryId, int depth) {
     if (depth == 3) {
       return JPAExpressions.select(lectureCategory.id)
-          .from(lectureCategory)
-          .where(lectureCategory.category.id.in(categoryId));
+        .from(lectureCategory)
+        .where(lectureCategory.category.id.in(categoryId));
     }
     return JPAExpressions.select(lectureCategory.id)
-        .from(lectureCategory)
-        .innerJoin(lectureCategory.category, thirdCategory)
-        .innerJoin(thirdCategory.category, secondCategory)
-        .innerJoin(secondCategory.category, firstCategory)
-        .where(firstCategory.id.in(categoryId));
+      .from(lectureCategory)
+      .innerJoin(lectureCategory.category, thirdCategory)
+      .innerJoin(thirdCategory.category, secondCategory)
+      .innerJoin(secondCategory.category, firstCategory)
+      .where(firstCategory.id.in(categoryId));
   }
 
   private BooleanExpression providerIdEq(String providerId) {
