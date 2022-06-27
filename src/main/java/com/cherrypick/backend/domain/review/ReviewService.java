@@ -1,8 +1,8 @@
 package com.cherrypick.backend.domain.review;
 
-import com.cherrypick.backend.domain.review.ReviewInfo.Statistics;
+import com.cherrypick.backend.domain.review.ReviewInfo.ReviewStatistics;
 
 public interface ReviewService {
 
-  Statistics inquiryReviewStatics(Long lectureId);
+  ReviewStatistics inquiryReviewStatics(Long lectureId);
 }

@@ -3,12 +3,8 @@ package com.cherrypick.backend.infrastructure.review;
 import static com.cherrypick.backend.domain.review.QReview.review;
 import static com.cherrypick.backend.domain.user.QUser.user;
 
-import com.cherrypick.backend.domain.review.QReviewInfo_CostPerformanceStatistics;
-import com.cherrypick.backend.domain.review.QReviewInfo_RatingByJob;
-import com.cherrypick.backend.domain.review.QReviewInfo_RecommendationStatistics;
-import com.cherrypick.backend.domain.review.ReviewInfo.CostPerformanceStatistics;
-import com.cherrypick.backend.domain.review.ReviewInfo.RatingByJob;
-import com.cherrypick.backend.domain.review.ReviewInfo.RecommendationStatistics;
+import com.cherrypick.backend.domain.review.QReviewInfo_ReviewDetail;
+import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -21,39 +17,22 @@ public class ReviewRepositoryImpl {
 
   private final JPAQueryFactory queryFactory;
 
-
-  public List<RatingByJob> findRatingByJobByLectureId(Long lectureId) {
-    return queryFactory.select(new QReviewInfo_RatingByJob(
+  public List<ReviewDetail> findAllByLectureId(Long lectureId) {
+    return queryFactory.select(new QReviewInfo_ReviewDetail(
+        review.id,
+        review.rating,
+        review.recommendation,
+        review.costPerformance,
+        review.oneLineComment,
+        review.strengthComment,
+        review.weaknessComment,
+        review.status,
+        user.id,
         user.job,
-        user.career,
-        review.rating.avg(),
-        review.id.count()
+        user.career
       )).from(review)
       .innerJoin(user).on(user.id.eq(review.userId))
       .where(lectureIdEq(lectureId))
-      .groupBy(user.job, user.career)
-      .fetch();
-  }
-
-  public List<RecommendationStatistics> findRecommendationStatisticsByLectureId(Long lectureId) {
-    return queryFactory.select(
-        new QReviewInfo_RecommendationStatistics(
-          review.recommendation,
-          review.count()
-        )).from(review)
-      .where(lectureIdEq(lectureId))
-      .groupBy(review.recommendation)
-      .fetch();
-  }
-
-  public List<CostPerformanceStatistics> findCostPerformanceStatisticsByLectureId(Long lectureId) {
-    return queryFactory.select(
-        new QReviewInfo_CostPerformanceStatistics(
-          review.costPerformance,
-          review.count()
-        )).from(review)
-      .where(lectureIdEq(lectureId))
-      .groupBy(review.costPerformance)
       .fetch();
   }
 

@@ -24,9 +24,10 @@ public class LectureFacade {
     return lectureService.inquiryLectures(command, pageable);
   }
 
-  public LectureDetail inquiryLectureDetail(String loginId, Long lectureId) {
+  public LectureDto.LectureDetail inquiryLectureDetail(String loginId,
+    Long lectureId) {
     LectureDetail lectureDetail = lectureService.inquiryLectureDetail(loginId, lectureId);
-    ReviewInfo.Statistics statistics = reviewService.inquiryReviewStatics(lectureId);
-    return lectureDetail;
+    ReviewInfo.ReviewStatistics reviewStatics = reviewService.inquiryReviewStatics(lectureId);
+    return new LectureDto.LectureDetail(lectureDetail, reviewStatics);
   }
 }

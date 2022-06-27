@@ -36,7 +36,7 @@ public class LectureController {
     @AuthenticationPrincipal UserDetails user,
     @PathVariable("lectureId") Long lectureId) {
     var loginId = user.getUsername();
-    var lectureInfo = lectureFacade.inquiryLectureDetail(loginId, lectureId);
-    return ResponseEntity.ok(CommonResponse.success(lectureInfo));
+    var response = lectureFacade.inquiryLectureDetail(loginId, lectureId);
+    return ResponseEntity.ok(CommonResponse.success(response));
   }
 }
