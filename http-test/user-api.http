@@ -8,3 +8,4 @@ Authorization: Bearer {{jwtToken}}
 PATCH http://localhost:8080/user/v1/sign-out
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
+
