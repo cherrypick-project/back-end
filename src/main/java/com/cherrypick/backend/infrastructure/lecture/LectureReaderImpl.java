@@ -7,6 +7,7 @@ import com.cherrypick.backend.domain.lecture.LectureReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,12 +17,18 @@ public class LectureReaderImpl implements LectureReader {
   private final LectureRepositoryImpl lectureRepositoryImpl;
 
   @Override
-  public Page<Lectures> inquiryLectures(ConditionRequest command, Pageable pageable) {
-    return lectureRepositoryImpl.findLectures(command, pageable);
+  public Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(ConditionRequest command, Pageable pageable) {
+    return lectureRepositoryImpl.findAllLecturePageableByLectureIdAndCategoryIdAndDepth(command, pageable);
   }
 
   @Override
-  public LectureDetail inquiryLectureDetail(String loginId, Long lectureId) {
+  public LectureDetail findByLectureId(String loginId, Long lectureId) {
     return lectureRepositoryImpl.findByLectureId(loginId, lectureId);
+  }
+
+  @Override
+  public Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(
+    ConditionRequest command, Pageable pageable) {
+    return lectureRepositoryImpl.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command, pageable);
   }
 }

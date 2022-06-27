@@ -5,10 +5,13 @@ import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 public interface LectureReader {
 
-  Page<Lectures> inquiryLectures(ConditionRequest command, Pageable pageable);
+  Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(ConditionRequest command, Pageable pageable);
 
-  LectureDetail inquiryLectureDetail(String loginId, Long lectureId);
+  LectureDetail findByLectureId(String loginId, Long lectureId);
+
+  Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(ConditionRequest command, Pageable pageable);
 }

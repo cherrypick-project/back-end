@@ -10,6 +10,7 @@ import com.cherrypick.backend.presentation.lecture.LectureDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,5 +30,9 @@ public class LectureFacade {
     LectureDetail lectureDetail = lectureService.inquiryLectureDetail(loginId, lectureId);
     ReviewInfo.ReviewStatistics reviewStatics = reviewService.inquiryReviewStatics(lectureId);
     return new LectureDto.LectureDetail(lectureDetail, reviewStatics);
+  }
+
+  public Slice<Lectures> inquiryLecturesMobile(ConditionRequest command, Pageable pageable) {
+    return lectureService.inquiryLecturesMobile(command, pageable);
   }
 }
