@@ -141,7 +141,8 @@ public class LectureRepositoryImpl {
         lecture.hashTagList,
         lecture.originLink,
         lecture.price,
-        isBookMark(loginId)
+        isBookMark(loginId),
+        lecture.info
       )).from(lecture)
       .leftJoin(bookmark).on(lecture.eq(bookmark.lecture))
       .leftJoin(bookmark.user, user)

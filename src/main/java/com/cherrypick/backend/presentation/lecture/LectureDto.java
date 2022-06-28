@@ -82,14 +82,13 @@ public class LectureDto {
     private final String lectureCompany;
     private final List<String> lecturers;
     private final List<String> hashTags;
-
     private final Review review;
-
     private final String originLink;
     private final int price;
     private final MostViewUserGroup mostViewUserGroup;
     private final boolean isBookmark;
     private final boolean isOffline;
+    private final String info;
 
 
     public LectureDetail(LectureInfo.LectureDetail lectureDetail,
@@ -107,6 +106,7 @@ public class LectureDto {
       this.mostViewUserGroup = new MostViewUserGroup(reviewStatics.getMostViewUserGroup());
       this.isBookmark = lectureDetail.isBookmark();
       this.isOffline = lectureDetail.isOffline();
+      this.info = lectureDetail.getInfo();
       this.review = new Review(
         reviewStatics.getTotalRating(),
         reviewStatics.getCount(),

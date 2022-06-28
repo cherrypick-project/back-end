@@ -61,17 +61,16 @@ public class LectureInfo {
     private String lectureCompany;
     private List<String> lecturers;
     private List<String> hashTags;
-    private double rating;
-    private long reviewCount;
     private String originLink;
     private int price;
     private boolean isBookmark;
+    private String info;
 
     @QueryProjection
     public LectureDetail(Long id, String desktopImgUrl, String tabletImgUrl,
       String mobileImgUrl, String name, boolean isOffline, String lectureCompany,
       List<String> lecturers, List<String> hashTags, String originLink, int price,
-      boolean isBookmark) {
+      boolean isBookmark, String info) {
       this.id = id;
       this.desktopImgUrl = desktopImgUrl;
       this.tabletImgUrl = tabletImgUrl;
@@ -84,6 +83,7 @@ public class LectureInfo {
       this.originLink = originLink;
       this.price = price;
       this.isBookmark = isBookmark;
+      this.info = info;
     }
   }
 }
