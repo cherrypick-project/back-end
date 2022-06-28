@@ -6,6 +6,7 @@ import com.cherrypick.backend.presentation.lecture.LectureDto.ConditionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class LectureController {
   private final LectureFacade lectureFacade;
   private final LectureDtoMapper lectureDtoMapper;
 
+  @PreAuthorize("hasAnyRole('ROLE_USER') or hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
   @GetMapping("/lectures")
   public ResponseEntity<CommonResponse> inquiryLectures(@AuthenticationPrincipal UserDetails user,
     Pageable pageable, ConditionRequest request) {
@@ -34,6 +36,7 @@ public class LectureController {
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_USER') or hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
   @GetMapping("/lectures/{lectureId}")
   public ResponseEntity<CommonResponse> inquiryLectureDetail(
     @AuthenticationPrincipal UserDetails user,
