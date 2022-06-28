@@ -2,7 +2,6 @@ package com.cherrypick.backend.presentation.lecture;
 
 import com.cherrypick.backend.application.LectureFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
-import com.cherrypick.backend.domain.lecture.LectureInfo;
 import com.cherrypick.backend.presentation.lecture.LectureDto.ConditionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
