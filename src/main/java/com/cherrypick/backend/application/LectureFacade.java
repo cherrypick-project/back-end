@@ -32,7 +32,7 @@ public class LectureFacade {
     return new LectureDto.LectureDetail(lectureDetail, reviewStatics);
   }
 
-  public Slice<Lectures> inquiryLecturesMobile(ConditionRequest command, Pageable pageable) {
+  public Slice<Lectures> inquiryLecturesForMobile(ConditionRequest command, Pageable pageable) {
     return lectureService.inquiryLecturesMobile(command, pageable);
   }
 }

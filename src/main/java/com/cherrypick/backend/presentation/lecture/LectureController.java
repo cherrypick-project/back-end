@@ -28,8 +28,8 @@ public class LectureController {
     Pageable pageable, ConditionRequest request) {
     request.setProviderId(user.getUsername());
     var command = lectureDtoMapper.of(request);
-    if(request.isMobile()){
-      var response = lectureFacade.inquiryLecturesMobile(command,pageable);
+    if (request.isMobile()) {
+      var response = lectureFacade.inquiryLecturesForMobile(command, pageable);
       return ResponseEntity.ok(CommonResponse.success(response));
     }
     var response = lectureFacade.inquiryLectures(command, pageable);
