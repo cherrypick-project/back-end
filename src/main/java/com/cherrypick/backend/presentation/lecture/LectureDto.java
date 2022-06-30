@@ -24,7 +24,7 @@ public class LectureDto {
     private Integer depth;
     @Setter
     private String providerId;
-    private boolean isMobile;
+    private Boolean isMobile;
   }
 
   @Getter

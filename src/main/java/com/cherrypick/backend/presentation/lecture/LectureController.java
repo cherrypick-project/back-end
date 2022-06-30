@@ -3,6 +3,9 @@ package com.cherrypick.backend.presentation.lecture;
 import com.cherrypick.backend.application.LectureFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
 import com.cherrypick.backend.presentation.lecture.LectureDto.ConditionRequest;
+import java.nio.file.attribute.UserPrincipal;
+import java.security.Principal;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +31,9 @@ public class LectureController {
     Pageable pageable, ConditionRequest request) {
     request.setProviderId(user.getUsername());
     var command = lectureDtoMapper.of(request);
-    if (request.isMobile()) {
+    Boolean isMobile = Optional.ofNullable(request.getIsMobile())
+      .orElse(Boolean.FALSE);
+    if (isMobile) {
       var response = lectureFacade.inquiryLecturesForMobile(command, pageable);
       return ResponseEntity.ok(CommonResponse.success(response));
     }
