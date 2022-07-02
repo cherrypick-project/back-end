@@ -16,7 +16,10 @@ public enum ErrorCode {
 
   // User
   NOT_FOUND_USER(200, "사용자를 찾지 못하였습니다."),
-  NOT_ACTIVE_ACCOUNT(200, "비활성 계정입니다.");
+  NOT_ACTIVE_ACCOUNT(200, "비활성 계정입니다."),
+
+  // Lecture
+  NOT_FOUND_LECTURE(200, "강의를 찾지 못하였습니다.");
 
   private final String message;
   private final int status;

@@ -43,11 +43,12 @@ import org.springframework.util.StringUtils;
 
 @Repository
 @RequiredArgsConstructor
-public class LectureRepositoryImpl {
+public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
   private final JPAQueryFactory queryFactory;
 
-  public Page<LectureInfo.Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(ConditionRequest command, Pageable pageable) {
+  public Page<LectureInfo.Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(
+    ConditionRequest command, Pageable pageable) {
     List<LectureInfo.Lectures> content = queryFactory.select(new QLectureInfo_Lectures(
         lecture.id,
         lecture.desktopImgUrl,
@@ -90,7 +91,8 @@ public class LectureRepositoryImpl {
     return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
   }
 
-  public Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(ConditionRequest command, Pageable pageable) {
+  public Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(
+    ConditionRequest command, Pageable pageable) {
     List<LectureInfo.Lectures> content = queryFactory.select(new QLectureInfo_Lectures(
         lecture.id,
         lecture.desktopImgUrl,
@@ -125,7 +127,7 @@ public class LectureRepositoryImpl {
       content.remove(pageable.getPageSize());
       hasNext = true;
     }
-    return new SliceImpl<>(content,pageable,hasNext);
+    return new SliceImpl<>(content, pageable, hasNext);
   }
 
   public LectureDetail findByLectureId(String loginId, Long lectureId) {
