@@ -1,0 +1,9 @@
+### 강의 리스트 조회 (메인화면 강의리스트, HOT 6, 강의검색)
+GET http://localhost:8080/user/v1/lectures?page=0&size=6&sort=price,asc
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### 강의 상세 내용 조회
+GET http://localhost:8080/user/v1/lectures/4
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

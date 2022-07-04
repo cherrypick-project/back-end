@@ -2,6 +2,7 @@ package com.cherrypick.backend.domain.review;
 
 import static javax.persistence.FetchType.LAZY;
 
+import com.cherrypick.backend.domain.BaseEntity;
 import com.cherrypick.backend.domain.lecture.Lecture;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Review {
+public class Review extends BaseEntity {
 
   @Id
   @Column(name = "id", nullable = false)
@@ -46,7 +47,10 @@ public class Review {
   @Column(length = 500)
   private String weaknessComment;
 
+  @Enumerated(EnumType.STRING)
   private Status status;
+
+  private Long userId;
 
   public enum Recommendation {
     GOOD, BAD

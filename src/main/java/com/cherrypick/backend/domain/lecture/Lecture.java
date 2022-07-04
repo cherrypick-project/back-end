@@ -1,5 +1,6 @@
 package com.cherrypick.backend.domain.lecture;
 
+import com.cherrypick.backend.domain.BaseEntity;
 import com.cherrypick.backend.domain.category.LectureCategory;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Lecture {
+public class Lecture extends BaseEntity {
 
   @Id
   @Column(name = "id", nullable = false)

@@ -34,9 +34,7 @@ public class UserController {
   @PatchMapping("/sign-out")
   public ResponseEntity<CommonResponse> signOut(@AuthenticationPrincipal UserDetails user) {
     var loginId = user.getUsername();
-    var userInfo = userFacade.signOut(loginId);
-    var response = userDtoMapper.of(userInfo);
-
+    userFacade.signOut(loginId);
     return ResponseEntity.ok(CommonResponse.success());
   }
 }
