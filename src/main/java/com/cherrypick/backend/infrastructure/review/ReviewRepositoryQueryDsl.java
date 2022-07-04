@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ReviewRepositoryImpl {
+public class ReviewRepositoryQueryDsl {
 
   private final JPAQueryFactory queryFactory;
 

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ReviewReaderImpl implements ReviewReader {
 
-  private final ReviewRepositoryImpl reviewRepository;
+  private final ReviewRepositoryQueryDsl reviewRepositoryQueryDsl;
 
   @Override
   public List<ReviewDetail> findAllByLectureId(Long lectureId) {
-    return reviewRepository.findAllByLectureId(lectureId);
+    return reviewRepositoryQueryDsl.findAllByLectureId(lectureId);
   }
 }
