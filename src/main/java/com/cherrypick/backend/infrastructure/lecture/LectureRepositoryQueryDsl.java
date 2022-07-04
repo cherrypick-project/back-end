@@ -30,6 +30,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -130,8 +131,8 @@ public class LectureRepositoryQueryDsl {
     return new SliceImpl<>(content, pageable, hasNext);
   }
 
-  public LectureDetail findByLectureId(String loginId, Long lectureId) {
-    return queryFactory.select(new QLectureInfo_LectureDetail(
+  public Optional<LectureDetail> findByLectureId(String loginId, Long lectureId) {
+    LectureDetail lectureDetail = queryFactory.select(new QLectureInfo_LectureDetail(
         lecture.id,
         lecture.desktopImgUrl,
         lecture.tabletImgUrl,
@@ -151,6 +152,7 @@ public class LectureRepositoryQueryDsl {
       .where(
         lectureIdEq(lectureId)
       ).fetchOne();
+    return Optional.ofNullable(lectureDetail);
   }
 
   private BooleanExpression lectureIdEq(Long lectureId) {

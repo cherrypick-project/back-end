@@ -1,5 +1,7 @@
 package com.cherrypick.backend.domain.lecture;
 
+import com.cherrypick.backend.common.exception.BusinessException;
+import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
@@ -22,7 +24,9 @@ public class LectureServiceImpl implements LectureService {
 
   @Override
   public LectureDetail inquiryLectureDetail(String loginId, Long lectureId) {
-    return lectureReader.findByLectureId(loginId, lectureId);
+    return lectureReader.findByLectureId(loginId, lectureId)
+      .orElseThrow(() -> new BusinessException(lectureId + "강의를 찾지 못했습니다.",
+        ErrorCode.NOT_FOUND_LECTURE));
   }
 
   @Override

@@ -4,6 +4,7 @@ import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
 import com.cherrypick.backend.domain.lecture.LectureReader;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class LectureReaderImpl implements LectureReader {
   }
 
   @Override
-  public LectureDetail findByLectureId(String loginId, Long lectureId) {
+  public Optional<LectureDetail> findByLectureId(String loginId, Long lectureId) {
     return lectureRepositoryQueryDsl.findByLectureId(loginId, lectureId);
   }
 
