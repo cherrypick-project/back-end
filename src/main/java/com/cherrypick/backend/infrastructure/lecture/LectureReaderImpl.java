@@ -14,21 +14,24 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LectureReaderImpl implements LectureReader {
 
-  private final LectureRepositoryImpl lectureRepositoryImpl;
+  private final LectureRepositoryQueryDsl lectureRepositoryQueryDsl;
 
   @Override
-  public Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(ConditionRequest command, Pageable pageable) {
-    return lectureRepositoryImpl.findAllLecturePageableByLectureIdAndCategoryIdAndDepth(command, pageable);
+  public Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(
+    ConditionRequest command, Pageable pageable) {
+    return lectureRepositoryQueryDsl.findAllLecturePageableByLectureIdAndCategoryIdAndDepth(command,
+      pageable);
   }
 
   @Override
   public LectureDetail findByLectureId(String loginId, Long lectureId) {
-    return lectureRepositoryImpl.findByLectureId(loginId, lectureId);
+    return lectureRepositoryQueryDsl.findByLectureId(loginId, lectureId);
   }
 
   @Override
   public Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(
     ConditionRequest command, Pageable pageable) {
-    return lectureRepositoryImpl.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command, pageable);
+    return lectureRepositoryQueryDsl.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command,
+      pageable);
   }
 }
