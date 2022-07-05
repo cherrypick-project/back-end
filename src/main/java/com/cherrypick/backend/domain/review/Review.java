@@ -76,10 +76,11 @@ public class Review extends BaseEntity {
     READY, APPROVE, REJECT;
   }
 
-  public Review(Lecture lecture, double rating,
+  private Review(Lecture lecture, double rating,
     Recommendation recommendation,
     CostPerformance costPerformance, String oneLineComment, String strengthComment,
     String weaknessComment, Long userId) {
+
     this.lecture = lecture;
     this.rating = rating;
     this.recommendation = recommendation;
