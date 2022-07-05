@@ -15,6 +15,7 @@ import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureInfo;
 import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
+import com.cherrypick.backend.domain.lecture.QLecture;
 import com.cherrypick.backend.domain.lecture.QLectureInfo_LectureDetail;
 import com.cherrypick.backend.domain.lecture.QLectureInfo_Lectures;
 import com.cherrypick.backend.domain.review.Review.Status;
@@ -242,5 +243,12 @@ public class LectureRepositoryQueryDsl {
       }
     });
     return orders;
+  }
+
+  public Optional<Lecture> findByLectureId(long lectureId) {
+    Lecture lecture = queryFactory.selectFrom(QLecture.lecture)
+      .where(lectureIdEq(lectureId))
+      .fetchFirst();
+    return Optional.ofNullable(lecture);
   }
 }

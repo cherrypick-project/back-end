@@ -1,5 +1,6 @@
 package com.cherrypick.backend.infrastructure.lecture;
 
+import com.cherrypick.backend.domain.lecture.Lecture;
 import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
@@ -34,5 +35,10 @@ public class LectureReaderImpl implements LectureReader {
     ConditionRequest command, Pageable pageable) {
     return lectureRepositoryQueryDsl.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command,
       pageable);
+  }
+
+  @Override
+  public Optional<Lecture> findByLectureId(long lectureId) {
+    return lectureRepositoryQueryDsl.findByLectureId(lectureId);
   }
 }
