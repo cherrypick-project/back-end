@@ -4,11 +4,15 @@ import com.cherrypick.backend.common.exception.BusinessException;
 import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.domain.lecture.Lecture;
 import com.cherrypick.backend.domain.lecture.LectureReader;
+import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
 import com.cherrypick.backend.domain.review.ReviewInfo.ReviewStatistics;
 import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.UserReader;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,5 +51,17 @@ public class ReviewServiceImpl implements ReviewService {
       .orElseThrow(() -> new BusinessException(lectureId + "강의를 찾지 못했습니다.",
         ErrorCode.NOT_FOUND_LECTURE));
     reviewStore.store(command.toEntity(lecture, user.getId()));
+  }
+
+  @Override
+  public Page<ReviewDetail> inquiryReviews(Long lectureId, Pageable pageable) {
+    return reviewReader.findAllReviewPageableByLectureId(lectureId,
+      pageable);
+  }
+
+  @Override
+  public Slice<ReviewDetail> inquiryReviewsForMobile(Long lectureId, Pageable pageable){
+    return reviewReader.findAllReviewSliceByLectureId(lectureId,
+      pageable);
   }
 }
