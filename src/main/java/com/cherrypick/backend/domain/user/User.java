@@ -89,4 +89,13 @@ public class User {
     this.activated = true;
     this.authority = Authority.ROLE_NEED_MORE_INFO;
   }
+
+  private User(long id, String email) {
+    this.id = id;
+    this.email = email;
+  }
+
+  public static User testUser(long id, String email) {
+    return new User(id,email);
+  }
 }
