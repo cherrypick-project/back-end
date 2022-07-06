@@ -38,7 +38,7 @@ public class ReviewServiceImpl implements ReviewService {
 
   @Override
   public void createReview(ReviewCommand.RegisterRequest command) {
-    long lectureId = command.getLectureId();
+    Long lectureId = command.getLectureId();
     String loginId = command.getLoginId();
 
     User user = userReader.findByProviderId(loginId).orElseThrow(

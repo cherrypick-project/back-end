@@ -38,7 +38,7 @@ public class LectureReaderImpl implements LectureReader {
   }
 
   @Override
-  public Optional<Lecture> findByLectureId(long lectureId) {
+  public Optional<Lecture> findByLectureId(Long lectureId) {
     return lectureRepositoryQueryDsl.findByLectureId(lectureId);
   }
 }

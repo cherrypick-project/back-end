@@ -18,5 +18,5 @@ public interface LectureReader {
   Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(ConditionRequest command,
     Pageable pageable);
 
-  Optional<Lecture> findByLectureId(long lectureId);
+  Optional<Lecture> findByLectureId(Long lectureId);
 }

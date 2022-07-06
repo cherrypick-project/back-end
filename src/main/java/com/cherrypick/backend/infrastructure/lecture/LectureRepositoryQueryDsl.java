@@ -245,7 +245,7 @@ public class LectureRepositoryQueryDsl {
     return orders;
   }
 
-  public Optional<Lecture> findByLectureId(long lectureId) {
+  public Optional<Lecture> findByLectureId(Long lectureId) {
     Lecture lecture = queryFactory.selectFrom(QLecture.lecture)
       .where(lectureIdEq(lectureId))
       .fetchFirst();
