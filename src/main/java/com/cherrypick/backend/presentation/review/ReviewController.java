@@ -45,4 +45,9 @@ public class ReviewController {
     var response = reviewFacade.inquiryReviews(lectureId, pageable);
     return ResponseEntity.ok(CommonResponse.success(response));
   }
+
+  @GetMapping("/reviews")
+  public ResponseEntity<CommonResponse> inquiryPreviewReviews() {
+    return ResponseEntity.ok(CommonResponse.success(reviewFacade.inquiryPreviewReviews()));
+  }
 }

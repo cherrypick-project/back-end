@@ -1,5 +1,7 @@
 package com.cherrypick.backend.domain.review;
 
+import static com.cherrypick.backend.domain.review.PreviewReviewIdGenerator.PREVIEW_REVIEW_COUNT;
+
 import com.cherrypick.backend.common.exception.BusinessException;
 import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.domain.lecture.Lecture;
@@ -8,6 +10,7 @@ import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
 import com.cherrypick.backend.domain.review.ReviewInfo.ReviewStatistics;
 import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.UserReader;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +26,7 @@ public class ReviewServiceImpl implements ReviewService {
   private final ReviewStore reviewStore;
   private final LectureReader lectureReader;
   private final UserReader userReader;
+  private final PreviewReviewIdGenerator previewReviewIdGenerator;
 
 
   @Override
@@ -60,8 +64,31 @@ public class ReviewServiceImpl implements ReviewService {
   }
 
   @Override
-  public Slice<ReviewDetail> inquiryReviewsForMobile(Long lectureId, Pageable pageable){
+  public Slice<ReviewDetail> inquiryReviewsForMobile(Long lectureId, Pageable pageable) {
     return reviewReader.findAllReviewSliceByLectureId(lectureId,
       pageable);
+  }
+
+  @Override
+  public List<ReviewDetail> inquiryPreviewReviews() {
+    Long maxId = reviewReader.findMaxId()
+      .orElseThrow(() -> new BusinessException("리뷰를 찾지 못했습니다.", ErrorCode.NOT_FOUND_REVIEW));
+    List<Long> previewReviewIds;
+    if (maxId.intValue() < PREVIEW_REVIEW_COUNT) {
+      previewReviewIds = previewReviewIdGenerator.createSequentialIds(maxId);
+      return addReview(reviewReader.findAllPreviewReviewInIds(previewReviewIds));
+    }
+    previewReviewIds = previewReviewIdGenerator.createNonDuplicationRandomIds(maxId);
+    return reviewReader.findAllPreviewReviewInIds(previewReviewIds);
+  }
+
+  private List<ReviewDetail> addReview(List<ReviewDetail> NonEnoughPreviewReviews) {
+    List<ReviewDetail> previewReviews = new ArrayList<>(NonEnoughPreviewReviews);
+    int reviewCount = NonEnoughPreviewReviews.size();
+    int insufficientCount = PREVIEW_REVIEW_COUNT - reviewCount;
+    for (int i = 0; i < insufficientCount; i++) {
+      previewReviews.add(NonEnoughPreviewReviews.get(i));
+    }
+    return previewReviews;
   }
 }

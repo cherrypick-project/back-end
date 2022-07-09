@@ -15,6 +15,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -127,5 +128,36 @@ public class ReviewRepositoryQueryDsl {
       orders.add(QueryDslOrderUtil.getSoredColumn(direction, Review.class, prop, "review"));
     });
     return orders;
+  }
+
+  public Optional<Long> findMaxId() {
+    Long maxId = queryFactory.select(review.id.max())
+      .from(review)
+      .fetchOne();
+
+    return Optional.ofNullable(maxId);
+  }
+
+  public List<ReviewDetail> findAllPreviewReviewInIds(List<Long> previewReviewIds) {
+    return queryFactory.select(new QReviewInfo_ReviewDetail(
+        review.id,
+        review.rating,
+        review.recommendation,
+        review.costPerformance,
+        review.oneLineComment,
+        review.strengthComment,
+        review.weaknessComment,
+        review.status,
+        user.id,
+        user.job,
+        user.career
+      )).from(review)
+      .innerJoin(user).on(user.id.eq(review.userId))
+      .where(lectureInIdEq(previewReviewIds))
+      .fetch();
+  }
+
+  private BooleanExpression lectureInIdEq(List<Long> previewReviewIds) {
+    return review.id.in(previewReviewIds);
   }
 }

@@ -8,7 +8,8 @@ import com.cherrypick.backend.domain.review.Review.Recommendation;
 import com.cherrypick.backend.domain.review.ReviewInfo.CostPerformanceStatics;
 import com.cherrypick.backend.domain.review.ReviewInfo.MostViewUserGroup;
 import com.cherrypick.backend.domain.review.ReviewInfo.RecommendationStatics;
-import com.cherrypick.backend.domain.review.ReviewInfo.UserGroup;
+import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
+import com.cherrypick.backend.domain.review.ReviewInfo.User;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -48,16 +49,16 @@ public class Reviews {
   }
 
   public MostViewUserGroup getMostViewUserGroup() {
-    Map<UserGroup, Long> userGroupCountMap = reviews.stream()
-      .collect(groupingBy(i -> new UserGroup(i.getJob(), i.getCareer()), counting()));
+    Map<User, Long> userGroupCountMap = reviews.stream()
+      .collect(groupingBy(ReviewDetail::getUser, counting()));
 
-    Entry<UserGroup, Long> userGroupLongEntry = userGroupCountMap.entrySet()
+    Entry<User, Long> userGroupLongEntry = userGroupCountMap.entrySet()
       .stream().max(Entry.comparingByValue()).orElse(null);
 
     if (userGroupLongEntry == null) {
       return new MostViewUserGroup();
     }
-    UserGroup userGroup = userGroupLongEntry.getKey();
+    User userGroup = userGroupLongEntry.getKey();
     return new MostViewUserGroup(userGroup);
   }
 
@@ -102,6 +103,6 @@ public class Reviews {
   }
 
   private boolean isFrontEnd(ReviewInfo.ReviewDetail review, String job) {
-    return review.getJob().equals(job);
+    return review.getUser().getJob().equals(job);
   }
 }

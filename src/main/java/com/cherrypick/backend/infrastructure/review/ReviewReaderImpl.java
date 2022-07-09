@@ -3,6 +3,7 @@ package com.cherrypick.backend.infrastructure.review;
 import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
 import com.cherrypick.backend.domain.review.ReviewReader;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,5 +31,15 @@ public class ReviewReaderImpl implements ReviewReader {
   public Slice<ReviewDetail> findAllReviewSliceByLectureId(Long lectureId,
     Pageable pageable) {
     return reviewRepositoryQueryDsl.findAllReviewSliceByLectureId(lectureId, pageable);
+  }
+
+  @Override
+  public Optional<Long> findMaxId() {
+    return reviewRepositoryQueryDsl.findMaxId();
+  }
+
+  @Override
+  public List<ReviewDetail> findAllPreviewReviewInIds(List<Long> previewReviewIds) {
+    return reviewRepositoryQueryDsl.findAllPreviewReviewInIds(previewReviewIds);
   }
 }
