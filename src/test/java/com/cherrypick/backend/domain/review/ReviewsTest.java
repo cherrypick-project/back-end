@@ -107,8 +107,8 @@ class ReviewsTest {
     RecommendationStatics recommendationStatics = reviews.getRecommendationStatics();
 
     //then
-    assertThat(recommendationStatics.getGood()).isEqualTo("50%");
-    assertThat(recommendationStatics.getBad()).isEqualTo("50%");
+    assertThat(recommendationStatics.getGood()).isEqualTo("50.00");
+    assertThat(recommendationStatics.getBad()).isEqualTo("50.00");
   }
 
   @DisplayName("CostPerformance 통계")
@@ -121,34 +121,15 @@ class ReviewsTest {
     CostPerformanceStatics costPerformanceStatics = reviews.getCostPerformanceStatics();
 
     //then
-    int verySatisfactionPercent = convertStringToInteger(
-      costPerformanceStatics.getVerySatisfactionPercent());
-    int satisfactionPercent = convertStringToInteger(
-      costPerformanceStatics.getSatisfactionPercent());
-    int middlePercent = convertStringToInteger(
-      costPerformanceStatics.getMiddlePercent());
-    int sosoPercent = convertStringToInteger(
-      costPerformanceStatics.getSosoPercent());
-
-    int total = verySatisfactionPercent + satisfactionPercent + middlePercent + sosoPercent;
-
     assertThat(costPerformanceStatics.getVerySatisfactionCount()).isEqualTo(4);
     assertThat(costPerformanceStatics.getSatisfactionCount()).isEqualTo(3);
     assertThat(costPerformanceStatics.getMiddleCount()).isEqualTo(2);
     assertThat(costPerformanceStatics.getSosoCount()).isEqualTo(3);
-    assertThat(costPerformanceStatics.getVerySatisfactionPercent()).isEqualTo("33%");
-    assertThat(costPerformanceStatics.getSatisfactionPercent()).isEqualTo("25%");
-    assertThat(costPerformanceStatics.getMiddlePercent()).isEqualTo("17%");
-    assertThat(costPerformanceStatics.getSosoPercent()).isEqualTo("25%");
-
-    assertThat(total).isEqualTo(100);
+    assertThat(costPerformanceStatics.getVerySatisfactionPercent()).isEqualTo("33.30");
+    assertThat(costPerformanceStatics.getSatisfactionPercent()).isEqualTo("25.00");
+    assertThat(costPerformanceStatics.getMiddlePercent()).isEqualTo("16.70");
+    assertThat(costPerformanceStatics.getSosoPercent()).isEqualTo("25.00");
   }
-
-  private int convertStringToInteger(String costPerformanceStatics) {
-    return Integer.parseInt(
-      costPerformanceStatics.replaceAll("%", ""));
-  }
-
 
   private List<ReviewDetail> createReviewDetail() {
     return List.of(

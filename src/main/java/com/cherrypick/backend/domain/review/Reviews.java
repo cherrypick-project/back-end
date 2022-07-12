@@ -111,7 +111,7 @@ public class Reviews {
     BigDecimal dividedValue = BigDecimal.valueOf(count)
       .divide(BigDecimal.valueOf(getCount()), 3, BigDecimal.ROUND_HALF_UP);
     BigDecimal percent = dividedValue.multiply(BigDecimal.valueOf(100));
-    DecimalFormat percentInstance = new DecimalFormat("#,##0'%'");
+    DecimalFormat percentInstance = new DecimalFormat("#,##0.00");
     return percentInstance.format(percent.doubleValue());
   }
 
@@ -120,9 +120,9 @@ public class Reviews {
     Recommendation recommendation) {
     long count = recommendationCountMap.getOrDefault(recommendation, 0L);
     BigDecimal dividedValue = BigDecimal.valueOf(count)
-      .divide(BigDecimal.valueOf(getCount()), 2, BigDecimal.ROUND_HALF_UP);
+      .divide(BigDecimal.valueOf(getCount()), 3, BigDecimal.ROUND_HALF_UP);
     BigDecimal percent = dividedValue.multiply(BigDecimal.valueOf(100));
-    DecimalFormat percentInstance = new DecimalFormat("#,##0'%'");
+    DecimalFormat percentInstance = new DecimalFormat("#,##0.00");
     return percentInstance.format(percent.doubleValue());
   }
 
