@@ -4,6 +4,8 @@ import com.cherrypick.backend.domain.review.Review.CostPerformance;
 import com.cherrypick.backend.domain.review.Review.Recommendation;
 import com.cherrypick.backend.domain.review.Review.Status;
 import com.cherrypick.backend.domain.user.User.Career;
+import com.cherrypick.backend.presentation.review.ReviewDto;
+import com.cherrypick.backend.presentation.review.ReviewDto.PreviewReviewResponse;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,8 +25,7 @@ public class ReviewInfo {
     private String weaknessComment;
     private Status status;
     private Long userId;
-    private String job;
-    private Career career;
+    private User user;
 
     @QueryProjection
     public ReviewDetail(Long id, double rating, Recommendation recommendation,
@@ -39,8 +40,21 @@ public class ReviewInfo {
       this.weaknessComment = weaknessComment;
       this.status = status;
       this.userId = userId;
-      this.job = job;
-      this.career = career;
+      this.user = new User(job, career);
+    }
+
+    public ReviewDto.PreviewReviewResponse toResponseDto() {
+      return new PreviewReviewResponse(
+        id,
+        rating,
+        recommendation,
+        costPerformance,
+        oneLineComment,
+        strengthComment,
+        weaknessComment,
+        status,
+        userId,
+        user);
     }
   }
 
@@ -68,9 +82,9 @@ public class ReviewInfo {
       this.career = null;
     }
 
-    public MostViewUserGroup(UserGroup userGroup) {
-      this.job = userGroup.getJob();
-      this.career = userGroup.getCareer();
+    public MostViewUserGroup(User user) {
+      this.job = user.getJob();
+      this.career = user.getCareer();
     }
   }
 
@@ -95,7 +109,7 @@ public class ReviewInfo {
   @Getter
   @AllArgsConstructor
   @EqualsAndHashCode
-  public static class UserGroup {
+  public static class User {
 
     private final String job;
     private final Career career;
