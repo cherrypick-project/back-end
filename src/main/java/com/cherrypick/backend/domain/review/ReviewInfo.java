@@ -100,10 +100,14 @@ public class ReviewInfo {
   @AllArgsConstructor
   public static class CostPerformanceStatics {
 
-    private final double verySatisfaction;
-    private final double satisfaction;
-    private final double middle;
-    private final double soso;
+    private final Long verySatisfactionCount;
+    private final Long satisfactionCount;
+    private final Long middleCount;
+    private final Long sosoCount;
+    private final double verySatisfactionPercent;
+    private final double satisfactionPercent;
+    private final double middlePercent;
+    private final double sosoPercent;
   }
 
   @Getter

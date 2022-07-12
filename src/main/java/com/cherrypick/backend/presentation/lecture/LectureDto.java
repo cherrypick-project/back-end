@@ -58,16 +58,24 @@ public class LectureDto {
   @AllArgsConstructor
   public static class CostPerformance {
 
-    private final double verySatisfaction;
-    private final double satisfaction;
-    private final double middle;
-    private final double soso;
+    private final Long verySatisfactionCount;
+    private final Long satisfactionCount;
+    private final Long middleCount;
+    private final Long sosoCount;
+    private final double verySatisfactionPercent;
+    private final double satisfactionPercent;
+    private final double middlePercent;
+    private final double sosoPercent;
 
     public CostPerformance(CostPerformanceStatics costPerformanceStatics) {
-      this.verySatisfaction = costPerformanceStatics.getVerySatisfaction();
-      this.satisfaction = costPerformanceStatics.getSatisfaction();
-      this.middle = costPerformanceStatics.getMiddle();
-      this.soso = costPerformanceStatics.getSoso();
+      this.verySatisfactionCount = costPerformanceStatics.getVerySatisfactionCount();
+      this.satisfactionCount = costPerformanceStatics.getSatisfactionCount();
+      this.middleCount = costPerformanceStatics.getMiddleCount();
+      this.sosoCount = costPerformanceStatics.getSosoCount();
+      this.verySatisfactionPercent = costPerformanceStatics.getVerySatisfactionPercent();
+      this.satisfactionPercent = costPerformanceStatics.getSatisfactionPercent();
+      this.middlePercent = costPerformanceStatics.getMiddlePercent();
+      this.sosoPercent = costPerformanceStatics.getSosoPercent();
     }
   }
 

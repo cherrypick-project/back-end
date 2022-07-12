@@ -76,29 +76,44 @@ public class Reviews {
     Map<CostPerformance, Long> costPerformanceCountMap = reviews.stream()
       .collect(groupingBy(ReviewInfo.ReviewDetail::getCostPerformance, counting()));
 
-    double verySatisfaction = getCostPerformanceAndCalculatePercent(costPerformanceCountMap,
+    Long verySatisfactionCount = getCostPerformanceCount(costPerformanceCountMap,
       CostPerformance.VERY_SATISFACTION);
-    double satisfaction = getCostPerformanceAndCalculatePercent(costPerformanceCountMap,
+    Long satisfactionCount = getCostPerformanceCount(costPerformanceCountMap,
       CostPerformance.SATISFACTION);
-    double middle = getCostPerformanceAndCalculatePercent(costPerformanceCountMap,
-      CostPerformance.MIDDLE);
-    double soso = getCostPerformanceAndCalculatePercent(costPerformanceCountMap,
-      CostPerformance.SOSO);
+    Long middleCount = getCostPerformanceCount(costPerformanceCountMap, CostPerformance.MIDDLE);
+    Long sosoCount = getCostPerformanceCount(costPerformanceCountMap, CostPerformance.SOSO);
 
-    return new CostPerformanceStatics(verySatisfaction, satisfaction, middle, soso);
+    double verySatisfaction = getCostPerformanceAndCalculatePercent(verySatisfactionCount);
+    double satisfaction = getCostPerformanceAndCalculatePercent(satisfactionCount);
+    double middle = getCostPerformanceAndCalculatePercent(middleCount);
+    double soso = getCostPerformanceAndCalculatePercent(sosoCount);
+
+    return new CostPerformanceStatics(
+      verySatisfactionCount,
+      satisfactionCount,
+      middleCount,
+      sosoCount,
+      verySatisfaction,
+      satisfaction,
+      middle,
+      soso
+    );
   }
 
-  private double getCostPerformanceAndCalculatePercent(
-    Map<CostPerformance, Long> costPerformanceCountMap,
+  private Long getCostPerformanceCount(Map<CostPerformance, Long> costPerformanceCountMap,
     CostPerformance costPerformance) {
-    return (costPerformanceCountMap.getOrDefault(costPerformance, 0L).doubleValue() / getCount().doubleValue())
-      * 100;
+    return costPerformanceCountMap.getOrDefault(costPerformance, 0L);
+  }
+
+  private double getCostPerformanceAndCalculatePercent(Long count) {
+    return (count.doubleValue() / getCount().doubleValue()) * 100;
   }
 
   private double getRecommendationAndCalculatePercent(
     Map<Recommendation, Long> recommendationCountMap,
     Recommendation recommendation) {
-    return (recommendationCountMap.getOrDefault(recommendation, 0L).doubleValue() / getCount().doubleValue())
+    return (recommendationCountMap.getOrDefault(recommendation, 0L).doubleValue()
+      / getCount().doubleValue())
       * 100;
   }
 
