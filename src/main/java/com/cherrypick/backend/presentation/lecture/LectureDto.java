@@ -1,6 +1,7 @@
 package com.cherrypick.backend.presentation.lecture;
 
 
+import com.cherrypick.backend.domain.lecture.LectureCommand;
 import com.cherrypick.backend.domain.lecture.LectureInfo;
 import com.cherrypick.backend.domain.review.ReviewInfo;
 import com.cherrypick.backend.domain.review.ReviewInfo.CostPerformanceStatics;
@@ -10,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 public class LectureDto {
 
@@ -22,9 +22,16 @@ public class LectureDto {
     @JsonProperty("categoryId")
     private List<Long> categoryId;
     private Integer depth;
-    @Setter
-    private String providerId;
-    private Boolean isMobile;
+
+    public LectureCommand.ConditionRequest toCommand(String loginId,
+      LectureDto.ConditionRequest request) {
+      return new LectureCommand.ConditionRequest(
+        request.getSearchName(),
+        request.getCategoryId(),
+        request.getDepth(),
+        loginId
+      );
+    }
   }
 
   @Getter
