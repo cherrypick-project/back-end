@@ -92,8 +92,8 @@ public class ReviewInfo {
   @AllArgsConstructor
   public static class RecommendationStatics {
 
-    private final double good;
-    private final double bad;
+    private final String good;
+    private final String bad;
   }
 
   @Getter
@@ -104,10 +104,10 @@ public class ReviewInfo {
     private final Long satisfactionCount;
     private final Long middleCount;
     private final Long sosoCount;
-    private final double verySatisfactionPercent;
-    private final double satisfactionPercent;
-    private final double middlePercent;
-    private final double sosoPercent;
+    private final String verySatisfactionPercent;
+    private final String satisfactionPercent;
+    private final String middlePercent;
+    private final String sosoPercent;
   }
 
   @Getter

@@ -44,13 +44,12 @@ public class LectureDto {
   @AllArgsConstructor
   public static class Recommendation {
 
-    private final double good;
-    private final double bad;
+    private final String good;
+    private final String bad;
 
     public Recommendation(RecommendationStatics recommendationStatics) {
       this.good = recommendationStatics.getGood();
       this.bad = recommendationStatics.getBad();
-      ;
     }
   }
 
@@ -62,10 +61,10 @@ public class LectureDto {
     private final Long satisfactionCount;
     private final Long middleCount;
     private final Long sosoCount;
-    private final double verySatisfactionPercent;
-    private final double satisfactionPercent;
-    private final double middlePercent;
-    private final double sosoPercent;
+    private final String verySatisfactionPercent;
+    private final String satisfactionPercent;
+    private final String middlePercent;
+    private final String sosoPercent;
 
     public CostPerformance(CostPerformanceStatics costPerformanceStatics) {
       this.verySatisfactionCount = costPerformanceStatics.getVerySatisfactionCount();

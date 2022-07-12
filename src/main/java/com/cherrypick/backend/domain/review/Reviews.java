@@ -10,6 +10,8 @@ import com.cherrypick.backend.domain.review.ReviewInfo.MostViewUserGroup;
 import com.cherrypick.backend.domain.review.ReviewInfo.RecommendationStatics;
 import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
 import com.cherrypick.backend.domain.review.ReviewInfo.User;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -66,8 +68,8 @@ public class Reviews {
     Map<Recommendation, Long> recommendationCountMap = reviews.stream()
       .collect(groupingBy(ReviewInfo.ReviewDetail::getRecommendation, counting()));
 
-    double good = getRecommendationAndCalculatePercent(recommendationCountMap, Recommendation.GOOD);
-    double bad = getRecommendationAndCalculatePercent(recommendationCountMap, Recommendation.BAD);
+    String good = getRecommendationAndCalculatePercent(recommendationCountMap, Recommendation.GOOD);
+    String bad = getRecommendationAndCalculatePercent(recommendationCountMap, Recommendation.BAD);
 
     return new RecommendationStatics(good, bad);
   }
@@ -83,10 +85,10 @@ public class Reviews {
     Long middleCount = getCostPerformanceCount(costPerformanceCountMap, CostPerformance.MIDDLE);
     Long sosoCount = getCostPerformanceCount(costPerformanceCountMap, CostPerformance.SOSO);
 
-    double verySatisfaction = getCostPerformanceAndCalculatePercent(verySatisfactionCount);
-    double satisfaction = getCostPerformanceAndCalculatePercent(satisfactionCount);
-    double middle = getCostPerformanceAndCalculatePercent(middleCount);
-    double soso = getCostPerformanceAndCalculatePercent(sosoCount);
+    String verySatisfaction = getCostPerformanceAndCalculatePercent(verySatisfactionCount);
+    String satisfaction = getCostPerformanceAndCalculatePercent(satisfactionCount);
+    String middle = getCostPerformanceAndCalculatePercent(middleCount);
+    String soso = getCostPerformanceAndCalculatePercent(sosoCount);
 
     return new CostPerformanceStatics(
       verySatisfactionCount,
@@ -105,16 +107,23 @@ public class Reviews {
     return costPerformanceCountMap.getOrDefault(costPerformance, 0L);
   }
 
-  private double getCostPerformanceAndCalculatePercent(Long count) {
-    return (count.doubleValue() / getCount().doubleValue()) * 100;
+  private String getCostPerformanceAndCalculatePercent(Long count) {
+    BigDecimal dividedValue = BigDecimal.valueOf(count)
+      .divide(BigDecimal.valueOf(getCount()), 3, BigDecimal.ROUND_HALF_UP);
+    BigDecimal percent = dividedValue.multiply(BigDecimal.valueOf(100));
+    DecimalFormat percentInstance = new DecimalFormat("#,##0'%'");
+    return percentInstance.format(percent.doubleValue());
   }
 
-  private double getRecommendationAndCalculatePercent(
+  private String getRecommendationAndCalculatePercent(
     Map<Recommendation, Long> recommendationCountMap,
     Recommendation recommendation) {
-    return (recommendationCountMap.getOrDefault(recommendation, 0L).doubleValue()
-      / getCount().doubleValue())
-      * 100;
+    long count = recommendationCountMap.getOrDefault(recommendation, 0L);
+    BigDecimal dividedValue = BigDecimal.valueOf(count)
+      .divide(BigDecimal.valueOf(getCount()), 2, BigDecimal.ROUND_HALF_UP);
+    BigDecimal percent = dividedValue.multiply(BigDecimal.valueOf(100));
+    DecimalFormat percentInstance = new DecimalFormat("#,##0'%'");
+    return percentInstance.format(percent.doubleValue());
   }
 
   private boolean isFrontEnd(ReviewInfo.ReviewDetail review, String job) {
