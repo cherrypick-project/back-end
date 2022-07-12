@@ -118,8 +118,7 @@ class ReviewServiceImplTest {
       new ReviewDetail(2L, 2.5, Recommendation.GOOD, CostPerformance.MIDDLE, "별로", "쏘쏘", "마이크 소리작음",
         Status.APPROVE, 1L, "프론트엔드", Career.LESS_THAN_3YEARS),
       new ReviewDetail(3L, 1.5, Recommendation.BAD, CostPerformance.MIDDLE, "듣지마세여", "내용부실",
-        "마이크 소리작음",
-        Status.APPROVE, 1L, "백엔드", Career.LESS_THAN_3YEARS)
+        "마이크 소리작음", Status.APPROVE, 1L, "백엔드", Career.LESS_THAN_3YEARS)
     );
   }
 
