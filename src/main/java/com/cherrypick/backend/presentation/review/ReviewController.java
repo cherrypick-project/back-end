@@ -4,7 +4,6 @@ import com.cherrypick.backend.application.ReviewFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
 import com.cherrypick.backend.domain.review.ReviewCommand;
 import java.security.Principal;
-import java.util.Optional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +43,6 @@ public class ReviewController {
     Pageable pageable,
     @RequestParam(value = "isMobile", required = false, defaultValue = "false") Boolean isMobile
   ) {
-    isMobile = Optional.ofNullable(isMobile).orElse(false);
     if (isMobile) {
       var response = reviewFacade.inquiryReviewsForMobile(lectureId, pageable);
       return ResponseEntity.ok(CommonResponse.success(response));
