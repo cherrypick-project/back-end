@@ -9,9 +9,7 @@ import org.springframework.data.domain.Slice;
 
 public interface LectureService {
 
-  Page<Lectures> inquiryLectures(ConditionRequest command, Pageable pageable);
+  Slice<Lectures> inquiryLectures(ConditionRequest command, Pageable pageable, boolean isMobile);
 
   LectureDetail inquiryLectureDetail(String loginId, Long lectureId);
-
-  Slice<Lectures> inquiryLecturesMobile(ConditionRequest command, Pageable pageable);
 }

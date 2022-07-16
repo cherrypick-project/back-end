@@ -2,8 +2,10 @@ package com.cherrypick.backend.presentation.lecture;
 
 import com.cherrypick.backend.application.LectureFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
+import com.cherrypick.backend.domain.lecture.LectureCommand;
 import com.cherrypick.backend.presentation.lecture.LectureDto.ConditionRequest;
 import java.security.Principal;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +32,9 @@ public class LectureController {
     @RequestParam(value = "isMobile", required = false, defaultValue = "false") Boolean isMobile
   ) {
     var command = request.toCommand(principal.getName(), request);
-    if (isMobile) {
-      var response = lectureFacade.inquiryLecturesForMobile(command, pageable);
-      return ResponseEntity.ok(CommonResponse.success(response));
-    }
-    var response = lectureFacade.inquiryLectures(command, pageable);
+    var response = lectureFacade.inquiryLectures(command,
+      pageable,
+      isMobile);
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
@@ -45,6 +45,24 @@ public class LectureController {
     @PathVariable("lectureId") Long lectureId) {
     var loginId = principal.getName();
     var response = lectureFacade.inquiryLectureDetail(loginId, lectureId);
+    return ResponseEntity.ok(CommonResponse.success(response));
+  }
+
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
+  @GetMapping("/lectures/bookmark")
+  public ResponseEntity<CommonResponse> inquiryMyBookmark(
+    Principal principal,
+    Pageable pageable,
+    @RequestParam(value = "isMobile", required = false, defaultValue = "false") Boolean isMobile
+  ) {
+    var loginId = principal.getName();
+    var command = new LectureCommand.ConditionRequest(
+      "",
+      new ArrayList<>(),
+      -1,
+      loginId);
+
+    var response =  lectureFacade.inquiryLectures(command, pageable, isMobile);
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 }

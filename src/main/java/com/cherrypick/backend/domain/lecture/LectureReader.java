@@ -10,13 +10,10 @@ import org.springframework.data.domain.Slice;
 
 public interface LectureReader {
 
-  Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(ConditionRequest command,
-    Pageable pageable);
+  Slice<Lectures> findAllLectureByLectureIdAndCategoryIdAndDepth(ConditionRequest command,
+    Pageable pageable, boolean isMobile);
 
   Optional<LectureDetail> findByLectureId(String loginId, Long lectureId);
-
-  Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(ConditionRequest command,
-    Pageable pageable);
 
   Optional<Lecture> findByLectureId(Long lectureId);
 }

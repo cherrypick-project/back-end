@@ -7,3 +7,8 @@ Authorization: Bearer {{jwtToken}}
 GET http://localhost:8080/user/v1/lectures/4
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
+
+### 내 북마크 강의 조회
+GET http://localhost:8080/user/v1/lectures/bookmark?page=0&size=6&sort=price,asc
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

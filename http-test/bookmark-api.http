@@ -1,4 +1,4 @@
 ### 북마크 생성
-GET http://localhost:8080/user/v1/lectures/4/bookmark
+POST http://localhost:8080/user/v1/lectures/4/bookmark
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
