@@ -33,3 +33,23 @@ Authorization: Bearer {{jwtToken}}
   "parentId": 1,
   "categoryImgUrl": "imgTest"
 }
+
+### 1차 카테고리 조회 (유저)
+GET http://localhost:8080/user/v1/category?depth=1
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### 2차 카테고리 조회 (유저)
+GET http://localhost:8080/user/v1/category?depth=2
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### 3차 카테고리 조회 (유저)
+GET http://localhost:8080/user/v1/category?depth=3
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### 1차 카테고리 조회 (어드민)
+GET http://localhost:8080/admin/v1/category?depth=1&parentId=2
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class BaseEntity {
 
   @CreatedDate
-  private LocalDateTime createAt;
+  private LocalDateTime createdAt;
 
   @CreatedBy
   private Long createdBy;
