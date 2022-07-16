@@ -1,6 +1,7 @@
 package com.cherrypick.backend.presentation.lecture;
 
 
+import com.cherrypick.backend.domain.lecture.LectureCommand;
 import com.cherrypick.backend.domain.lecture.LectureInfo;
 import com.cherrypick.backend.domain.review.ReviewInfo;
 import com.cherrypick.backend.domain.review.ReviewInfo.CostPerformanceStatics;
@@ -10,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 public class LectureDto {
 
@@ -22,9 +22,16 @@ public class LectureDto {
     @JsonProperty("categoryId")
     private List<Long> categoryId;
     private Integer depth;
-    @Setter
-    private String providerId;
-    private Boolean isMobile;
+
+    public LectureCommand.ConditionRequest toCommand(String loginId,
+      LectureDto.ConditionRequest request) {
+      return new LectureCommand.ConditionRequest(
+        request.getSearchName(),
+        request.getCategoryId(),
+        request.getDepth(),
+        loginId
+      );
+    }
   }
 
   @Getter
@@ -44,13 +51,12 @@ public class LectureDto {
   @AllArgsConstructor
   public static class Recommendation {
 
-    private final double good;
-    private final double bad;
+    private final String good;
+    private final String bad;
 
     public Recommendation(RecommendationStatics recommendationStatics) {
       this.good = recommendationStatics.getGood();
       this.bad = recommendationStatics.getBad();
-      ;
     }
   }
 
@@ -58,16 +64,24 @@ public class LectureDto {
   @AllArgsConstructor
   public static class CostPerformance {
 
-    private final double verySatisfaction;
-    private final double satisfaction;
-    private final double middle;
-    private final double soso;
+    private final Long verySatisfactionCount;
+    private final Long satisfactionCount;
+    private final Long middleCount;
+    private final Long sosoCount;
+    private final String verySatisfactionPercent;
+    private final String satisfactionPercent;
+    private final String middlePercent;
+    private final String sosoPercent;
 
     public CostPerformance(CostPerformanceStatics costPerformanceStatics) {
-      this.verySatisfaction = costPerformanceStatics.getVerySatisfaction();
-      this.satisfaction = costPerformanceStatics.getSatisfaction();
-      this.middle = costPerformanceStatics.getMiddle();
-      this.soso = costPerformanceStatics.getSoso();
+      this.verySatisfactionCount = costPerformanceStatics.getVerySatisfactionCount();
+      this.satisfactionCount = costPerformanceStatics.getSatisfactionCount();
+      this.middleCount = costPerformanceStatics.getMiddleCount();
+      this.sosoCount = costPerformanceStatics.getSosoCount();
+      this.verySatisfactionPercent = costPerformanceStatics.getVerySatisfactionPercent();
+      this.satisfactionPercent = costPerformanceStatics.getSatisfactionPercent();
+      this.middlePercent = costPerformanceStatics.getMiddlePercent();
+      this.sosoPercent = costPerformanceStatics.getSosoPercent();
     }
   }
 

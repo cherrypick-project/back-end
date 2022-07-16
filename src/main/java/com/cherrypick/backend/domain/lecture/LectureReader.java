@@ -13,10 +13,10 @@ public interface LectureReader {
   Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(ConditionRequest command,
     Pageable pageable);
 
-  LectureDetail findByLectureId(String loginId, Long lectureId);
-
-  Optional<Lecture> findByLectureId(Long lectureId);
+  Optional<LectureDetail> findByLectureId(String loginId, Long lectureId);
 
   Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(ConditionRequest command,
     Pageable pageable);
+
+  Optional<Lecture> findByLectureId(Long lectureId);
 }

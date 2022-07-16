@@ -16,28 +16,29 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LectureReaderImpl implements LectureReader {
 
-  private final LectureRepository lectureRepository;
+  private final LectureRepositoryQueryDsl lectureRepositoryQueryDsl;
 
   @Override
   public Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(
     ConditionRequest command, Pageable pageable) {
-    return lectureRepository.findAllLecturePageableByLectureIdAndCategoryIdAndDepth(command,
+    return lectureRepositoryQueryDsl.findAllLecturePageableByLectureIdAndCategoryIdAndDepth(command,
       pageable);
   }
 
   @Override
-  public LectureDetail findByLectureId(String loginId, Long lectureId) {
-    return lectureRepository.findByLectureId(loginId, lectureId);
-  }
-
-  @Override
-  public Optional<Lecture> findByLectureId(Long lectureId) {
-    return lectureRepository.findById(lectureId);
+  public Optional<LectureDetail> findByLectureId(String loginId, Long lectureId) {
+    return lectureRepositoryQueryDsl.findByLectureId(loginId, lectureId);
   }
 
   @Override
   public Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(
     ConditionRequest command, Pageable pageable) {
-    return lectureRepository.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command, pageable);
+    return lectureRepositoryQueryDsl.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command,
+      pageable);
+  }
+
+  @Override
+  public Optional<Lecture> findByLectureId(Long lectureId) {
+    return lectureRepositoryQueryDsl.findByLectureId(lectureId);
   }
 }

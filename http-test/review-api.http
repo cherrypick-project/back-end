@@ -1,0 +1,18 @@
+### review 생성
+POST http://localhost:8080/user/v1/lectures/1/review
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "rating": "3.5",
+  "recommendation": "GOOD",
+  "costPerformance": "VERY_SATISFACTION",
+  "oneLineComment": "강의가 정말 좋아요",
+  "strengthComment": "목소리가 좋아서 귀에 쏙쏙 박힙니다.",
+  "weaknessComment": "강의 내용이 부실해요"
+}
+
+### reivew 리스트 조회
+GET http://localhost:8080/user/v1/lectures/1/review/?page=1&size=6&sort=createAt,desc
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

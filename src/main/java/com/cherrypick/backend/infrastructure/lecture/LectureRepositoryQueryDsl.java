@@ -15,6 +15,7 @@ import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureInfo;
 import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
+import com.cherrypick.backend.domain.lecture.QLecture;
 import com.cherrypick.backend.domain.lecture.QLectureInfo_LectureDetail;
 import com.cherrypick.backend.domain.lecture.QLectureInfo_Lectures;
 import com.cherrypick.backend.domain.review.Review.Status;
@@ -30,6 +31,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +45,7 @@ import org.springframework.util.StringUtils;
 
 @Repository
 @RequiredArgsConstructor
-public class LectureRepositoryImpl implements LectureRepositoryCustom {
+public class LectureRepositoryQueryDsl {
 
   private final JPAQueryFactory queryFactory;
 
@@ -130,8 +132,8 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
     return new SliceImpl<>(content, pageable, hasNext);
   }
 
-  public LectureDetail findByLectureId(String loginId, Long lectureId) {
-    return queryFactory.select(new QLectureInfo_LectureDetail(
+  public Optional<LectureDetail> findByLectureId(String loginId, Long lectureId) {
+    LectureDetail lectureDetail = queryFactory.select(new QLectureInfo_LectureDetail(
         lecture.id,
         lecture.desktopImgUrl,
         lecture.tabletImgUrl,
@@ -151,6 +153,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
       .where(
         lectureIdEq(lectureId)
       ).fetchOne();
+    return Optional.ofNullable(lectureDetail);
   }
 
   private BooleanExpression lectureIdEq(Long lectureId) {
@@ -240,5 +243,12 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
       }
     });
     return orders;
+  }
+
+  public Optional<Lecture> findByLectureId(Long lectureId) {
+    Lecture lecture = queryFactory.selectFrom(QLecture.lecture)
+      .where(lectureIdEq(lectureId))
+      .fetchFirst();
+    return Optional.ofNullable(lecture);
   }
 }
