@@ -2,6 +2,7 @@ package com.cherrypick.backend.domain.category;
 
 import static javax.persistence.FetchType.LAZY;
 
+import com.cherrypick.backend.domain.BaseEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -19,14 +20,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class ThirdCategory {
+public class ThirdCategory extends BaseEntity {
 
   @Id
   @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private int name;
+  private String name;
+
+  private String categoryImgUrl;
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "second_category_id")
@@ -34,4 +37,10 @@ public class ThirdCategory {
 
   @OneToMany(mappedBy = "category")
   private List<LectureCategory> lectureCategoryList = new ArrayList<>();
+
+  public ThirdCategory(String name, SecondCategory category, String categoryImgUrl) {
+    this.name = name;
+    this.category = category;
+    this.categoryImgUrl = categoryImgUrl;
+  }
 }

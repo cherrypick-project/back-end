@@ -14,6 +14,10 @@ public enum ErrorCode {
   URL_NOT_FOUND(404, "요청하신 url을 찾지 못했습니다."),
   INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
 
+  // Category
+  NOT_FOUND_DEPTH(200, "잘못된 depth 입니다."),
+  INVALID_PARENT_ID(200, "잘못된 parent_id 입니다."),
+
   // User
   NOT_FOUND_USER(200, "사용자를 찾지 못하였습니다."),
   NOT_ACTIVE_ACCOUNT(200, "비활성 계정입니다."),

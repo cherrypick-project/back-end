@@ -1,0 +1,35 @@
+### 카테고리 생성 (1차)
+POST http://localhost:8080/user/v1/category
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "name": "백엔드",
+  "depth": 1,
+  "parentId": null,
+  "categoryImgUrl": "imgTest"
+}
+
+### 카테고리 생성 (2차)
+POST http://localhost:8080/user/v1/category
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "name": "언어",
+  "depth": 2,
+  "parentId": 1,
+  "categoryImgUrl": "imgTest"
+}
+
+### 카테고리 생성 (3차)
+POST http://localhost:8080/user/v1/category
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "name": "java",
+  "depth": 3,
+  "parentId": 1,
+  "categoryImgUrl": "imgTest"
+}
