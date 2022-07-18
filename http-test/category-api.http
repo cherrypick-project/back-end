@@ -1,0 +1,55 @@
+### 카테고리 생성 (1차)
+POST http://localhost:8080/admin/v1/category
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "name": "백엔드",
+  "depth": 1,
+  "parentId": null,
+  "categoryImgUrl": "imgTest"
+}
+
+### 카테고리 생성 (2차)
+POST http://localhost:8080/admin/v1/category
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "name": "언어",
+  "depth": 2,
+  "parentId": 1,
+  "categoryImgUrl": "imgTest"
+}
+
+### 카테고리 생성 (3차)
+POST http://localhost:8080/admin/v1/category
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "name": "java",
+  "depth": 3,
+  "parentId": 1,
+  "categoryImgUrl": "imgTest"
+}
+
+### 1차 카테고리 조회 (유저)
+GET http://localhost:8080/user/v1/category?depth=1
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### 2차 카테고리 조회 (유저)
+GET http://localhost:8080/user/v1/category?depth=2
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### 3차 카테고리 조회 (유저)
+GET http://localhost:8080/user/v1/category?depth=3
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### 1차 카테고리 조회 (어드민)
+GET http://localhost:8080/admin/v1/category?depth=1&parentId=2
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

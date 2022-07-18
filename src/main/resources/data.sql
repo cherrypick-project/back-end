@@ -53,3 +53,8 @@ values (11,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROV
 insert into bookmark (id, lecture_id, user_id) values(1,1,2);
 insert into bookmark (id, lecture_id, user_id) values(2,2,2);
 insert into bookmark (id, lecture_id, user_id) values(3,3,2);
+
+-- category
+insert into first_category (id, category_img_url, name) values(1, "imgTest", "백엔드");
+insert into second_category (id, category_img_url, name, first_category_id) values(1, "imgTest", "언어", 1);
+insert into third_category (id, category_img_url, name, second_category_id) values(1, "imgTest", "java", 1);
