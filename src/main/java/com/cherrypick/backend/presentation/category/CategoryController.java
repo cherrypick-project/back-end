@@ -23,7 +23,7 @@ public class CategoryController {
   private final CategoryFacade categoryFacade;
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-  @PostMapping("/user/v1/category")
+  @PostMapping("/admin/v1/category")
   public ResponseEntity<CommonResponse> registerCategory(@RequestBody RegisterCategory request) {
     val command = CategoryCommand.RegisterCategory.of(request);
     categoryFacade.registerCategory(command);

@@ -1,5 +1,5 @@
 ### 카테고리 생성 (1차)
-POST http://localhost:8080/user/v1/category
+POST http://localhost:8080/admin/v1/category
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
@@ -11,7 +11,7 @@ Authorization: Bearer {{jwtToken}}
 }
 
 ### 카테고리 생성 (2차)
-POST http://localhost:8080/user/v1/category
+POST http://localhost:8080/admin/v1/category
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
@@ -23,7 +23,7 @@ Authorization: Bearer {{jwtToken}}
 }
 
 ### 카테고리 생성 (3차)
-POST http://localhost:8080/user/v1/category
+POST http://localhost:8080/admin/v1/category
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
