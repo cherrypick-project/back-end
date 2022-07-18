@@ -15,8 +15,8 @@ POST http://localhost:8080/user/v1/auth/reissue
 Content-Type: application/json
 
 {
-  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNwIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1MzYwMDIwNX0.1S782ib6nb9Gx5fvn7oGNbrvPO2lDWrTsMcKEJrcVxaV1BFxzhjn6wRcW0DPnEZYpEgOAUIBmz2XAvZpmKfzhw",
-  "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNwIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1NDgwMjYwNX0.N5_TDpgrC04jl2ca2mDItGI2RVmjxSv0Zbanm_pFrghalhobPtyEi9EAoSwyuhHeXi2SGfVEY37PU_UWj8eZJA"
+  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiY3AiOiJST0xFX0FETUlOIiwiZXhwIjoxNjU3OTcxODk0fQ.tA9gt7xVUHBfONxYSycr1m8TDOlxOFwrTZGFzItigR9mv4Zii2X1KjFJPql-_GJqscPiXgmArXtOHS2D4lTanw",
+  "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiY3AiOiJST0xFX0FETUlOIiwiZXhwIjoxNjU5MTc0Mjk0fQ.OoTOvnRsh7dobFOM6-2ecW7l9syI30d5MfVxgPAG3JSxUWc5OsprGESlTtO5v3VOZTR_ozgeqCBW3q3LA8xW7w"
 }
 
 

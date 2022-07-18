@@ -18,8 +18,15 @@ public class LectureServiceImpl implements LectureService {
   private final LectureReader lectureReader;
 
   @Override
-  public Page<Lectures> inquiryLectures(ConditionRequest command, Pageable pageable) {
-    return lectureReader.findAllLecturePageableByLectureIdAndCategoryIdAndDepth(command, pageable);
+  public Slice<Lectures> inquiryLectures(
+    ConditionRequest command,
+    Pageable pageable,
+    boolean isMobile) {
+
+    return lectureReader.findAllLectureByLectureIdAndCategoryIdAndDepth(
+      command,
+      pageable,
+      isMobile);
   }
 
   @Override
@@ -27,11 +34,5 @@ public class LectureServiceImpl implements LectureService {
     return lectureReader.findByLectureId(loginId, lectureId)
       .orElseThrow(() -> new BusinessException(lectureId + "강의를 찾지 못했습니다.",
         ErrorCode.NOT_FOUND_LECTURE));
-  }
-
-  @Override
-  public Slice<Lectures> inquiryLecturesMobile(
-    ConditionRequest command, Pageable pageable) {
-    return lectureReader.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command, pageable);
   }
 }

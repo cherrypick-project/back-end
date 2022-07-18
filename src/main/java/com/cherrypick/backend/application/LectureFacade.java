@@ -21,8 +21,8 @@ public class LectureFacade {
 
   private final ReviewService reviewService;
 
-  public Page<Lectures> inquiryLectures(ConditionRequest command, Pageable pageable) {
-    return lectureService.inquiryLectures(command, pageable);
+  public Slice<Lectures> inquiryLectures(ConditionRequest command, Pageable pageable, boolean isMobile) {
+    return lectureService.inquiryLectures(command, pageable, isMobile);
   }
 
   public LectureDto.LectureDetail inquiryLectureDetail(String loginId,
@@ -30,9 +30,5 @@ public class LectureFacade {
     LectureDetail lectureDetail = lectureService.inquiryLectureDetail(loginId, lectureId);
     ReviewInfo.ReviewStatistics reviewStatics = reviewService.inquiryReviewStatics(lectureId);
     return new LectureDto.LectureDetail(lectureDetail, reviewStatics);
-  }
-
-  public Slice<Lectures> inquiryLecturesForMobile(ConditionRequest command, Pageable pageable) {
-    return lectureService.inquiryLecturesMobile(command, pageable);
   }
 }

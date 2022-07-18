@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
@@ -49,8 +48,8 @@ public class LectureRepositoryQueryDsl {
 
   private final JPAQueryFactory queryFactory;
 
-  public Page<LectureInfo.Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(
-    ConditionRequest command, Pageable pageable) {
+  public Slice<Lectures> findAllByLectureIdAndCategoryIdAndDepth(
+    ConditionRequest command, Pageable pageable, boolean isMobile) {
     List<LectureInfo.Lectures> content = queryFactory.select(new QLectureInfo_Lectures(
         lecture.id,
         lecture.desktopImgUrl,
@@ -79,6 +78,15 @@ public class LectureRepositoryQueryDsl {
       .offset(pageable.getOffset())
       .limit(pageable.getPageSize())
       .fetch();
+
+    if (isMobile) {
+      boolean hasNext = false;
+      if (content.size() > pageable.getPageSize()) {
+        content.remove(pageable.getPageSize());
+        hasNext = true;
+      }
+      return new SliceImpl<>(content, pageable, hasNext);
+    }
 
     JPAQuery<Long> countQuery = queryFactory
       .select(lecture.count())
@@ -91,45 +99,6 @@ public class LectureRepositoryQueryDsl {
       );
 
     return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
-  }
-
-  public Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(
-    ConditionRequest command, Pageable pageable) {
-    List<LectureInfo.Lectures> content = queryFactory.select(new QLectureInfo_Lectures(
-        lecture.id,
-        lecture.desktopImgUrl,
-        lecture.tabletImgUrl,
-        lecture.mobileImgUrl,
-        lecture.name,
-        lecture.isOffline,
-        lecture.lectureCompany,
-        lecture.lecturer,
-        lecture.hashTagList,
-        lecture.originLink,
-        lecture.price,
-        reviewCount(),
-        reviewRating(),
-        isBookMark(command.getProviderId())
-      )).from(lecture)
-      .leftJoin(bookmark).on(lecture.eq(bookmark.lecture))
-      .leftJoin(bookmark.user, user)
-      .where(
-        searchNameEq(command.getSearchName()),
-        categoryEq(command.getCategoryId(), command.getDepth())
-      )
-      .orderBy(
-        getOrderSpecifier(pageable.getSort())
-          .toArray(OrderSpecifier[]::new))
-      .offset(pageable.getOffset())
-      .limit(pageable.getPageSize())
-      .fetch();
-
-    boolean hasNext = false;
-    if (content.size() > pageable.getPageSize()) {
-      content.remove(pageable.getPageSize());
-      hasNext = true;
-    }
-    return new SliceImpl<>(content, pageable, hasNext);
   }
 
   public Optional<LectureDetail> findByLectureId(String loginId, Long lectureId) {

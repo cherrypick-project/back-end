@@ -19,22 +19,17 @@ public class LectureReaderImpl implements LectureReader {
   private final LectureRepositoryQueryDsl lectureRepositoryQueryDsl;
 
   @Override
-  public Page<Lectures> findAllLecturePageableByLectureIdAndCategoryIdAndDepth(
-    ConditionRequest command, Pageable pageable) {
-    return lectureRepositoryQueryDsl.findAllLecturePageableByLectureIdAndCategoryIdAndDepth(command,
-      pageable);
+  public Slice<Lectures> findAllLectureByLectureIdAndCategoryIdAndDepth(
+    ConditionRequest command, Pageable pageable, boolean isMobile) {
+    return lectureRepositoryQueryDsl.findAllByLectureIdAndCategoryIdAndDepth(
+      command,
+      pageable,
+      isMobile);
   }
 
   @Override
   public Optional<LectureDetail> findByLectureId(String loginId, Long lectureId) {
     return lectureRepositoryQueryDsl.findByLectureId(loginId, lectureId);
-  }
-
-  @Override
-  public Slice<Lectures> findAllLectureSliceByLectureIdAndCategoryIdAndDepth(
-    ConditionRequest command, Pageable pageable) {
-    return lectureRepositoryQueryDsl.findAllLectureSliceByLectureIdAndCategoryIdAndDepth(command,
-      pageable);
   }
 
   @Override
