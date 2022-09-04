@@ -80,8 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/swagger-resources/**",
         "/v2/api-docs",
         "/webjars/**",
-        "/lectures/*",
-        "/reviews"
+        "/user/v1/reviews"
       ).permitAll()
       .antMatchers(
         "/oauth2/**"

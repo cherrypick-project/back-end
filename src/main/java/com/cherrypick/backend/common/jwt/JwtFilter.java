@@ -25,8 +25,8 @@ public class JwtFilter extends GenericFilterBean {
     FilterChain filterChain)
     throws IOException, ServletException {
     HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-    String jwt = resolveToken(httpServletRequest);
     String requestURI = httpServletRequest.getRequestURI();
+    String jwt = resolveToken(httpServletRequest);
 
     if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) { // 토큰의 유효성이 검증됐을 경우,
       Authentication authentication = tokenProvider.getAuthentication(jwt);
@@ -46,6 +46,6 @@ public class JwtFilter extends GenericFilterBean {
     if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
       return bearerToken.substring(7);
     }
-    return null;
+    return tokenProvider.createNonMemberToken();
   }
 }
