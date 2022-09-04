@@ -16,3 +16,8 @@ Authorization: Bearer {{jwtToken}}
 GET http://localhost:8080/user/v1/lectures/1/review/?page=1&size=6&sort=createAt,desc
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
+
+###
+GET http://localhost:8080/admin/v1/reviews
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
