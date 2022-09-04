@@ -9,6 +9,7 @@ import com.cherrypick.backend.domain.review.ReviewInfo.RecommendationStatics;
 import com.cherrypick.backend.domain.review.ReviewInfo.ReviewStatistics;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -25,10 +26,11 @@ public class LectureDto {
 
     public LectureCommand.ConditionRequest toCommand(String loginId,
       LectureDto.ConditionRequest request) {
+
       return new LectureCommand.ConditionRequest(
         request.getSearchName(),
         request.getCategoryId(),
-        request.getDepth(),
+        Optional.ofNullable(depth).orElse(3),
         loginId
       );
     }
