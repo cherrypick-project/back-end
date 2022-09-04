@@ -7,7 +7,6 @@ import com.cherrypick.backend.presentation.review.ReviewDto.PreviewReviewRespons
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -22,12 +21,8 @@ public class ReviewFacade {
     reviewService.createReview(command);
   }
 
-  public Page<ReviewDetail> inquiryReviews(Long lectureId, Pageable pageable) {
-    return reviewService.inquiryReviews(lectureId, pageable);
-  }
-
-  public Slice<ReviewDetail> inquiryReviewsForMobile(Long lectureId, Pageable pageable) {
-    return reviewService.inquiryReviewsForMobile(lectureId, pageable);
+  public Slice<ReviewDetail> inquiryReviews(Long lectureId, Pageable pageable, Boolean isMobile) {
+    return reviewService.inquiryReviews(lectureId, pageable, isMobile);
   }
 
   public List<PreviewReviewResponse> inquiryPreviewReviews() {

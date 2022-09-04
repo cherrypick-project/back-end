@@ -13,7 +13,6 @@ import com.cherrypick.backend.domain.user.UserReader;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -58,15 +57,9 @@ public class ReviewServiceImpl implements ReviewService {
   }
 
   @Override
-  public Page<ReviewDetail> inquiryReviews(Long lectureId, Pageable pageable) {
+  public Slice<ReviewDetail> inquiryReviews(Long lectureId, Pageable pageable, Boolean isMobile) {
     return reviewReader.findAllReviewPageableByLectureId(lectureId,
-      pageable);
-  }
-
-  @Override
-  public Slice<ReviewDetail> inquiryReviewsForMobile(Long lectureId, Pageable pageable) {
-    return reviewReader.findAllReviewSliceByLectureId(lectureId,
-      pageable);
+      pageable, isMobile);
   }
 
   @Override
