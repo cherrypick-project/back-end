@@ -49,4 +49,11 @@ public class UserController {
     val userInfo = userFacade.inquiryUsers(searchName, pageable);
     return ResponseEntity.ok(CommonResponse.success(userInfo));
   }
+
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  @GetMapping("/user/statistics")
+  public ResponseEntity<CommonResponse> inquiryUserStatistics() {
+    val userInfo = userFacade.inquiryStatistics();
+    return ResponseEntity.ok(CommonResponse.success(userInfo));
+  }
 }

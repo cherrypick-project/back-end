@@ -16,4 +16,6 @@ public interface UserService {
   UserInfo.SignOut signOut(String loginId);
 
   Page<UserInfo.User> inquiryUsers(String searchName, Pageable pageable);
+
+  UserInfo.Statistics inquiryStatistics();
 }

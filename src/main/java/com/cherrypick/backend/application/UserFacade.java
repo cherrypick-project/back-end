@@ -25,4 +25,8 @@ public class UserFacade {
   public Page<User> inquiryUsers(String searchName, Pageable pageable) {
     return userService.inquiryUsers(searchName, pageable);
   }
+
+  public UserInfo.Statistics inquiryStatistics() {
+    return userService.inquiryStatistics();
+  }
 }
