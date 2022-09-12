@@ -1,8 +1,10 @@
 package com.cherrypick.backend.domain.user;
 
+import com.cherrypick.backend.domain.BaseEntity;
 import com.cherrypick.backend.domain.user.UserCommand.SignUpRequest;
 import com.cherrypick.backend.domain.user.oauth.ProviderType;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(
   access = AccessLevel.PROTECTED
 )
-public class User {
+public class User extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +45,8 @@ public class User {
   private Career career;
   @Enumerated(EnumType.STRING)
   private KnownPath knownPath;
+
+  private LocalDateTime deleteAt;
 
   public void addUserInfo(SignUpRequest command) {
 

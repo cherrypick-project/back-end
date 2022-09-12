@@ -3,6 +3,8 @@ package com.cherrypick.backend.presentation.user;
 import com.cherrypick.backend.application.UserFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -36,5 +38,17 @@ public class UserController {
     var loginId = user.getUsername();
     userFacade.signOut(loginId);
     return ResponseEntity.ok(CommonResponse.success());
+  }
+
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  @GetMapping("/users")
+  public ResponseEntity<CommonResponse> inquiryUsers(
+    Pageable pageable,
+    String searchName
+  ) {
+    val userInfo = userFacade.inquiryUsers(searchName, pageable);
+    System.out.println(userInfo);
+
+    return ResponseEntity.ok(CommonResponse.success(userInfo));
   }
 }

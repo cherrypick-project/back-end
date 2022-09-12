@@ -1,5 +1,8 @@
 package com.cherrypick.backend.domain.user;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface UserService {
 
   UserInfo.Token authorize(UserCommand.UserLoginRequest command);
@@ -11,4 +14,6 @@ public interface UserService {
   UserInfo.Profile inquiryUserProfile(String loginId);
 
   UserInfo.SignOut signOut(String loginId);
+
+  Page<UserInfo.User> inquiryUsers(String searchName, Pageable pageable);
 }
