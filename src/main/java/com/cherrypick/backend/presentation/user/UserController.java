@@ -47,8 +47,6 @@ public class UserController {
     String searchName
   ) {
     val userInfo = userFacade.inquiryUsers(searchName, pageable);
-    System.out.println(userInfo);
-
     return ResponseEntity.ok(CommonResponse.success(userInfo));
   }
 }
