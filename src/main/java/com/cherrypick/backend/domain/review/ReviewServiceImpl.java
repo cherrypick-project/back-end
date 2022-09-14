@@ -85,13 +85,18 @@ public class ReviewServiceImpl implements ReviewService {
   @Transactional(readOnly = true)
   @Override
   public Page<ReviewInfo.Review> inquiryReviews(String loginId, Pageable pageable) {
-     return reviewReader.findAllByLoginId(loginId,pageable);
+    return reviewReader.findAllByLoginId(loginId, pageable);
   }
 
   @Transactional
   @Override
   public void approve(Long reviewId) {
     reviewStore.approve(reviewId);
+  }
+
+  @Override
+  public ReviewInfo.Review inquiryReview(Long reviewId) {
+    return reviewReader.findById(reviewId);
   }
 
   private List<ReviewDetail> addReview(List<ReviewDetail> NonEnoughPreviewReviews) {

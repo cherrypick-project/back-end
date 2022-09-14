@@ -83,8 +83,10 @@ public class Review extends BaseEntity {
     this.status = Status.APPROVE;
   }
 
+  @Getter
   public enum Recommendation {
-    GOOD("GOOD", "추천해요"), BAD("BAD", "별로예요");
+    GOOD("GOOD", "추천해요"),
+    BAD("BAD", "별로예요");
     private final String code;
     private final String desc;
 
@@ -92,17 +94,19 @@ public class Review extends BaseEntity {
       this.code = code;
       this.desc = desc;
     }
+
     @JsonCreator
     public static Recommendation from(String s) {
       return Recommendation.valueOf(s.toUpperCase(Locale.ROOT));
     }
   }
 
+  @Getter
   public enum CostPerformance {
-    VERY_SATISFACTION("VERY_SATISFACTION","매우 만족"),
+    VERY_SATISFACTION("VERY_SATISFACTION", "매우 만족"),
     SATISFACTION("SATISFACTION", "만족"),
-    MIDDLE("MIDDLE","보통"),
-    SOSO("SOSO","그저 그럼");
+    MIDDLE("MIDDLE", "보통"),
+    SOSO("SOSO", "그저 그럼");
 
     private final String code;
     private final String desc;
@@ -111,6 +115,7 @@ public class Review extends BaseEntity {
       this.code = code;
       this.desc = desc;
     }
+
     @JsonCreator
     public static CostPerformance from(String s) {
       return CostPerformance.valueOf(s.toUpperCase(Locale.ROOT));

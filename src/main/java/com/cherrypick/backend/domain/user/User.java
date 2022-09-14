@@ -56,8 +56,21 @@ public class User {
     this.activated = false;
   }
 
+  @Getter
   public enum Career {
-    STUDENT, LESS_THAN_1YEARS, LESS_THAN_3YEARS, LESS_THAN_6YEARS, MORE_THAN_7YEARS;
+    STUDENT("STUDENT", "학생"),
+    LESS_THAN_1YEARS("LESS_THAN_1YEARS", "1년 미만"),
+    LESS_THAN_3YEARS("LESS_THAN_3YEARS", "1~3년차"),
+    LESS_THAN_6YEARS("LESS_THAN_6YEARS", "3~6년차"),
+    MORE_THAN_7YEARS("MORE_THAN_7YEARS", "7년차 이상");
+
+    private final String code;
+    private final String desc;
+
+    Career(String code, String desc) {
+      this.code = code;
+      this.desc = desc;
+    }
 
     @JsonCreator
     public static Career from(String s) {
@@ -65,8 +78,22 @@ public class User {
     }
   }
 
+  @Getter
   public enum KnownPath {
-    SEARCH, FRIEND, SNS, CAFE, BLOG, ETC;
+    SEARCH("SEARCH", "검색"),
+    FRIEND("FRIEND", "지인"),
+    SNS("SNS", "SNS"),
+    CAFE("CAFE", "카페"),
+    BLOG("BLOG", "블로그"),
+    ETC("ETC", "기타");
+
+    private final String code;
+    private final String desc;
+
+    KnownPath(String code, String desc) {
+      this.code = code;
+      this.desc = desc;
+    }
 
     @JsonCreator
     public static KnownPath from(String s) {
@@ -96,6 +123,6 @@ public class User {
   }
 
   public static User testUser(long id, String email) {
-    return new User(id,email);
+    return new User(id, email);
   }
 }

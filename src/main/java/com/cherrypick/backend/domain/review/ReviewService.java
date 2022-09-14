@@ -20,4 +20,6 @@ public interface ReviewService {
   Page<ReviewInfo.Review> inquiryReviews(String loginId, Pageable pageable);
 
   void approve(Long reviewId);
+
+  ReviewInfo.Review inquiryReview(Long reviewId);
 }

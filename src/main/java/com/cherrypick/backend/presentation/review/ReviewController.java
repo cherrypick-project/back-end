@@ -3,7 +3,11 @@ package com.cherrypick.backend.presentation.review;
 import com.cherrypick.backend.application.ReviewFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
 import com.cherrypick.backend.domain.review.ReviewCommand;
+import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
+import com.cherrypick.backend.presentation.review.ReviewDto.PreviewReviewResponse;
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +53,15 @@ public class ReviewController {
 
   @GetMapping("/reviews")
   public ResponseEntity<CommonResponse> inquiryPreviewReviews() {
-    return ResponseEntity.ok(CommonResponse.success(reviewFacade.inquiryPreviewReviews()));
+    var command = reviewFacade.inquiryPreviewReviews();
+    var response = convertToResponse(command);
+    return ResponseEntity.ok(CommonResponse.success(command));
+  }
+
+  private List<PreviewReviewResponse> convertToResponse(List<ReviewDetail> command) {
+    return command
+      .stream()
+      .map(PreviewReviewResponse::from)
+      .collect(Collectors.toList());
   }
 }

@@ -42,4 +42,11 @@ public class ReviewReaderImpl implements ReviewReader {
   public Page<ReviewInfo.Review> findAllByLoginId(String loginId, Pageable pageable) {
     return reviewRepositoryQueryDsl.findAllByLoginId(loginId, pageable);
   }
+
+  @Override
+  public ReviewInfo.Review findById(Long reviewId) {
+    ReviewDetail reviewDetail = reviewRepositoryQueryDsl.findReviewDetailById(reviewId);
+    ReviewInfo.Review review = reviewRepositoryQueryDsl.findReviewById(reviewId);
+    return new ReviewInfo.Review(review, reviewDetail);
+  }
 }

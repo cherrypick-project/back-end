@@ -176,4 +176,43 @@ public class ReviewRepositoryQueryDsl {
     }
     return null;
   }
+
+  public ReviewDetail findReviewDetailById(Long reviewId) {
+    return queryFactory.select(new QReviewInfo_ReviewDetail(
+        review.id,
+        review.rating,
+        review.recommendation,
+        review.costPerformance,
+        review.oneLineComment,
+        review.strengthComment,
+        review.weaknessComment,
+        review.status,
+        user.id,
+        user.job,
+        user.career
+      )).from(review)
+      .innerJoin(user).on(user.id.eq(review.userId))
+      .where(reviewIdEq(reviewId))
+      .fetchFirst();
+  }
+
+  private BooleanExpression reviewIdEq(Long reviewId) {
+    return review.id.eq(reviewId);
+  }
+
+  public ReviewInfo.Review findReviewById(Long reviewId) {
+    return queryFactory.select(new QReviewInfo_Review(
+        review.id,
+        user.email,
+        lecture.name,
+        review.createdAt,
+        review.status,
+        review.modifiedAt
+      ))
+      .from(review)
+      .innerJoin(user).on(user.id.eq(review.userId))
+      .innerJoin(lecture).on(review.lecture.id.eq(lecture.id))
+      .where(reviewIdEq(reviewId))
+      .fetchFirst();
+  }
 }

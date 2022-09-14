@@ -20,4 +20,6 @@ public interface ReviewReader {
   List<ReviewDetail> findAllPreviewReviewInIds(List<Long> previewReviewIds);
 
   Page<ReviewInfo.Review> findAllByLoginId(String loginId, Pageable pageable);
+
+  ReviewInfo.Review findById(Long reviewId);
 }

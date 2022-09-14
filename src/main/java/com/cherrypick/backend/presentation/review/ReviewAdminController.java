@@ -2,6 +2,7 @@ package com.cherrypick.backend.presentation.review;
 
 import com.cherrypick.backend.application.ReviewFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
+import com.cherrypick.backend.presentation.review.ReviewDto.ReviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -39,4 +40,13 @@ public class ReviewAdminController {
     return ResponseEntity.ok(CommonResponse.success());
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  @GetMapping("/reviews/{reviewId}")
+  public ResponseEntity<CommonResponse> inquiryReview(
+    @PathVariable Long reviewId
+  ) {
+    var command = reviewFacade.inquiryReview(reviewId);
+    var response = ReviewResponse.from(command);
+    return ResponseEntity.ok(CommonResponse.success(response));
+  }
 }
