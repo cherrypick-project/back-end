@@ -13,6 +13,7 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -29,6 +30,7 @@ import org.springframework.stereotype.Component;
 public class TokenProvider implements InitializingBean {
 
   private static final String AUTHORITIES_KEY = "cp";
+  private static final String NON_MEMBER = "NonMember";
   private final String secret;
   private final long tokenValidityInMilliseconds;
   private final long accessTokenValidityInMilliseconds;
@@ -71,6 +73,19 @@ public class TokenProvider implements InitializingBean {
     return Jwts.builder()
       .setSubject(authentication.getName())
       .claim(AUTHORITIES_KEY, authorities)
+      .signWith(key, SignatureAlgorithm.HS512)
+      .setExpiration(validity)
+      .compact();
+  }
+
+  public String createNonMemberToken() {
+    UUID uuid = UUID.randomUUID();
+    long now = (new Date()).getTime();
+    Date validity = new Date(now + this.tokenValidityInMilliseconds);
+
+    return Jwts.builder()
+      .setSubject(NON_MEMBER + uuid)
+      .claim(AUTHORITIES_KEY, new SimpleGrantedAuthority(NON_MEMBER))
       .signWith(key, SignatureAlgorithm.HS512)
       .setExpiration(validity)
       .compact();

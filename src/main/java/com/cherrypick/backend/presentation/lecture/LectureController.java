@@ -23,7 +23,6 @@ public class LectureController {
 
   private final LectureFacade lectureFacade;
 
-  @PreAuthorize("hasAnyRole('ROLE_USER') or hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
   @GetMapping("/lectures")
   public ResponseEntity<CommonResponse> inquiryLectures(
     Principal principal,
@@ -38,7 +37,6 @@ public class LectureController {
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_USER') or hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
   @GetMapping("/lectures/{lectureId}")
   public ResponseEntity<CommonResponse> inquiryLectureDetail(
     Principal principal,

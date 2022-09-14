@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
@@ -54,8 +53,8 @@ public class ReviewRepositoryQueryDsl {
     return review.lecture.id.eq(lectureId);
   }
 
-  public Page<ReviewDetail> findAllReviewPageableByLectureId(Long lectureId,
-    Pageable pageable) {
+  public Slice<ReviewDetail> findAllReviewPageableByLectureId(Long lectureId,
+    Pageable pageable, Boolean isMobile) {
     List<ReviewDetail> content = queryFactory.select(new QReviewInfo_ReviewDetail(
         review.id,
         review.rating,
@@ -77,6 +76,15 @@ public class ReviewRepositoryQueryDsl {
       .offset(pageable.getOffset())
       .limit(pageable.getPageSize())
       .fetch();
+
+    if (isMobile) {
+      boolean hasNext = false;
+      if (content.size() > pageable.getPageSize()) {
+        content.remove(pageable.getPageSize());
+        hasNext = true;
+      }
+      return new SliceImpl<>(content, pageable, hasNext);
+    }
 
     JPAQuery<Long> countQuery = queryFactory
       .select(lecture.count())
@@ -85,38 +93,6 @@ public class ReviewRepositoryQueryDsl {
       .where(lectureIdEq(lectureId));
 
     return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
-  }
-
-  public Slice<ReviewDetail> findAllReviewSliceByLectureId(Long lectureId,
-    Pageable pageable) {
-    List<ReviewDetail> content = queryFactory.select(new QReviewInfo_ReviewDetail(
-        review.id,
-        review.rating,
-        review.recommendation,
-        review.costPerformance,
-        review.oneLineComment,
-        review.strengthComment,
-        review.weaknessComment,
-        review.status,
-        user.id,
-        user.job,
-        user.career
-      )).from(review)
-      .innerJoin(user).on(user.id.eq(review.userId))
-      .where(lectureIdEq(lectureId))
-      .orderBy(
-        getOrderSpecifier(pageable.getSort())
-          .toArray(OrderSpecifier[]::new))
-      .offset(pageable.getOffset())
-      .limit(pageable.getPageSize())
-      .fetch();
-
-    boolean hasNext = false;
-    if (content.size() > pageable.getPageSize()) {
-      content.remove(pageable.getPageSize());
-      hasNext = true;
-    }
-    return new SliceImpl<>(content, pageable, hasNext);
   }
 
   private List<OrderSpecifier> getOrderSpecifier(Sort sort) {

@@ -43,11 +43,7 @@ public class ReviewController {
     Pageable pageable,
     @RequestParam(value = "isMobile", required = false, defaultValue = "false") Boolean isMobile
   ) {
-    if (isMobile) {
-      var response = reviewFacade.inquiryReviewsForMobile(lectureId, pageable);
-      return ResponseEntity.ok(CommonResponse.success(response));
-    }
-    var response = reviewFacade.inquiryReviews(lectureId, pageable);
+    var response = reviewFacade.inquiryReviews(lectureId, pageable, isMobile);
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
