@@ -12,7 +12,7 @@ Authorization: Bearer {{jwtToken}}
 
 
 ### 유저 리스트 조회
-GET http://localhost:8080/user/v1/users
+GET http://localhost:8080/admin/v1/users
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
