@@ -39,14 +39,4 @@ public class UserController {
     userFacade.signOut(loginId);
     return ResponseEntity.ok(CommonResponse.success());
   }
-
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-  @GetMapping("/users")
-  public ResponseEntity<CommonResponse> inquiryUsers(
-    Pageable pageable,
-    String searchName
-  ) {
-    val userInfo = userFacade.inquiryUsers(searchName, pageable);
-    return ResponseEntity.ok(CommonResponse.success(userInfo));
-  }
 }
