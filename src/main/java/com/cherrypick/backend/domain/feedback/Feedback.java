@@ -2,6 +2,7 @@ package com.cherrypick.backend.domain.feedback;
 
 import static javax.persistence.FetchType.LAZY;
 
+import com.cherrypick.backend.domain.BaseEntity;
 import com.cherrypick.backend.domain.user.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Feedback {
+public class Feedback extends BaseEntity {
 
   @Id
   @Column(name = "id", nullable = false)

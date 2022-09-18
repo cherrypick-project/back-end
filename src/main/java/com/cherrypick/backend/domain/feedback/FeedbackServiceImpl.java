@@ -6,6 +6,8 @@ import com.cherrypick.backend.domain.feedback.FeedbackCommand.RegisterFeedbackRe
 import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.UserReader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +16,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
   private final UserReader userReader;
   private final FeedbackStore feedbackStore;
+  private final FeedbackReader feedbackReader;
 
   @Override
   public void registerFeedback(RegisterFeedbackRequest command, String name) {
@@ -23,5 +26,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     Feedback feedback = Feedback.Register(registrant, command.getContent(), command.getRating());
     feedbackStore.store(feedback);
+  }
+
+  @Override
+  public Page<FeedbackInfo.Feedback> inquiryFeedbacks(Long userId, Pageable pageable) {
+    return feedbackReader.findAllByUserId(userId, pageable);
   }
 }
