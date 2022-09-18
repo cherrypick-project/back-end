@@ -11,6 +11,7 @@ import com.cherrypick.backend.domain.review.ReviewInfo.RecommendationStatics;
 import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
 import com.cherrypick.backend.domain.review.ReviewInfo.User;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -108,8 +109,11 @@ public class Reviews {
   }
 
   private String getCostPerformanceAndCalculatePercent(Long count) {
+    if(getCount() == 0 || count == 0){
+      return "0";
+    }
     BigDecimal dividedValue = BigDecimal.valueOf(count)
-      .divide(BigDecimal.valueOf(getCount()), 3, BigDecimal.ROUND_HALF_UP);
+      .divide(BigDecimal.valueOf(getCount()), 3, RoundingMode.HALF_UP);
     BigDecimal percent = dividedValue.multiply(BigDecimal.valueOf(100));
     DecimalFormat percentInstance = new DecimalFormat("#,##0.00");
     return percentInstance.format(percent.doubleValue());
@@ -118,9 +122,12 @@ public class Reviews {
   private String getRecommendationAndCalculatePercent(
     Map<Recommendation, Long> recommendationCountMap,
     Recommendation recommendation) {
+    if(getCount() == 0){
+      return "0";
+    }
     long count = recommendationCountMap.getOrDefault(recommendation, 0L);
     BigDecimal dividedValue = BigDecimal.valueOf(count)
-      .divide(BigDecimal.valueOf(getCount()), 3, BigDecimal.ROUND_HALF_UP);
+      .divide(BigDecimal.valueOf(getCount()), 3, RoundingMode.HALF_UP);
     BigDecimal percent = dividedValue.multiply(BigDecimal.valueOf(100));
     DecimalFormat percentInstance = new DecimalFormat("#,##0.00");
     return percentInstance.format(percent.doubleValue());

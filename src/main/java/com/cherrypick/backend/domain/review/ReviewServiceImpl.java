@@ -13,9 +13,11 @@ import com.cherrypick.backend.domain.user.UserReader;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
   private final PreviewReviewIdGenerator previewReviewIdGenerator;
 
 
+  @Transactional(readOnly = true)
   @Override
   public ReviewStatistics inquiryReviewStatics(Long lectureId) {
     List<ReviewInfo.ReviewDetail> reviewList = reviewReader.findAllByLectureId(lectureId);
@@ -43,6 +46,7 @@ public class ReviewServiceImpl implements ReviewService {
       reviews.getMostViewUserGroup());
   }
 
+  @Transactional
   @Override
   public void createReview(ReviewCommand.RegisterRequest command) {
     Long lectureId = command.getLectureId();
@@ -56,11 +60,14 @@ public class ReviewServiceImpl implements ReviewService {
     reviewStore.store(command.toEntity(lecture, user.getId()));
   }
 
+  @Transactional(readOnly = true)
   @Override
   public Slice<ReviewDetail> inquiryReviews(Long lectureId, Pageable pageable, Boolean isMobile) {
     return reviewReader.findAllReviewPageableByLectureId(lectureId,
       pageable, isMobile);
   }
+
+  @Transactional(readOnly = true)
 
   @Override
   public List<ReviewDetail> inquiryPreviewReviews() {
@@ -73,6 +80,23 @@ public class ReviewServiceImpl implements ReviewService {
     }
     previewReviewIds = previewReviewIdGenerator.createNonDuplicationRandomIds(maxId);
     return reviewReader.findAllPreviewReviewInIds(previewReviewIds);
+  }
+
+  @Transactional(readOnly = true)
+  @Override
+  public Page<ReviewInfo.Review> inquiryReviews(String loginId, Pageable pageable) {
+    return reviewReader.findAllByLoginId(loginId, pageable);
+  }
+
+  @Transactional
+  @Override
+  public void approve(Long reviewId) {
+    reviewStore.approve(reviewId);
+  }
+
+  @Override
+  public ReviewInfo.Review inquiryReview(Long reviewId) {
+    return reviewReader.findById(reviewId);
   }
 
   private List<ReviewDetail> addReview(List<ReviewDetail> NonEnoughPreviewReviews) {

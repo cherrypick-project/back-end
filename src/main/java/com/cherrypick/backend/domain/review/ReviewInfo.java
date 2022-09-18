@@ -4,9 +4,9 @@ import com.cherrypick.backend.domain.review.Review.CostPerformance;
 import com.cherrypick.backend.domain.review.Review.Recommendation;
 import com.cherrypick.backend.domain.review.Review.Status;
 import com.cherrypick.backend.domain.user.User.Career;
-import com.cherrypick.backend.presentation.review.ReviewDto;
-import com.cherrypick.backend.presentation.review.ReviewDto.PreviewReviewResponse;
 import com.querydsl.core.annotations.QueryProjection;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,20 +41,6 @@ public class ReviewInfo {
       this.status = status;
       this.userId = userId;
       this.user = new User(job, career);
-    }
-
-    public ReviewDto.PreviewReviewResponse toResponseDto() {
-      return new PreviewReviewResponse(
-        id,
-        rating,
-        recommendation,
-        costPerformance,
-        oneLineComment,
-        strengthComment,
-        weaknessComment,
-        status,
-        userId,
-        user);
     }
   }
 
@@ -117,5 +103,38 @@ public class ReviewInfo {
 
     private final String job;
     private final Career career;
+  }
+
+  @Getter
+  public static class Review {
+
+    private final Long id;
+    private final String email;
+    private final String name;
+    private final LocalDate createdAt;
+    private final String status;
+    private final LocalDate updatedAt;
+    private ReviewDetail reviewDetail;
+
+    @QueryProjection
+    public Review(Long id, String email, String name, LocalDateTime createdAt, Status status,
+      LocalDateTime updatedAt) {
+      this.id = id;
+      this.email = email;
+      this.name = name;
+      this.createdAt = createdAt.toLocalDate();
+      this.status = status.getDesc();
+      this.updatedAt = updatedAt.toLocalDate();
+    }
+
+    public Review(Review review, ReviewDetail reviewDetail) {
+      this.id = review.id;
+      this.email = review.email;
+      this.name = review.name;
+      this.createdAt = review.createdAt;
+      this.status = review.status;
+      this.updatedAt = review.updatedAt;
+      this.reviewDetail = reviewDetail;
+    }
   }
 }

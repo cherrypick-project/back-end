@@ -25,28 +25,28 @@ insert into lecture (id, desktop_img_url, hash_tag_list, info, is_offline, is_op
 values (9,'desktop_img_url','devops,aws,gcp,cloud','데브옵스 강의 3편',0,1,'mobile_img_url','데브옵스 강의 3편','https://www.inflearn.com/course/%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81','73000','tablet_img_url','fastCampus','패캠강사2');
 
 -- review
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (1,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','READY','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (2,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (3,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (4,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (5,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (6,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','REJECT','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (7,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (8,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (9,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (10,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4');
-insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id)
-values (11,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','4','4');
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (1,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','READY','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (2,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (3,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (4,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (5,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (6,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','REJECT','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (7,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (8,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (9,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','2',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (10,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','1','4',now(),now());
+insert into review (id, cost_performance, one_line_comment, rating, recommendation, status, strength_comment, weakness_comment, lecture_id,user_id, created_at, modified_at)
+values (11,'VERY_SATISFACTION','아주 좋은 강의예여','5.0','GOOD','APPROVE','기초부터 잘 알려줍니다.','마이크가 조금 안들려요','4','4',now(),now());
 
 
 -- bookmark

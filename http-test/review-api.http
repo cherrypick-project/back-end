@@ -13,6 +13,21 @@ Authorization: Bearer {{jwtToken}}
 }
 
 ### reivew 리스트 조회
-GET http://localhost:8080/user/v1/lectures/1/review/?page=1&size=6&sort=createAt,desc
+GET http://localhost:8080/user/v1/lectures/1/review/?page=1&size=6&sort=createdAt,desc
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### review 리스트 조회 (ADMIN)
+GET http://localhost:8080/admin/v1/reviews
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### review 조회 (ADMIN)
+GET http://localhost:8080/admin/v1/reviews/2
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+### review 승인 (ADMIN)
+PATCH http://localhost:8080/admin/v1/reviews/2
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}

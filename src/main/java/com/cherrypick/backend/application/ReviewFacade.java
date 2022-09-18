@@ -1,12 +1,13 @@
 package com.cherrypick.backend.application;
 
 import com.cherrypick.backend.domain.review.ReviewCommand;
+import com.cherrypick.backend.domain.review.ReviewInfo;
+import com.cherrypick.backend.domain.review.ReviewInfo.Review;
 import com.cherrypick.backend.domain.review.ReviewInfo.ReviewDetail;
 import com.cherrypick.backend.domain.review.ReviewService;
-import com.cherrypick.backend.presentation.review.ReviewDto.PreviewReviewResponse;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,19 @@ public class ReviewFacade {
     return reviewService.inquiryReviews(lectureId, pageable, isMobile);
   }
 
-  public List<PreviewReviewResponse> inquiryPreviewReviews() {
-    return reviewService.inquiryPreviewReviews()
-      .stream()
-      .map(ReviewDetail::toResponseDto)
-      .collect(Collectors.toList());
+  public List<ReviewDetail> inquiryPreviewReviews() {
+    return reviewService.inquiryPreviewReviews();
+  }
+
+  public Page<Review> inquiryReviews(String loginId, Pageable pageable) {
+    return reviewService.inquiryReviews(loginId, pageable);
+  }
+
+  public void approve(Long reviewId) {
+    reviewService.approve(reviewId);
+  }
+
+  public ReviewInfo.Review inquiryReview(Long reviewId) {
+    return reviewService.inquiryReview(reviewId);
   }
 }

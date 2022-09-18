@@ -54,28 +54,6 @@ public class Review extends BaseEntity {
 
   private Long userId;
 
-  public enum Recommendation {
-    GOOD, BAD;
-
-    @JsonCreator
-    public static Recommendation from(String s) {
-      return Recommendation.valueOf(s.toUpperCase(Locale.ROOT));
-    }
-  }
-
-  public enum CostPerformance {
-    VERY_SATISFACTION, SATISFACTION, MIDDLE, SOSO;
-
-    @JsonCreator
-    public static CostPerformance from(String s) {
-      return CostPerformance.valueOf(s.toUpperCase(Locale.ROOT));
-    }
-  }
-
-  public enum Status {
-    READY, APPROVE, REJECT;
-  }
-
   private Review(Lecture lecture, double rating,
     Recommendation recommendation,
     CostPerformance costPerformance, String oneLineComment, String strengthComment,
@@ -99,5 +77,61 @@ public class Review extends BaseEntity {
     return new Review(lecture, rating, recommendation, costPerformance, oneLineComment,
       strengthComment,
       weaknessComment, userId);
+  }
+
+  public void approve() {
+    this.status = Status.APPROVE;
+  }
+
+  @Getter
+  public enum Recommendation {
+    GOOD("GOOD", "추천해요"),
+    BAD("BAD", "별로예요");
+    private final String code;
+    private final String desc;
+
+    Recommendation(String code, String desc) {
+      this.code = code;
+      this.desc = desc;
+    }
+
+    @JsonCreator
+    public static Recommendation from(String s) {
+      return Recommendation.valueOf(s.toUpperCase(Locale.ROOT));
+    }
+  }
+
+  @Getter
+  public enum CostPerformance {
+    VERY_SATISFACTION("VERY_SATISFACTION", "매우 만족"),
+    SATISFACTION("SATISFACTION", "만족"),
+    MIDDLE("MIDDLE", "보통"),
+    SOSO("SOSO", "그저 그럼");
+
+    private final String code;
+    private final String desc;
+
+    CostPerformance(String code, String desc) {
+      this.code = code;
+      this.desc = desc;
+    }
+
+    @JsonCreator
+    public static CostPerformance from(String s) {
+      return CostPerformance.valueOf(s.toUpperCase(Locale.ROOT));
+    }
+  }
+
+  @Getter
+  public enum Status {
+    READY("READY", "대기"), APPROVE("APPROVE", "승인"), REJECT("REJECT", "서정");
+
+    private final String code;
+    private final String desc;
+
+    Status(String code, String desc) {
+      this.code = code;
+      this.desc = desc;
+    }
   }
 }

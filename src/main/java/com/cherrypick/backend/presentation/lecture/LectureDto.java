@@ -45,7 +45,11 @@ public class LectureDto {
 
     public MostViewUserGroup(ReviewInfo.MostViewUserGroup mostViewUserGroup) {
       this.job = mostViewUserGroup.getJob();
-      this.career = mostViewUserGroup.getCareer().name();
+      if(mostViewUserGroup.getCareer() != null){
+        this.career = mostViewUserGroup.getCareer().getDesc();
+      }else {
+        this.career = null;
+      }
     }
   }
 
