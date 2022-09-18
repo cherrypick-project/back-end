@@ -40,4 +40,14 @@ public class Feedback {
   public enum Action {
     EMAIL, CHECK
   }
+
+  public Feedback(User user, String content, double rating) {
+    this.user = user;
+    this.content = content;
+    this.rating = rating;
+  }
+
+  public static Feedback Register(User user, String content, double rating) {
+    return new Feedback(user, content, rating);
+  }
 }

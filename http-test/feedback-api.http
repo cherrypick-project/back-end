@@ -1,0 +1,9 @@
+### 회원가입
+POST http://localhost:8080/user/v1/feedback
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "content": "잘 쓰고 있습니다.",
+  "rating": 4.5
+}
