@@ -51,4 +51,12 @@ public class Feedback extends BaseEntity {
   public static Feedback Register(User user, String content, double rating) {
     return new Feedback(user, content, rating);
   }
+
+  public void checkOrEmail(boolean isCheck) {
+    if (isCheck) {
+      action = Action.CHECK;
+      return;
+    }
+    action = Action.EMAIL;
+  }
 }

@@ -21,4 +21,8 @@ public class FeedbackFacade {
   public Page<FeedbackInfo.Feedback> inquiryFeedbacks(Long userId, Pageable pageable) {
     return feedbackService.inquiryFeedbacks(userId, pageable);
   }
+
+  public void checkOrEmail(Long feedbackId, boolean isCheck) {
+    feedbackService.checkOrEmail(feedbackId, isCheck);
+  }
 }
