@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.format.datetime.DateFormatter;
 
 public class UserInfo {
 
@@ -85,6 +84,64 @@ public class UserInfo {
       this.ready = ready;
       this.approve = approve;
       this.reject = reject;
+    }
+  }
+
+  @Getter
+  public static class Statistics {
+
+    private long userCount;
+    private double feedbackRating;
+    private long feedbackCount;
+    private Percent student;
+    private Percent lessThan1Years;
+    private Percent lessThan3Years;
+    private Percent lessThan6Years;
+    private Percent moreThan7Years;
+    private Percent search;
+    private Percent friend;
+    private Percent sns;
+    private Percent cafe;
+    private Percent blog;
+    private Percent etc;
+
+    @QueryProjection
+    public Statistics(long userCount, double feedbackRating, long feedbackCount,
+      Percent student, Percent lessThan1Years, Percent lessThan3Years,
+      Percent lessThan6Years, Percent moreThan7Years, Percent search, Percent friend, Percent sns,
+      Percent cafe, Percent blog, Percent etc) {
+      this.userCount = userCount;
+      this.feedbackRating = feedbackRating;
+      this.feedbackCount = feedbackCount;
+      this.student = student;
+      this.lessThan1Years = lessThan1Years;
+      this.lessThan3Years = lessThan3Years;
+      this.lessThan6Years = lessThan6Years;
+      this.moreThan7Years = moreThan7Years;
+      this.search = search;
+      this.friend = friend;
+      this.sns = sns;
+      this.cafe = cafe;
+      this.blog = blog;
+      this.etc = etc;
+    }
+  }
+
+  @Getter
+  public static class Percent {
+
+    private int percent;
+    private int count;
+
+    @QueryProjection
+    public Percent(int count, long userCount) {
+      System.out.println("test.." + count + ".." + userCount);
+      if (count == 0 || userCount == 0) {
+        this.percent = 0;
+      } else {
+        this.percent = (int) ((count / (double)userCount) * 100);
+      }
+      this.count = count;
     }
   }
 }

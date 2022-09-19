@@ -15,3 +15,9 @@ Authorization: Bearer {{jwtToken}}
 GET http://localhost:8080/admin/v1/users
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
+
+
+### 유저 통계 조회
+GET http://localhost:8080/admin/v1/user/statistics
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

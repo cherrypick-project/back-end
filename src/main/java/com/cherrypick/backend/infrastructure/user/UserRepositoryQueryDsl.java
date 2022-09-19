@@ -1,11 +1,16 @@
 package com.cherrypick.backend.infrastructure.user;
 
+import static com.cherrypick.backend.domain.feedback.QFeedback.feedback;
 import static com.cherrypick.backend.domain.review.QReview.review;
 import static com.cherrypick.backend.domain.user.QUser.user;
 
 import com.cherrypick.backend.domain.review.Review.Status;
+import com.cherrypick.backend.domain.user.QUserInfo_Percent;
 import com.cherrypick.backend.domain.user.QUserInfo_ReviewCount;
+import com.cherrypick.backend.domain.user.QUserInfo_Statistics;
 import com.cherrypick.backend.domain.user.QUserInfo_User;
+import com.cherrypick.backend.domain.user.User.Career;
+import com.cherrypick.backend.domain.user.User.KnownPath;
 import com.cherrypick.backend.domain.user.UserInfo;
 import com.cherrypick.backend.domain.user.UserInfo.User;
 import com.querydsl.core.types.OrderSpecifier;
@@ -58,6 +63,43 @@ public class UserRepositoryQueryDsl {
       );
 
     return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+  }
+
+  public UserInfo.Statistics findStatistics() {
+    UserInfo.Statistics content = queryFactory.select(new QUserInfo_Statistics(
+        user.count(),
+        feedback.rating.avg(),
+        feedback.count(),
+        new QUserInfo_Percent(careerCount(Career.STUDENT), user.count()),
+        new QUserInfo_Percent(careerCount(Career.LESS_THAN_1YEARS), user.count()),
+        new QUserInfo_Percent(careerCount(Career.LESS_THAN_3YEARS), user.count()),
+        new QUserInfo_Percent(careerCount(Career.LESS_THAN_6YEARS), user.count()),
+        new QUserInfo_Percent(careerCount(Career.MORE_THAN_7YEARS), user.count()),
+        new QUserInfo_Percent(knownPathCount(KnownPath.SEARCH), user.count()),
+        new QUserInfo_Percent(knownPathCount(KnownPath.FRIEND), user.count()),
+        new QUserInfo_Percent(knownPathCount(KnownPath.SNS), user.count()),
+        new QUserInfo_Percent(knownPathCount(KnownPath.CAFE), user.count()),
+        new QUserInfo_Percent(knownPathCount(KnownPath.BLOG), user.count()),
+        new QUserInfo_Percent(knownPathCount(KnownPath.ETC), user.count())
+      )).from(user)
+      .leftJoin(feedback).on(user.id.eq(feedback.user.id))
+      .fetchOne();
+
+    return content;
+  }
+
+  private SimpleExpression<Integer> knownPathCount(KnownPath knownPath) {
+    return Expressions.as(
+      JPAExpressions.select(user.count().intValue())
+        .from(user)
+        .where(user.knownPath.eq(knownPath)), knownPath.toString());
+  }
+
+  private SimpleExpression<Integer> careerCount(Career career) {
+    return Expressions.as(
+      JPAExpressions.select(user.count().intValue())
+        .from(user)
+        .where(user.career.eq(career)), career.toString());
   }
 
   private SimpleExpression<Long> readyReviewCount() {

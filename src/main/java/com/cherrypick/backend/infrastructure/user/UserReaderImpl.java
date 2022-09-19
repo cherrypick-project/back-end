@@ -2,6 +2,7 @@ package com.cherrypick.backend.infrastructure.user;
 
 import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.UserInfo;
+import com.cherrypick.backend.domain.user.UserInfo.Statistics;
 import com.cherrypick.backend.domain.user.UserReader;
 import java.util.List;
 import java.util.Optional;
@@ -25,5 +26,10 @@ public class UserReaderImpl implements UserReader {
   @Override
   public Page<UserInfo.User> findByUsers(String searchName, Pageable pageable) {
     return userRepositoryQueryDsl.findByUsers(searchName, pageable);
+  }
+
+  @Override
+  public Statistics findByStatistics() {
+    return userRepositoryQueryDsl.findStatistics();
   }
 }
