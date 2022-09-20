@@ -135,7 +135,6 @@ public class UserInfo {
 
     @QueryProjection
     public Percent(int count, long userCount) {
-      System.out.println("test.." + count + ".." + userCount);
       if (count == 0 || userCount == 0) {
         this.percent = 0;
       } else {
