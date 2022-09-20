@@ -26,7 +26,8 @@ public enum ErrorCode {
   NOT_FOUND_LECTURE(200, "강의를 찾지 못하였습니다."),
   NOT_FOUND_REVIEW(200, "리뷰를 찾지 못했습니다." ),
 
-  ;
+  // CATEGORY
+  NOT_FOUND_CATEGORY(200, "카테고리를 찾지 못했습니다." );
 
   private final String message;
   private final int status;

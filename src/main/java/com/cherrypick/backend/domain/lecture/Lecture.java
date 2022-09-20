@@ -53,4 +53,30 @@ public class Lecture extends BaseEntity {
   private String info;
 
   private boolean isOpened;
+
+  public Lecture(String desktopImgUrl,
+    String tabletImgUrl,
+    String mobileImgUrl, String name, boolean isOffline, String lectureCompany,
+    List<String> lecturer,
+    List<String> hashTagList, String originLink, int price, String info) {
+    this.desktopImgUrl = desktopImgUrl;
+    this.tabletImgUrl = tabletImgUrl;
+    this.mobileImgUrl = mobileImgUrl;
+    this.name = name;
+    this.isOffline = isOffline;
+    this.lectureCompany = lectureCompany;
+    this.lecturer = lecturer;
+    this.hashTagList = hashTagList;
+    this.originLink = originLink;
+    this.price = price;
+    this.info = info;
+    this.isOpened = true;
+  }
+
+  public void addLectureCategory(LectureCategory lectureCategory) {
+    this.lectureCategoryList.add(lectureCategory);
+    lectureCategory.addLecture(this);
+  }
+
+
 }
