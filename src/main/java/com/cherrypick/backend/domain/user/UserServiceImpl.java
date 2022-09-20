@@ -6,12 +6,15 @@ import com.cherrypick.backend.common.exception.UnAuthorizedException;
 import com.cherrypick.backend.common.jwt.TokenProvider;
 import com.cherrypick.backend.common.util.AuthenticationManger;
 import com.cherrypick.backend.domain.user.UserCommand.ReissueRequest;
+import com.cherrypick.backend.domain.user.UserInfo.Statistics;
 import com.cherrypick.backend.domain.user.UserInfo.Token;
 import com.cherrypick.backend.infrastructure.redis.RedisRepository;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,5 +117,15 @@ public class UserServiceImpl implements UserService {
 
     user.signOut();
     return new UserInfo.SignOut(user.getEmail());
+  }
+
+  @Override
+  public Page<UserInfo.User> inquiryUsers(String searchName, Pageable pageable) {
+    return reader.findByUsers(searchName, pageable);
+  }
+
+  @Override
+  public Statistics inquiryStatistics() {
+    return reader.findByStatistics();
   }
 }
