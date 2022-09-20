@@ -9,12 +9,15 @@ Authorization: Bearer {{jwtToken}}
 }
 
 ### 피드백 조회 API
-GET http://localhost:8080/admin/v1/feedbacks?page=0&size=6&sort=price,asc
+GET http://localhost:8080/admin/v1/feedbacks?page=0&size=6
+Authorization: Bearer {{jwtToken}}
 
 
 ### 피드백 확인하기 API
 PATCH http://localhost:8080/admin/v1/feedbacks/1?isCheck=true
+Authorization: Bearer {{jwtToken}}
 
 
 ### 피드백 이메일 전송 API
 PATCH http://localhost:8080/admin/v1/feedbacks/1?isCheck=false
+Authorization: Bearer {{jwtToken}}

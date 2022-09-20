@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,7 +28,7 @@ public class FeedbackAdminController {
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   @PatchMapping("/admin/v1/feedbacks/{feedbackId}")
-  public ResponseEntity<CommonResponse> checkOrEmail(Long feedbackId, boolean isCheck) {
+  public ResponseEntity<CommonResponse> checkOrEmail(@PathVariable Long feedbackId, boolean isCheck) {
     feedbackFacade.checkOrEmail(feedbackId, isCheck);
 
     return ResponseEntity.ok(CommonResponse.success());

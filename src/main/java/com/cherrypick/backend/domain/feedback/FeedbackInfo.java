@@ -25,7 +25,7 @@ public class FeedbackInfo {
       this.rating = rating;
       this.createdAt = createdAt;
       this.updatedAt = updatedAt;
-      this.action = action.toString();
+      this.action = action == null ? null : action.toString();
     }
   }
 }

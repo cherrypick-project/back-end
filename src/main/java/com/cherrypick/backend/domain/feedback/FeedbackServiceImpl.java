@@ -41,5 +41,6 @@ public class FeedbackServiceImpl implements FeedbackService {
         ErrorCode.NOT_FOUND_FEEDBACK));
 
     feedback.checkOrEmail(isCheck);
+    feedbackStore.store(feedback);
   }
 }
