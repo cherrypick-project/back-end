@@ -4,7 +4,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 ### 강의 상세 내용 조회
-GET http://localhost:8080/user/v1/lectures/4
+GET http://localhost:8080/user/v1/lectures/2
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
@@ -12,3 +12,23 @@ Authorization: Bearer {{jwtToken}}
 GET http://localhost:8080/user/v1/lectures/bookmark?page=0&size=6&sort=price,asc
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
+
+### 강의 생성
+POST http://localhost:8080/admin/v1/lectures
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "desktopImgUrl": "desktopImgUrl",
+  "tabletImgUrl": "tabletImgUrl",
+  "mobileImgUrl": "mobile" ,
+  "thirdCategories": [1,2],
+  "name":  "강의",
+  "isOffline": "true",
+  "lectureCompany": "test" ,
+  "originLink": "test",
+  "price": 1000,
+  "info": "test",
+  "hashTags": ["java","c#"],
+  "lecturers":["김영한","백기선"]
+}

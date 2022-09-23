@@ -10,6 +10,7 @@ import com.cherrypick.backend.domain.review.ReviewInfo.ReviewStatistics;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -45,9 +46,9 @@ public class LectureDto {
 
     public MostViewUserGroup(ReviewInfo.MostViewUserGroup mostViewUserGroup) {
       this.job = mostViewUserGroup.getJob();
-      if(mostViewUserGroup.getCareer() != null){
+      if (mostViewUserGroup.getCareer() != null) {
         this.career = mostViewUserGroup.getCareer().getDesc();
-      }else {
+      } else {
         this.career = null;
       }
     }
@@ -157,5 +158,35 @@ public class LectureDto {
       this.recommendation = new Recommendation(recommendationStatics);
       this.costPerformance = new CostPerformance(costPerformanceStatics);
     }
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public static class CreateLectureRequest {
+
+    @NotNull
+    private String desktopImgUrl;
+    @NotNull
+    private String tabletImgUrl;
+    @NotNull
+    private String mobileImgUrl;
+    @NotNull
+    private List<Long> thirdCategories;
+    @NotNull
+    private String name;
+    @NotNull
+    private boolean offline;
+    @NotNull
+    private String lectureCompany;
+    @NotNull
+    private String originLink;
+    @NotNull
+    private int price;
+    @NotNull
+    private String info;
+    @NotNull
+    private List<String> hashTags;
+    @NotNull
+    private List<String> lecturers;
   }
 }

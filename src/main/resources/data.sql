@@ -1,8 +1,8 @@
 -- user
-INSERT INTO USER (ID, PROVIDER_ID, PASSWORD, NICKNAME, ACTIVATED, AUTHORITY) VALUES (1, 'admin', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'admin', 1, 'ROLE_ADMIN');
+INSERT INTO USER (ID, PROVIDER_ID, PASSWORD, NICKNAME, ACTIVATED, AUTHORITY, CREATED_AT) VALUES (1, 'admin', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'admin', 1, 'ROLE_ADMIN', '2022/02/14');
 INSERT INTO USER (ID, PROVIDER_ID, PASSWORD, NICKNAME, ACTIVATED, AUTHORITY, EMAIL, JOB, CAREER , KNOWN_PATH) VALUES (2, 'user', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'user', 1, 'ROLE_USER', 'user@naver.com','백엔드','LESS_THAN_3YEARS','SEARCH');
-INSERT INTO USER (ID, PROVIDER_ID, PASSWORD, NICKNAME, ACTIVATED, AUTHORITY, EMAIL) VALUES (3, 'unSignedUser', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'user', 1, 'ROLE_NEED_MORE_INFO','unSignedUser@naver.com');
-INSERT INTO USER (ID, PROVIDER_ID, PASSWORD, NICKNAME, ACTIVATED, AUTHORITY, EMAIL, JOB, CAREER , KNOWN_PATH) VALUES (4, 'nonActiveUser', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'nonActiveUser', 0, 'ROLE_USER', 'nonActiveUser@naver.com','프론트엔드','LESS_THAN_3YEARS','SEARCH');
+INSERT INTO USER (ID, PROVIDER_ID, PASSWORD, NICKNAME, ACTIVATED, AUTHORITY, EMAIL, CREATED_AT) VALUES (3, 'unSignedUser', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'user', 1, 'ROLE_NEED_MORE_INFO','unSignedUser@naver.com', '2022/02/14');
+INSERT INTO USER (ID, PROVIDER_ID, PASSWORD, NICKNAME, ACTIVATED, AUTHORITY, EMAIL, JOB, CAREER , KNOWN_PATH, CREATED_AT) VALUES (4, 'nonActiveUser', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'nonActiveUser', 0, 'ROLE_USER', 'nonActiveUser@naver.com','프론트엔드','LESS_THAN_3YEARS','SEARCH', '2022/02/14');
 
 -- lecture
 insert into lecture (id, desktop_img_url, hash_tag_list, info, is_offline, is_opened, mobile_img_url, name,origin_link, price, tablet_img_url, lecture_company, lecturer)
@@ -56,5 +56,9 @@ insert into bookmark (id, lecture_id, user_id) values(3,3,2);
 
 -- category
 insert into first_category (id, category_img_url, name) values(1, "imgTest", "백엔드");
+insert into first_category (id, category_img_url, name) values(2, "imgTest", "프론트엔드");
 insert into second_category (id, category_img_url, name, first_category_id) values(1, "imgTest", "언어", 1);
+insert into second_category (id, category_img_url, name, first_category_id) values(2, "imgTest", "언어", 2);
 insert into third_category (id, category_img_url, name, second_category_id) values(1, "imgTest", "java", 1);
+insert into third_category (id, category_img_url, name, second_category_id) values(2, "imgTest", "언어", 2);
+

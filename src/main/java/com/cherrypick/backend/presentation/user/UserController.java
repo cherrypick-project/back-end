@@ -3,6 +3,8 @@ package com.cherrypick.backend.presentation.user;
 import com.cherrypick.backend.application.UserFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
