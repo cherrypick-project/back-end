@@ -2,6 +2,8 @@ package com.cherrypick.backend.presentation.lecture;
 
 import com.cherrypick.backend.application.LectureFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,10 @@ public class LectureAdminController {
   private final LectureFacade lectureFacade;
   private final LectureMapper lectureMapper;
 
+  @Operation(
+    summary = "강의 생성",
+    responses = @ApiResponse(responseCode = "200", description = "성공"
+    ))
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   @PostMapping("/lectures")
   public ResponseEntity<CommonResponse> createLecture(

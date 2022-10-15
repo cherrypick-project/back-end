@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -17,6 +16,7 @@ public class JpaConfig implements AuditorAware<String> {
 
   private static final List<String> AUTH_LIST =
     List.of("ROLE_USER", "ROLE_ADMIN", "ROLE_MEMBERSHIP");
+
   @Override
   public Optional<String> getCurrentAuditor() {
     return Optional.ofNullable(SecurityContextHolder.getContext())
@@ -25,7 +25,7 @@ public class JpaConfig implements AuditorAware<String> {
         Collection<? extends GrantedAuthority> auth = authentication.getAuthorities();
         boolean isExist = AUTH_LIST.stream()
           .anyMatch(auth::contains);
-        if(isExist){
+        if (isExist) {
           return authentication.getName();
         }
         return null;

@@ -3,6 +3,8 @@ package com.cherrypick.backend.presentation.feedback;
 import com.cherrypick.backend.application.FeedbackFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
 import com.cherrypick.backend.presentation.feedback.FeedbackDto.RegisterFeedbackRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -21,6 +23,10 @@ public class FeedbackController {
   private final FeedbackFacade feedbackFacade;
   private final FeedbackDtoMapper feedbackDtoMapper;
 
+  @Operation(
+    summary = "피드백 생성",
+    responses = @ApiResponse(responseCode = "200", description = "성공"
+    ))
   @PreAuthorize("hasAnyRole('ROLE_NEED_MORE_INFO') or hasAnyRole('ROLE_USER')")
   @PostMapping("/feedback")
   public ResponseEntity<CommonResponse> registerFeedback(

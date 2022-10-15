@@ -65,7 +65,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
       .apiInfo(apiInfo())
       .select()
       .apis(RequestHandlerSelectors.basePackage("com.cherrypick.backend"))
-      .paths(PathSelectors.regex("/api/v1/.*"))
+      .paths(PathSelectors.ant("/**"))
       .build()
       .securityContexts(Arrays.asList(securityContext()))
       .securitySchemes(Arrays.asList(apiKey()));

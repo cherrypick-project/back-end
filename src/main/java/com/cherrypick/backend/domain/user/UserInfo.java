@@ -138,7 +138,7 @@ public class UserInfo {
       if (count == 0 || userCount == 0) {
         this.percent = 0;
       } else {
-        this.percent = (int) ((count / (double)userCount) * 100);
+        this.percent = (int) ((count / (double) userCount) * 100);
       }
       this.count = count;
     }

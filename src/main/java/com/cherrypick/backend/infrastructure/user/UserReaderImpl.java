@@ -4,7 +4,6 @@ import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.UserInfo;
 import com.cherrypick.backend.domain.user.UserInfo.Statistics;
 import com.cherrypick.backend.domain.user.UserReader;
-import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

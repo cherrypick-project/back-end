@@ -14,7 +14,7 @@ public class QueryDslOrderUtil {
   }
 
   public static OrderSpecifier<?> getSoredColumn(Order order, Class<?> parents, String prop,
-      String metaData) {
+    String metaData) {
     PathBuilder orderByExpression = new PathBuilder(parents, metaData);
     return new OrderSpecifier(order, orderByExpression.get(prop));
   }

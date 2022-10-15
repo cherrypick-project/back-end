@@ -14,6 +14,7 @@ public class CategoryDto {
   @Getter
   @AllArgsConstructor
   public static class RegisterCategory {
+
     @JsonProperty("name")
     private final String name;
     private final Integer depth;
@@ -24,6 +25,7 @@ public class CategoryDto {
   @Getter
   @AllArgsConstructor
   public static class InquiryCategoriesRequest {
+
     private final int depth;
     private final Long parentId;
   }
@@ -31,6 +33,7 @@ public class CategoryDto {
   @Getter
   @AllArgsConstructor
   public static class InquiryCategoriesResponse {
+
     List<InquiryCategoryResponse> inquiryCategoryResponse;
 
     public static InquiryCategoriesResponse of(Categories categories) {
@@ -46,12 +49,13 @@ public class CategoryDto {
   @Getter
   @AllArgsConstructor
   public static class InquiryCategoryResponse {
+
     private final String name;
     private final String categoryImgUrl;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public static  InquiryCategoryResponse of(Main category) {
+    public static InquiryCategoryResponse of(Main category) {
       return new InquiryCategoryResponse(
         category.getName(),
         category.getCategoryImgUrl(),

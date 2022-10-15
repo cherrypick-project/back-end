@@ -9,6 +9,7 @@ public class CategoryCriteria {
   @Getter
   @AllArgsConstructor
   public static class InquiryCategoriesRequest {
+
     private final int depth;
     private final Long parentId;
 
