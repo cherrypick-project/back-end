@@ -6,6 +6,8 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,17 @@ public class LectureAdminController {
     @RequestBody @Valid LectureDto.CreateLectureRequest request) {
     var command = lectureMapper.of(request);
     lectureFacade.createLecture(command);
+    return ResponseEntity.ok(CommonResponse.success());
+  }
+
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  @PatchMapping("/lectures/{lectureId}")
+  public ResponseEntity<CommonResponse> updateLecture(
+    @PathVariable Long lectureId,
+    @RequestBody @Valid LectureDto.UpdateLectureRequest request
+  ) {
+    var command = request.toCommand(lectureId);
+    lectureFacade.updateLecture(command);
     return ResponseEntity.ok(CommonResponse.success());
   }
 }

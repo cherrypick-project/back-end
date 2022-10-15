@@ -6,6 +6,7 @@ import com.cherrypick.backend.domain.category.LectureCategory;
 import com.cherrypick.backend.domain.category.ThirdCategory;
 import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureCommand.CreateLectureCommand;
+import com.cherrypick.backend.domain.lecture.LectureCommand.UpdateLectureCommand;
 import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
 import java.util.List;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +44,7 @@ public class LectureServiceImpl implements LectureService {
   }
 
   @Override
+  @Transactional
   public void createLecture(CreateLectureCommand command, List<ThirdCategory> thirdCategories) {
     Lecture lecture = command.toEntity();
     List<LectureCategory> lectureCategories = thirdCategories.stream()
@@ -52,5 +55,23 @@ public class LectureServiceImpl implements LectureService {
       })
       .collect(Collectors.toList());
     lectureStore.storeAll(lectureCategories);
+  }
+
+  @Override
+  @Transactional
+  public void updateLecture(UpdateLectureCommand command, List<ThirdCategory> thirdCategories) {
+    Lecture lecture = lectureStore.updateLecture(command);
+    List<LectureCategory> lectureCategories = lectureStore.findAllLectureCategoriesALLByLectureId(
+      lecture.getId());
+
+    lectureStore.deleteAll(lectureCategories);
+    List<LectureCategory> newLectureCategories = thirdCategories.stream()
+      .map(thirdCategory -> {
+        LectureCategory lectureCategory = new LectureCategory(thirdCategory);
+        lecture.addLectureCategory(lectureCategory);
+        return lectureCategory;
+      })
+      .collect(Collectors.toList());
+    lectureStore.storeAll(newLectureCategories);
   }
 }

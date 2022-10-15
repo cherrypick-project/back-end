@@ -32,3 +32,23 @@ Authorization: Bearer {{jwtToken}}
   "hashTags": ["java","c#"],
   "lecturers":["김영한","백기선"]
 }
+
+### 강의 수정
+PATCH http://localhost:8080/admin/v1/lectures/1
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+  "desktopImgUrl": "desktopImgUrl",
+  "tabletImgUrl": "tabletImgUrl",
+  "mobileImgUrl": "mobile" ,
+  "thirdCategories": [1],
+  "name":  "강의",
+  "isOffline": "true",
+  "lectureCompany": "test" ,
+  "originLink": "test",
+  "price": 1000,
+  "info": "test",
+  "hashTags": ["java","c#"],
+  "lecturers":["김영한","백기선"]
+}

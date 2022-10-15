@@ -48,4 +48,24 @@ public class LectureCommand {
         info);
     }
   }
+
+  @Getter
+  @AllArgsConstructor
+  public static class UpdateLectureCommand {
+
+    private Long id;
+    private String desktopImgUrl;
+    private String tabletImgUrl;
+    private String mobileImgUrl;
+    private List<Long> thirdCategories;
+    private String name;
+    private boolean offline;
+    private String lectureCompany;
+    private String originLink;
+    private int price;
+    private String info;
+    private List<String> hashTags;
+    private List<String> lecturers;
+
+  }
 }

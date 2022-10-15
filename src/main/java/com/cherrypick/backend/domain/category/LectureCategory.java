@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LectureCategory {
 
@@ -37,6 +39,17 @@ public class LectureCategory {
 
   public void addLecture(Lecture lecture) {
     this.lecture = lecture;
+  }
+
+  public void delete() {
+    if (this.category != null) {
+      this.category.getLectureCategoryList().remove(this);
+      this.category = null;
+    }
+    if (this.lecture != null) {
+      this.lecture.getLectureCategoryList().remove(this);
+      this.lecture = null;
+    }
   }
 }
 
