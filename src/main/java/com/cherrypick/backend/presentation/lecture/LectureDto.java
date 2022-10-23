@@ -2,6 +2,7 @@ package com.cherrypick.backend.presentation.lecture;
 
 
 import com.cherrypick.backend.domain.lecture.LectureCommand;
+import com.cherrypick.backend.domain.lecture.LectureCommand.UpdateLectureCommand;
 import com.cherrypick.backend.domain.lecture.LectureInfo;
 import com.cherrypick.backend.domain.review.ReviewInfo;
 import com.cherrypick.backend.domain.review.ReviewInfo.CostPerformanceStatics;
@@ -188,5 +189,54 @@ public class LectureDto {
     private List<String> hashTags;
     @NotNull
     private List<String> lecturers;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public static class UpdateLectureRequest {
+
+    @NotNull
+    private String desktopImgUrl;
+    @NotNull
+    private String tabletImgUrl;
+    @NotNull
+    private String mobileImgUrl;
+    @NotNull
+    private List<Long> thirdCategories;
+    @NotNull
+    private String name;
+    @NotNull
+    private boolean offline;
+    @NotNull
+    private String lectureCompany;
+    @NotNull
+    private String originLink;
+    @NotNull
+    private int price;
+    @NotNull
+    private String info;
+    @NotNull
+    private List<String> hashTags;
+    @NotNull
+    private List<String> lecturers;
+
+    public UpdateLectureCommand toCommand(Long lectureId) {
+      return new UpdateLectureCommand
+        (
+          lectureId,
+          desktopImgUrl,
+          tabletImgUrl,
+          mobileImgUrl,
+          thirdCategories,
+          name,
+          offline,
+          lectureCompany,
+          originLink,
+          price,
+          info,
+          hashTags,
+          lecturers
+        );
+    }
   }
 }

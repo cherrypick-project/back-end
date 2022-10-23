@@ -2,6 +2,7 @@ package com.cherrypick.backend.domain.lecture;
 
 import com.cherrypick.backend.domain.BaseEntity;
 import com.cherrypick.backend.domain.category.LectureCategory;
+import com.cherrypick.backend.domain.lecture.LectureCommand.UpdateLectureCommand;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -79,4 +80,17 @@ public class Lecture extends BaseEntity {
   }
 
 
+  public void update(UpdateLectureCommand command) {
+    this.desktopImgUrl = command.getDesktopImgUrl();
+    this.tabletImgUrl = command.getTabletImgUrl();
+    this.mobileImgUrl = command.getMobileImgUrl();
+    this.name = command.getName();
+    this.isOffline = command.isOffline();
+    this.lectureCompany = command.getLectureCompany();
+    this.lecturer = command.getLecturers();
+    this.hashTagList = command.getHashTags();
+    this.originLink = command.getOriginLink();
+    this.price = command.getPrice();
+    this.info = command.getInfo();
+  }
 }

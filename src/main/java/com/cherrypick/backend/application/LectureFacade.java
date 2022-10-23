@@ -4,6 +4,7 @@ import com.cherrypick.backend.domain.category.CategoryService;
 import com.cherrypick.backend.domain.category.ThirdCategory;
 import com.cherrypick.backend.domain.lecture.LectureCommand.ConditionRequest;
 import com.cherrypick.backend.domain.lecture.LectureCommand.CreateLectureCommand;
+import com.cherrypick.backend.domain.lecture.LectureCommand.UpdateLectureCommand;
 import com.cherrypick.backend.domain.lecture.LectureInfo.LectureDetail;
 import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
 import com.cherrypick.backend.domain.lecture.LectureService;
@@ -42,5 +43,11 @@ public class LectureFacade {
     List<ThirdCategory> thirdCategories = categoryService.inquiryThirdCategory(
       command.getThirdCategories());
     lectureService.createLecture(command, thirdCategories);
+  }
+
+  public void updateLecture(UpdateLectureCommand command) {
+    List<ThirdCategory> thirdCategories = categoryService.inquiryThirdCategory(
+      command.getThirdCategories());
+    lectureService.updateLecture(command, thirdCategories);
   }
 }
