@@ -14,6 +14,7 @@ public class FeedbackReaderImpl implements FeedbackReader {
 
   private final FeedbackRepositoryQueryDsl feedbackRepositoryQueryDsl;
   private final FeedbackRepository feedbackRepository;
+
   @Override
   public Page<Feedback> findAllByUserId(Long userId, Pageable pageable) {
     return feedbackRepositoryQueryDsl.findAllByUserId(userId, pageable);

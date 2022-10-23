@@ -7,5 +7,6 @@ import org.springframework.data.domain.Pageable;
 public interface FeedbackReader {
 
   Page<FeedbackInfo.Feedback> findAllByUserId(Long userId, Pageable pageable);
+
   Optional<Feedback> findById(Long feedbackId);
 }

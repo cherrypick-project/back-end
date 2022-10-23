@@ -2,6 +2,10 @@ package com.cherrypick.backend.presentation.auth;
 
 import com.cherrypick.backend.application.AuthFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,11 @@ public class AuthController {
   private final AuthFacade authFacade;
   private final AuthDtoMapper authDtoMapper;
 
+  @Operation(summary = "로그인", responses = {
+    @ApiResponse(responseCode = "200", description = "성공",
+      content = @Content(schema = @Schema(implementation = AuthDto.LoginResponse.class))
+    )
+  })
   @PostMapping("/authenticate")
   public ResponseEntity<CommonResponse> login(
     @RequestBody @Valid AuthDto.LoginRequest request) {
@@ -32,6 +41,11 @@ public class AuthController {
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
+  @Operation(summary = "리프레시 토큰 재발급", responses = {
+    @ApiResponse(responseCode = "200", description = "성공",
+      content = @Content(schema = @Schema(implementation = AuthDto.LoginResponse.class))
+    )
+  })
   @PostMapping("/reissue")
   public ResponseEntity<CommonResponse> reissue(
     @RequestBody @Valid AuthDto.ReissueRequest request) {
@@ -42,6 +56,11 @@ public class AuthController {
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
+  @Operation(summary = "회원가입", responses = {
+    @ApiResponse(responseCode = "200", description = "성공",
+      content = @Content(schema = @Schema(implementation = AuthDto.LoginResponse.class))
+    )
+  })
   @PreAuthorize("hasAnyRole('ROLE_NEED_MORE_INFO')")
   @PatchMapping("/sign-up")
   public ResponseEntity<CommonResponse> signUp(@AuthenticationPrincipal UserDetails user,

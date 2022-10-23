@@ -8,6 +8,7 @@ public class FeedbackCommand {
   @Getter
   @AllArgsConstructor
   public static class RegisterFeedbackRequest {
+
     private String content;
     private double rating;
   }

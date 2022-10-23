@@ -5,7 +5,6 @@ import com.cherrypick.backend.common.exception.ErrorCode;
 import com.cherrypick.backend.domain.feedback.FeedbackCommand.RegisterFeedbackRequest;
 import com.cherrypick.backend.domain.user.User;
 import com.cherrypick.backend.domain.user.UserReader;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

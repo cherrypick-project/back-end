@@ -3,7 +3,13 @@ package com.cherrypick.backend.presentation.lecture;
 import com.cherrypick.backend.application.LectureFacade;
 import com.cherrypick.backend.common.response.CommonResponse;
 import com.cherrypick.backend.domain.lecture.LectureCommand;
+import com.cherrypick.backend.domain.lecture.LectureInfo.Lectures;
 import com.cherrypick.backend.presentation.lecture.LectureDto.ConditionRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.security.Principal;
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +29,11 @@ public class LectureController {
 
   private final LectureFacade lectureFacade;
 
+  @Operation(
+    summary = "강의 목록 조회",
+    responses = @ApiResponse(responseCode = "200", description = "성공",
+      content = @Content(array = @ArraySchema(schema = @Schema(implementation = Lectures.class, description = "강의 정보")))
+    ))
   @GetMapping("/lectures")
   public ResponseEntity<CommonResponse> inquiryLectures(
     Principal principal,
@@ -37,6 +48,12 @@ public class LectureController {
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
+
+  @Operation(summary = "강의 상세내용 조회", responses = {
+    @ApiResponse(responseCode = "200", description = "성공",
+      content = @Content(schema = @Schema(implementation = LectureDto.LectureDetail.class))
+    )
+  })
   @GetMapping("/lectures/{lectureId}")
   public ResponseEntity<CommonResponse> inquiryLectureDetail(
     Principal principal,
@@ -46,6 +63,11 @@ public class LectureController {
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 
+  @Operation(summary = "강의 북마크 조회", responses = {
+    @ApiResponse(responseCode = "200", description = "성공",
+      content = @Content(schema = @Schema(implementation = Lectures.class))
+    )
+  })
   @PreAuthorize("hasAnyRole('ROLE_ADMIN') or hasAnyRole('ROLE_MEMBERSHIP')")
   @GetMapping("/lectures/bookmark")
   public ResponseEntity<CommonResponse> inquiryMyBookmark(
@@ -60,7 +82,7 @@ public class LectureController {
       -1,
       loginId);
 
-    var response =  lectureFacade.inquiryLectures(command, pageable, isMobile);
+    var response = lectureFacade.inquiryLectures(command, pageable, isMobile);
     return ResponseEntity.ok(CommonResponse.success(response));
   }
 }

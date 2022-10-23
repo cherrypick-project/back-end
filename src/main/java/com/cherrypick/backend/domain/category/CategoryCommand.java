@@ -9,6 +9,7 @@ public class CategoryCommand {
   @Getter
   @AllArgsConstructor
   public static class RegisterCategory {
+
     private final String name;
     private final int depth;
     private final Long parentId;

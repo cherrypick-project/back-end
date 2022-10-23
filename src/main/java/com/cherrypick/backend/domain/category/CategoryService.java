@@ -1,6 +1,6 @@
 package com.cherrypick.backend.domain.category;
 
-import static com.cherrypick.backend.domain.category.CategoryInfo.*;
+import static com.cherrypick.backend.domain.category.CategoryInfo.Categories;
 
 import com.cherrypick.backend.domain.category.CategoryCriteria.InquiryCategoriesRequest;
 import java.util.List;

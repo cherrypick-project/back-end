@@ -109,7 +109,7 @@ public class Reviews {
   }
 
   private String getCostPerformanceAndCalculatePercent(Long count) {
-    if(getCount() == 0 || count == 0){
+    if (getCount() == 0 || count == 0) {
       return "0";
     }
     BigDecimal dividedValue = BigDecimal.valueOf(count)
@@ -122,7 +122,7 @@ public class Reviews {
   private String getRecommendationAndCalculatePercent(
     Map<Recommendation, Long> recommendationCountMap,
     Recommendation recommendation) {
-    if(getCount() == 0){
+    if (getCount() == 0) {
       return "0";
     }
     long count = recommendationCountMap.getOrDefault(recommendation, 0L);
